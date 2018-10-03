@@ -1,0 +1,33 @@
+<div :class="$style.container">
+  <v-container fluid fill-height align-center :class="$style.topBar">
+    <v-layout row justify-start align-center>
+      <v-flex xs1 justify-center>
+        <v-icon :color="color">{{ module.icon }}</v-icon>
+      </v-flex>
+      <v-flex justify-start>
+        <label :class="$style.title" :color="color">{{ module.label }}</label>
+      </v-flex>
+      <v-spacer />
+      <v-btn
+        flat
+        icon
+        @click="removeActiveModule"
+        :color="color"
+      >
+        <v-icon>cancel</v-icon>
+      </v-btn>
+    </v-layout>
+  </v-container>
+  <v-list :class="$style.listPadding">
+    <v-divider />
+    <v-list-tile
+      v-for="(source, idx) in sources"
+      :key="source"
+      @click="addSource(idx)"
+    >
+      <v-list-tile-content>
+        <v-list-tile-title v-html="source"/>
+      </v-list-tile-content>
+    </v-list-tile>
+  </v-list>
+</div>

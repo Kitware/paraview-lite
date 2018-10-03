@@ -1,0 +1,10 @@
+.errorTextarea {
+  width: 100%;
+  min-height: 200px;
+  height: 40vh;
+  max-height: 500px;
+  /*background-color: #eee;*/
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  padding: 8px;
+}

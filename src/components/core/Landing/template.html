@@ -1,0 +1,197 @@
+<div :class="['grey lighten-3', $style.root]">
+  <v-responsive color="grey darken-3" :height="smallScreen ? 'auto' : '250px'" :class="$style.jumbotron">
+    <v-container fill-height>
+      <v-layout row align-center wrap>
+        <v-flex
+          :xs8="!smallScreen"
+          :xs12="smallScreen"
+        >
+          <v-card flat dark>
+            <v-card-title class="display-1">Visualize and process your data with ParaView Lite</v-card-title>
+            <v-card-text>
+              A ParaView client developed at
+              <a
+                class="indigo--text text--lighten-3"
+                href="https://www.kitware.com/"
+                rel="noopener noreferrer"
+              >Kitware, Inc.</a>
+              that can be used to do remote visualization and data processing inside your web browser.
+            </v-card-text>
+          </v-card>
+        </v-flex>
+        <!-- iPads have width 768, so show controls on them -->
+        <v-flex
+          key="if-large-enough-screen"
+          :xs4="!smallScreen"
+          :xs12="smallScreen"
+          :fill-height="!smallScreen"
+        >
+          <div
+            :class="$style.fileUpload"
+            v-on:click.stop="$emit('connect')"
+          >
+            <div :class="['white--text body-2', $style.fileUploadContents]">
+              <span :class="$style.buttonText">Connect to ParaView</span>
+              <v-icon color="white">cast_connected</v-icon>
+            </div>
+          </div>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-responsive>
+  <v-container
+    :class="$style.noSelect"
+    grid-list-xl
+  >
+    <v-layout row wrap>
+      <v-flex
+        :xs4="$vuetify.breakpoint.mdAndUp"
+        :xs6="$vuetify.breakpoint.sm"
+        :xs12="$vuetify.breakpoint.xs"
+      >
+        <v-hover>
+          <v-card
+            :class="[$style.sampleData, `elevation-${hover ? 12 : 2}`]"
+            flat
+            tile
+            slot-scope="{ hover }"
+          >
+            <v-card-title primary-title>
+              <div class="headline">Connect to ParaView</div>
+            </v-card-title>
+            <v-card-text class="pt-0" style="height: 150px;">
+              Use current URL to either request a new session or use the current session.
+              This path should work if ParaView Lite is served by either a Launcher or a ParaView Lite server.
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer/>
+              <v-btn @click="$emit('connect')">Connect</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-hover>
+      </v-flex>
+
+      <v-flex
+        :xs4="$vuetify.breakpoint.mdAndUp"
+        :xs6="$vuetify.breakpoint.sm"
+        :xs12="$vuetify.breakpoint.xs"
+      >
+        <v-hover>
+          <v-card
+            :class="[$style.sampleData, `elevation-${hover ? 12 : 2}`]"
+            flat
+            tile
+            slot-scope="{ hover }"
+          >
+            <v-card-title primary-title>
+              <div class="headline">Connect to Session</div>
+            </v-card-title>
+            <v-card-text class="pt-0" style="height: 150px;">
+              <v-text-field
+                v-model="sessionURL"
+                label="Session URL"
+                hint="ws://pvw.services.com/proxy?sessionId=2f88012a0e9c3292297098ca5fa49b16"
+              ></v-text-field>
+              <v-text-field
+                v-model="token"
+                label="Token"
+                hide-details
+              ></v-text-field>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer/>
+              <v-btn @click="connectToSession">Connect</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-hover>
+      </v-flex>
+
+      <v-flex
+        :xs4="$vuetify.breakpoint.mdAndUp"
+        :xs6="$vuetify.breakpoint.sm"
+        :xs12="$vuetify.breakpoint.xs"
+      >
+        <v-hover>
+          <v-card
+            :class="[$style.sampleData, `elevation-${hover ? 12 : 2}`]"
+            flat
+            tile
+            slot-scope="{ hover }"
+          >
+            <v-card-title primary-title>
+              <div class="headline">Start a Session</div>
+            </v-card-title>
+            <v-card-text class="pt-0" style="height: 150px;">
+              <v-text-field
+                v-model="sessionManagerURL"
+                label="Session Manager URL"
+                hint="https://pvw.services.com/ParaViewLite"
+              ></v-text-field>
+              <v-text-field
+                v-model="token"
+                label="Token"
+                hide-details
+              ></v-text-field>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer/>
+              <v-btn @click="startSession">Connect</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-hover>
+      </v-flex>
+
+      <v-flex xs12>
+        <v-img
+          fill-height
+          position="top center"
+          max-height="360"
+          src="pv-lite-bg.jpg"
+        />
+      </v-flex>
+    </v-layout>
+
+<!--     <v-layout row wrap>
+      <v-flex xs12>
+        <span class="title">Sample Data</span>
+      </v-flex>
+      <v-flex
+        v-for="(sample, i) in samples"
+        :key="i"
+        :xs4="$vuetify.breakpoint.mdAndUp"
+        :xs6="$vuetify.breakpoint.sm"
+        :xs12="$vuetify.breakpoint.xs"
+      >
+        <v-card
+          :class="$style.sampleData"
+          flat
+          tile
+        >
+          <v-img
+            :src="sample.image"
+            height="300px"
+          />
+          <div
+            :class="$style.linkOverlay"
+            v-on:click.stop="openSample(sample)"
+          >
+            <div :class="$style.linkOverlayText" class="body-2">
+              {{ sample.label }} ({{ sample.size }})
+              <div :class="$style.description" v-if="sample.description">
+                {{ sample.description }}
+              </div>
+              <div :class="$style.acknowledgement" v-if="sample.acknowledgement">
+                {{ sample.acknowledgement }}
+              </div>
+            </div>
+          </div>
+        </v-card>
+      </v-flex>
+    </v-layout> -->
+  </v-container>
+  <v-footer class="pa-2 d-block">
+    <div class="text-xs-center grey--text text--darken-2">
+      &copy; {{ new Date().getFullYear() }} — Kitware, Inc.
+    </div>
+  </v-footer>
+</div>

@@ -1,0 +1,107 @@
+<v-app :dark="darkMode">
+  <!-- 960 is vuetify's md breakpoint -->
+  <v-navigation-drawer
+    v-model="controlsDrawer"
+    :touchless="landingVisible"
+    :clipped="$vuetify.breakpoint.mdAndUp"
+    mobile-break-point="960"
+    app
+    fixed
+    disable-resize-watcher
+  >
+    <controls-drawer />
+  </v-navigation-drawer>
+
+  <v-toolbar
+    clipped-left
+    app
+  >
+    <progress-bar :progress="busyPercent" />
+    <v-toolbar-side-icon
+      :disabled="landingVisible"
+      @click.native.stop="controlsDrawer = !controlsDrawer"
+    />
+    <!-- smaller than height of the toolbar -->
+    <v-tooltip bottom>
+      <a
+        slot="activator"
+        href="#"
+        v-on:click.prevent="toggleLanding"
+      >
+        <svg-icon
+          :icon="iconLogo"
+          height="52px"
+          style="margin-top: 6px"
+        />
+      </a>
+      <span v-if="landingVisible" key="if-landingVisible">Go to app</span>
+      <span v-else key="if-landingVisible">Back to landing page</span>
+    </v-tooltip>
+    <v-spacer />
+    <action-modules v-if="!landingVisible" :smallScreen="smallScreen" />
+    <v-btn
+      v-if="errors.length"
+      key="if-has-errors"
+      :class="$style.toolbarButton"
+      flat
+      color="error"
+      v-on:click="errorDialog = true"
+    >
+      <v-icon>error</v-icon>
+      <span>{{ errors.length }}</span>
+      <span v-show="!smallScreen">error(s)</span>
+    </v-btn>
+    <v-btn
+      :class="$style.toolbarButton"
+      flat
+      v-on:click="aboutDialog = true"
+    >
+      <!-- width of other icons in toolbar -->
+      <svg-icon icon="kitware-logo" width="24px" />
+      <span v-show="!smallScreen">About</span>
+    </v-btn>
+  </v-toolbar>
+
+  <v-content :class="$style.appContent">
+    <landing
+      v-if="landingVisible"
+      key="if-landing"
+      v-on:open="console.log('click open')"
+      v-on:open-urls="console.log('click open urls')"
+      v-on:open-files="console.log('click open files')"
+      v-on:connect="connect"
+    />
+    <layout-view
+      v-else
+      key="if-landing"
+    />
+    <floating-lookup-table
+      v-for="floatingWindow in floatingLookupTables"
+      :key="floatingWindow.name"
+      :floatingWindow="floatingWindow"
+      :lookupTable="lookupTables[floatingWindow.name]"
+      :dataFields="dataFields"
+    />
+  </v-content>
+
+  <!-- browser issues -->
+  <browser-issues />
+
+  <!-- about dialog -->
+  <component
+    :is="dialogType"
+    v-model="aboutDialog"
+    max-width="50%"
+  >
+    <about-box v-on:close="aboutDialog = false" />
+  </component>
+
+  <!-- error dialog-->
+  <component
+    :is="dialogType"
+    v-model="errorDialog"
+    max-width="50%"
+  >
+    <error-box :errors="errors" v-on:close="errorDialog = false" />
+  </component>
+</v-app>

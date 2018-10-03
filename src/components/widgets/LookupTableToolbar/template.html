@@ -1,0 +1,11 @@
+<v-layout row fill-height align-center v-if="lookupTable && !floating">
+  <v-btn icon flat @click="toggleFloatingWindow">
+    <v-icon>{{ floating ? 'cancel' : 'add_location'}}</v-icon>
+  </v-btn>
+  <label :class="$style.field" :title="lookupTable.range[0]">{{lookupTable.range[0]}}</label>
+  <img
+    :class="$style.image"
+    :src="lookupTable.image"
+  />
+  <label :class="$style.field" :title="lookupTable.range[1]">{{lookupTable.range[1]}}</label>
+</v-layout>

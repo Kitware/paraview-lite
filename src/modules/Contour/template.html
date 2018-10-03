@@ -1,0 +1,147 @@
+<div :class="$style.container">
+  <v-container fluid fill-height align-center :class="$style.topBar">
+    <v-layout row justify-start align-center>
+      <v-flex xs1 justify-center>
+        <v-icon :color="color">{{ module.icon }}</v-icon>
+      </v-flex>
+      <v-flex justify-start>
+        <label :class="$style.title" :color="color">{{ module.label }}</label>
+      </v-flex>
+      <v-spacer />
+      <v-btn
+        flat
+        icon
+        @click="deleteProxy"
+        :color="color"
+      >
+        <v-icon>delete_forever</v-icon>
+      </v-btn>
+    </v-layout>
+  </v-container>
+
+  <v-card flat :class="$style.block">
+    <v-card-text :class="$style.blockContent">
+      <v-container fluid grid-list-md :class="$style.noPaddingMargin">
+        <v-layout row wrap align-center>
+          <v-flex xs12>
+            <v-combobox
+              ref="comboBox"
+              @input="blur"
+              v-model="contourBy"
+              :items="contourByArrays"
+              label="Contour By"
+            />
+          </v-flex>
+          <v-flex xs7>
+            <v-slider
+              :class="$style.noTopPadding"
+              hide-details
+
+              :value="sliderData[2]"
+              :min="sliderData[0]"
+              :max="sliderData[1]"
+              step="any"
+
+              @input="updateIsoValue"
+            />
+          </v-flex>
+          <v-flex xs1/>
+          <v-flex xs4>
+            <v-text-field
+              :class="$style.noTopPadding"
+              hide-details
+              type="number"
+
+              :min="sliderData[0]"
+              :max="sliderData[1]"
+              :value="sliderData[2]"
+
+              step="any"
+
+              @change="updateIsoValue"
+              @input="updateData"
+            />
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-card-text>
+  </v-card>
+
+  <v-container fluid grid-list-md>
+    <v-layout row wrap align-center >
+      <v-flex xs6>
+        <v-switch
+          block
+          label="Normals"
+          v-model="computeNormals"
+          :class="$style.noTopPadding"
+          hide-details
+        />
+      </v-flex>
+      <v-flex xs6>
+        <v-switch
+          block
+          label="Gradients"
+          v-model="computeGradients"
+          :class="$style.noTopPadding"
+          hide-details
+        />
+      </v-flex>
+      <v-flex xs6>
+        <v-switch
+          block
+          label="Scalars"
+          v-model="computeScalars"
+          :class="$style.noTopPadding"
+          hide-details
+        />
+      </v-flex>
+      <v-flex xs6>
+        <v-switch
+          block
+          label="Triangles"
+          v-model="generateTriangles"
+          :class="$style.noTopPadding"
+          hide-details
+        />
+      </v-flex>
+    </v-layout>
+  </v-container>
+
+  <v-card flat :class="$style.block">
+    <v-btn
+      block
+      outline
+      color="indigo"
+      v-if="create"
+      @click="createProxy"
+    >Create</v-btn>
+  </v-card>
+
+  <v-container
+    fluid
+    grid-list-md
+    v-if="hasChange() && !autoApply && !create"
+    :class="$style.buttonBar"
+  >
+    <v-layout row wrap align-center >
+      <v-flex xs3>
+        <v-btn
+          block
+          outline
+          color="red darken-1"
+          @click="reset"
+        >Reset</v-btn>
+      </v-flex>
+      <v-spacer />
+      <v-flex xs7>
+        <v-btn
+          block
+          outline
+          color="teal accent-4"
+          @click="apply"
+        >Apply ({{ hasChange() }})</v-btn>
+      </v-flex>
+    </v-layout>
+  </v-container>
+</div>

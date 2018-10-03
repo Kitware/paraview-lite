@@ -1,0 +1,68 @@
+<svg
+  :width="width"
+  :height="`${deltaY * nodes.length}px`"
+  v-on:click="toggleActive"
+>
+  <!-- active nodes [fill BG line] -->
+  <rect
+    v-for="(active, idx) in activesToRender"
+    :key="`active-${idx}`"
+    :data-id="nodes[active].y"
+    :y="active * deltaY + margin / 2"
+    :height="deltaY - margin"
+    x="-50"
+    width="1000"
+    :fill="activeBackground"
+  />
+
+  <!-- branches [vertical lines] -->
+  <path
+    v-for="(branch, idx) in branchesToRender"
+    :key="branch.key"
+    :d="branch.d"
+    :stroke="branch.stroke"
+    :stroke-width="stroke"
+  />
+
+  <!-- forks [curvy connection] -->
+  <path
+    v-for="(fork, idx) in forksToRender"
+    :key="fork.key"
+    :d="fork.d"
+    :stroke="fork.stroke"
+    :stroke-width="stroke"
+    fill="transparent"
+  />
+
+  <!-- nodes [circles] -->
+  <g
+    v-for="(node, idx) in nodesToRender"
+    :key="node.key"
+    :class="$style.cursor"
+  >
+    <circle
+      :data-id="node.id"
+      :cx="node.circle.cx"
+      :cy="node.circle.cy"
+      :r="node.circle.radius"
+      :stroke="node.circle.stroke"
+      :fill="node.circle.fill"
+
+      :stroke-width="stroke"
+
+      v-on:click="toggleVisibility"
+    />
+    <text
+      :class="$style.regularText"
+      :data-id="node.id"
+      :x="node.text.x"
+      :y="node.text.y"
+      :fill="node.text.fill"
+      :font-weight="node.text.fontWeight"
+
+      :font-size="fontSize"
+    >
+      {{node.text.content}}
+    </text>
+  </g>
+</svg>

@@ -1,0 +1,55 @@
+<v-card>
+  <v-card-title>
+    <svg-icon :icon="darkMode ? 'lite-dark' : 'lite'" :class="$style.logoIcon" />
+    <v-spacer />
+    <v-btn
+      flat
+      icon
+      v-on:click="$emit('close')"
+    >
+      <v-icon>close</v-icon>
+    </v-btn>
+  </v-card-title>
+  <hr>
+  <v-card-text>
+    <p class="body-1">
+      <a href="https://kitware.github.io/paraview-lite/">ParaView Lite</a>
+      is an open-source web application developed at
+      <a href="https://www.kitware.com/">Kitware</a>
+      for remote visualization. It is part of the
+      <a href="https://www.paraview.org">ParaView</a>
+      platform and can serve as a foundation for building custom web-based
+      visualization applications involving
+      <a href="http://www.paraview.org/web/">ParaViewWeb</a>.
+    </p>
+    <ul :class="$style.list">
+      <li class="body-1">
+        <span>Here is our</span>
+        <a href="https://kitware.github.io/paraview-lite/doc/">documentation</a>.
+      </li>
+      <li class="body-1">
+        <span>We are open source!</span>
+        <a href="https://github.com/Kitware/paraview-lite">Code is on Github</a>.
+      </li>
+      <li class="body-1">
+        <span>Current version: {{version}}</span>
+      </li>
+    </ul>
+    <v-layout row wrap class="text-xs-center" align-end>
+      <v-flex xs6>
+        <a href="https://www.kitware.com">
+          <svg-icon icon="kitware" :class="$style.aboutIcon" />
+        </a>
+      </v-flex>
+      <v-flex xs6>
+        <div>&nbsp;</div>
+        <a href="https://www.paraview.org/">
+          <svg-icon :icon="darkMode ? 'paraview-dark' : 'paraview'" :class="$style.aboutIcon" />
+        </a>
+      </v-flex>
+    </v-layout>
+    <div class="pt-3 d-block text-xs-center grey--text text--darken-2">
+      &copy; {{ new Date().getFullYear() }} — Kitware, Inc.
+    </div>
+  </v-card-text>
+</v-card>

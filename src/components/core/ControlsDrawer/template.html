@@ -1,0 +1,40 @@
+<div>
+  <v-tabs
+    :class="$style.tabs"
+    v-model="activeTab"
+    v-show="!panel"
+    centered
+    grow
+  >
+    <v-tab>Datasets</v-tab>
+    <v-tab>Global</v-tab>
+    <v-tabs-items touchless>
+      <v-tab-item :class="$style.contentPadding">
+        <git-tree
+          :sources="pipeline"
+          :actives="selectedSources"
+
+          v-on:git:visibility="updateVisibility"
+          v-on:git:actives="updateSelectedSource"
+        />
+        <template v-if="proxyPanel">
+          <component
+            :is="proxyPanel.component"
+            :key="proxyPanel.label"
+            :autoApply="autoApply"
+          />
+        </template>
+      </v-tab-item>
+      <v-tab-item>
+        <global-settings />
+      </v-tab-item>
+    </v-tabs-items>
+  </v-tabs>
+  <template v-if="panel">
+    <component
+      :is="panel.component"
+      :key="panel.label"
+      create
+    />
+  </template>
+</div>

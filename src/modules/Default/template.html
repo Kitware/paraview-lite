@@ -1,0 +1,25 @@
+<div :class="$style.container">
+  <v-container fluid fill-height align-center :class="$style.topBar">
+    <v-layout row justify-start align-center>
+      <v-flex xs1 justify-center>
+        <v-icon :color="color">{{ module.icon }}</v-icon>
+      </v-flex>
+      <v-flex justify-start>
+        <label :class="$style.title" :color="color">{{ name }}</label>
+      </v-flex>
+      <v-spacer />
+      <v-btn
+        flat
+        icon
+        @click="deleteProxy"
+        :color="color"
+      >
+        <v-icon>delete_forever</v-icon>
+      </v-btn>
+    </v-layout>
+  </v-container>
+  <v-list>
+    <v-divider />
+    Nothing to put here...
+  </v-list>
+</div>

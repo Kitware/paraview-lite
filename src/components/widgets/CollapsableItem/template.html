@@ -1,0 +1,8 @@
+<div :class="$style.container">
+  <v-btn icon flat @click="toggle">
+    <v-icon>{{icon}}</v-icon>
+  </v-btn>
+  <div :class="collapsed ? $style.collapse : $style.open">
+    <slot></slot>
+  </div>
+</div>

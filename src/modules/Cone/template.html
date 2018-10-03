@@ -1,0 +1,167 @@
+<div :class="$style.container">
+  <v-container fluid fill-height align-center :class="$style.topBar">
+    <v-layout row justify-start align-center>
+      <v-flex xs1 justify-center>
+        <v-icon :color="color">{{ module.icon }}</v-icon>
+      </v-flex>
+      <v-flex justify-start>
+        <label :class="$style.title" :color="color">{{ module.label }}</label>
+      </v-flex>
+      <v-spacer />
+      <v-btn
+        flat
+        icon
+        @click="deleteProxy"
+        :color="color"
+      >
+        <v-icon>delete_forever</v-icon>
+      </v-btn>
+    </v-layout>
+  </v-container>
+
+  <v-card flat :class="$style.block">
+    <v-card-text :class="$style.blockContent">
+      <v-container fluid grid-list-md :class="$style.noPaddingMargin">
+        <v-layout row wrap align-center>
+          <v-flex xs3>
+            <label :class="$style.smallLabel">Resolution</label>
+          </v-flex>
+          <v-flex xs9>
+            <v-slider
+              :class="$style.noTopPadding"
+              hide-details
+
+              v-model="resolution"
+              :max="100"
+              :min="3"
+              :step="1"
+            />
+          </v-flex>
+
+          <v-flex xs3>
+            <label :class="$style.smallLabel">Radius</label>
+          </v-flex>
+          <v-flex xs9>
+            <v-text-field
+              :class="$style.noTopPadding"
+              hide-details
+
+              v-model="radius"
+              :max="100"
+              :min="0.1"
+              step="any"
+
+              type="Number"
+            />
+          </v-flex>
+
+          <v-flex xs3>
+            <label :class="$style.smallLabel">Height</label>
+          </v-flex>
+          <v-flex xs9>
+            <v-text-field
+              :class="$style.noTopPadding"
+              hide-details
+
+              v-model="height"
+              :max="100"
+              :min="0.1"
+              step="any"
+
+              type="Number"
+            />
+          </v-flex>
+
+          <v-flex xs3>
+            <label :class="$style.smallLabel">Center</label>
+          </v-flex>
+          <v-flex xs3>
+            <v-text-field
+              :class="$style.noTopPadding"
+              hide-details
+
+              v-model="xCenter"
+
+              type="Number"
+            />
+          </v-flex>
+          <v-flex xs3>
+            <v-text-field
+              :class="$style.noTopPadding"
+              hide-details
+
+              v-model="yCenter"
+
+              type="Number"
+            />
+          </v-flex>
+          <v-flex xs3>
+            <v-text-field
+              :class="$style.noTopPadding"
+              hide-details
+
+              v-model="zCenter"
+
+              type="Number"
+            />
+          </v-flex>
+
+          <v-flex xs3>
+            <label :class="$style.smallLabel">Direction</label>
+          </v-flex>
+          <v-flex xs3>
+            <v-text-field
+              :class="$style.noTopPadding"
+              hide-details
+
+              v-model="xDirection"
+
+              type="Number"
+            />
+          </v-flex>
+          <v-flex xs3>
+            <v-text-field
+              :class="$style.noTopPadding"
+              hide-details
+
+              v-model="yDirection"
+
+              type="Number"
+            />
+          </v-flex>
+          <v-flex xs3>
+            <v-text-field
+              :class="$style.noTopPadding"
+              hide-details
+
+              v-model="zDirection"
+
+              type="Number"
+            />
+          </v-flex>
+          <v-flex xs3>
+            <label :class="$style.smallLabel">Capping</label>
+          </v-flex>
+          <v-flex xs9>
+            <v-switch
+              :class="$style.noTopPadding"
+              hide-details
+
+              v-model="capping"
+            />
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-card-text>
+  </v-card>
+
+  <v-card flat :class="$style.block">
+    <v-btn
+      block
+      outline
+      color="indigo"
+      v-if="create"
+      @click="createProxy"
+    >Create</v-btn>
+  </v-card>
+</div>

@@ -1,0 +1,102 @@
+<v-toolbar dense :class="$style.container" v-if="activeProxyData">
+  <collapsable-item icon="widgets" small>
+    <v-combobox
+      :class="$style.comboboxFirst"
+      dense
+      single-line
+      hide-details
+      ref="representation"
+      @input="blur('representation')"
+      v-model="representation"
+      :items="representationItems"
+      label="Representation"
+    />
+  </collapsable-item>
+  <collapsable-item icon="palette">
+    <v-layout row fill-height align-center>
+      <v-combobox
+        :class="$style.combobox"
+        dense
+        flat
+        single-line
+        hide-details
+
+        label="Color By"
+
+        ref="colorBy"
+
+        :value="colorValue"
+        :items="colorByItems"
+        @input="applyColor"
+      />
+      <palette-picker
+        v-if="colorValue === SOLID_COLOR_ITEM"
+        :palette="['#ffffff', '#cccccc', '#aaaaaa', '#777777', '#333333']"
+        :value="diffuseColor"
+        @input="updateColor"
+      />
+    </v-layout>
+  </collapsable-item>
+  <lookup-table-toolbar :lookupTable="lookupTable" />
+
+  <v-spacer />
+
+  <collapsable-item icon="access_time" small v-if="timeValues.length">
+    <v-slider
+      :class="$style.opacity"
+      hide-details
+
+      v-model="timeIndex"
+      :min="0"
+      :max="timeValues.length - 1"
+      step="1"
+      :messages="[timeValues[timeIndex]]"
+    ><!--
+      <template
+        slot="thumb-label"
+        slot-scope="props"
+      >
+        <span style="z-index: 200;">
+            {{ timeValues[props.value] }}
+        </span>
+      </template> -->
+    </v-slider>
+    <label :class="$style.timeLabel" :title="timeValues[timeIndex]">
+      {{ timeValues[timeIndex] }}
+    </label>
+  </collapsable-item>
+
+  <collapsable-item icon="exposure" small>
+    <v-slider
+      :class="$style.opacity"
+      hide-details
+
+      v-model="opacity"
+      :min="0"
+      :max="1"
+      step="0.01"
+    />
+  </collapsable-item>
+  <collapsable-item icon="bubble_chart" small>
+    <v-text-field
+      v-model="pointSize"
+      class="pt-0"
+      hide-details
+      single-line
+      type="number"
+      min="1"
+      max="10"
+    ></v-text-field>
+  </collapsable-item>
+  <collapsable-item icon="line_weight" small>
+    <v-text-field
+      v-model="lineWidth"
+      class="pt-0"
+      hide-details
+      single-line
+      type="number"
+      min="1"
+      max="10"
+    ></v-text-field>
+  </collapsable-item>
+</v-toolbar>

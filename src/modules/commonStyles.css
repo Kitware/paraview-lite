@@ -1,0 +1,80 @@
+/* general */
+
+.container {}
+
+.topBar {
+  padding: 0 0 0 15px;
+  margin: 0;
+}
+
+:global(.theme--light) .topBar {
+  background: #E0E0E0;
+}
+
+:global(.theme--dark) .topBar {
+  background: rgb(33,33,33);
+}
+
+.title {
+  margin-left: 15px;
+}
+
+/* files */
+
+.listPadding {
+  padding-top: 0px; /* dense reduce that to 4px */
+}
+
+.backButton {
+  position: relative;
+  left: -15px;
+}
+
+.block {
+  padding: 4px 10px 4px 16px;
+  margin-left: 6px;
+}
+
+.blockTitle {
+  padding: 4px 0 0 0; /* override vuetify */
+  margin: 8px 4px;
+  /*border-bottom: 1px solid #bbb;*/
+}
+
+.blockContent {
+  padding: 4px;
+}
+
+.blockRow {
+  margin: 4px 0;
+}
+
+.noTopPadding {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.noPaddingMargin {
+  margin: 0;
+  padding: 0;
+}
+
+.noSelect {
+  user-select: none;
+}
+
+.canSelect {
+  user-select: text;
+}
+
+.smallLabel {
+  font-size: 12px;
+}
+
+.iconWidth {
+  width: 44px !important;
+}
+
+.buttonBar {
+  padding-top: 0;
+}

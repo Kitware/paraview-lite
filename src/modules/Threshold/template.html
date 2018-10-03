@@ -1,0 +1,145 @@
+<div :class="$style.container">
+  <v-container fluid fill-height align-center :class="$style.topBar">
+    <v-layout row justify-start align-center>
+      <v-flex xs1 justify-center>
+        <v-icon :color="color">{{ module.icon }}</v-icon>
+      </v-flex>
+      <v-flex justify-start>
+        <label :class="$style.title" :color="color">{{ module.label }}</label>
+      </v-flex>
+      <v-spacer />
+      <v-btn
+        flat
+        icon
+        @click="deleteProxy"
+        :color="color"
+      >
+        <v-icon>delete_forever</v-icon>
+      </v-btn>
+    </v-layout>
+  </v-container>
+
+  <v-card flat :class="$style.block">
+    <v-card-text :class="$style.blockContent">
+      <v-container fluid grid-list-md :class="$style.noPaddingMargin">
+        <v-layout row wrap align-center>
+          <v-flex xs12>
+            <v-combobox
+              ref="comboBox"
+              @input="blur"
+              v-model="thresholdBy"
+              :items="thresholdByArrays"
+              label="Threshold By"
+            />
+          </v-flex>
+
+          <v-flex xs2>
+            <v-text-field
+              class="mt-0"
+              hide-details
+              single-line
+              type="number"
+
+              :value="localRange[0]"
+              :min="dataRange[0]"
+              :max="dataRange[1]"
+              step="any"
+
+              @change="pushData"
+              @input="updateData($event, 1)"
+            ></v-text-field>
+          </v-flex>
+
+          <v-flex xs8>
+            <v-range-slider
+              :value="localRange"
+              :min="dataRange[0]"
+              :max="dataRange[1]"
+              step="any"
+
+              @change="pushData"
+              @input="updateData"
+            ></v-range-slider>
+          </v-flex>
+
+          <v-flex xs2>
+            <v-text-field
+              class="mt-0"
+              hide-details
+              single-line
+              type="number"
+
+              :value="localRange[1]"
+              :min="dataRange[0]"
+              :max="dataRange[1]"
+              step="any"
+
+              @change="pushData"
+              @input="updateData($event, 1)"
+            ></v-text-field>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-card-text>
+  </v-card>
+
+  <v-container fluid grid-list-md>
+    <v-layout row wrap align-center >
+      <v-flex xs6>
+        <v-switch
+          block
+          label="All Scalars"
+          v-model="allScalars"
+          :class="$style.noTopPadding"
+          hide-details
+        />
+      </v-flex>
+      <v-flex xs6>
+        <v-switch
+          block
+          label="Continuous"
+          v-model="useContinuousCellRange"
+          :class="$style.noTopPadding"
+          hide-details
+        />
+      </v-flex>
+    </v-layout>
+  </v-container>
+
+  <v-card flat :class="$style.block">
+    <v-btn
+      block
+      outline
+      color="indigo"
+      v-if="create"
+      @click="createProxy"
+    >Create</v-btn>
+  </v-card>
+
+  <v-container
+    fluid
+    grid-list-md
+    v-if="hasChange() && !autoApply && !create"
+    :class="$style.buttonBar"
+  >
+    <v-layout row wrap align-center >
+      <v-flex xs3>
+        <v-btn
+          block
+          outline
+          color="red darken-1"
+          @click="reset"
+        >Reset</v-btn>
+      </v-flex>
+      <v-spacer />
+      <v-flex xs7>
+        <v-btn
+          block
+          outline
+          color="teal accent-4"
+          @click="apply"
+        >Apply ({{ hasChange() }})</v-btn>
+      </v-flex>
+    </v-layout>
+  </v-container>
+</div>

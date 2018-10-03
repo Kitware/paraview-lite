@@ -1,0 +1,64 @@
+{
+  "name": "paraview-lite",
+  "version": "0.0.0-semantically-release",
+  "description": "Lite ParaView client for Scientific Visualization on the Web",
+  "keywords": [
+    "3d",
+    "visualization",
+    "scientific",
+    "paraview",
+    "vtk"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kitware/paraview-lite.git"
+  },
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/kitware/paraview-lite/issues"
+  },
+  "homepage": "https://github.com/kitware/paraview-lite#readme",
+  "scripts": {
+    "validate": "prettier --config ./prettier.config.js --list-different \"src/**/*.js\"",
+    "reformat": "prettier --config ./prettier.config.js --write \"src/**/*.js\"",
+    "doc": "kw-doc -c ./documentation/config.js",
+    "doc:www": "kw-doc -c ./documentation/config.js -s",
+    "doc:publish": "kw-doc -c ./documentation/config.js -mp",
+    "build": "webpack --config build/webpack.dev.config.js",
+    "build:release": "webpack --config build/webpack.prod.config.js -p",
+    "version": "node ./build/writeVersion.js",
+    "dev": "webpack --config build/webpack.dev.config.js --watch",
+    "bundle": "inline-source --compress false --root ./dist ./dist/index.html ./dist/ParaViewLite.html",
+    "commit": "git cz",
+    "semantic-release": "semantic-release",
+    "prepublishOnly": "npm run version && npm run bundle"
+  },
+  "author": "Kitware",
+  "dependencies": {
+    "material-design-icons-iconfont": "3.0.3",
+    "mousetrap": "1.6.2",
+    "typeface-roboto": "0.0.54",
+    "vtk.js": "7.11.2",
+    "paraviewweb": "3.2.6",
+    "vue": "2.5.17",
+    "vuetify": "1.2.3",
+    "vuex": "3.0.1",
+    "wslink": "0.1.7"
+  },
+  "devDependencies": {
+    "babel-plugin-syntax-dynamic-import": "6.18.0",
+    "eslint-plugin-vue": "4.7.1",
+    "kw-doc": "1.2.1",
+    "kw-web-suite": "6.2.0",
+    "vue-loader": "15.4.1",
+    "vue-style-loader": "4.1.2",
+    "vue-template-compiler": "2.5.17",
+    "webpack-merge": "4.1.4",
+    "write-file-webpack-plugin": "4.4.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  }
+}

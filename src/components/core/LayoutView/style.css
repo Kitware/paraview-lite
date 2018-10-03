@@ -1,0 +1,6 @@
+.container {
+  padding: 0;
+  /* prevent view from overflowing our app during resize */
+  min-height: 0;
+  min-width: 0;
+}

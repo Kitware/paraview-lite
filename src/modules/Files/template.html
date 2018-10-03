@@ -1,0 +1,112 @@
+<div :class="$style.container">
+  <v-container fluid fill-height align-center :class="$style.topBar">
+    <v-layout row justify-start align-center>
+      <v-flex xs1 justify-center>
+        <v-icon
+          v-if="path.length < 2"
+          :color="color"
+        >{{ module.icon }}</v-icon>
+        <v-btn
+          v-if="path.length > 1"
+          flat
+          icon
+          @click="listParentDirectory(path.length - 2)"
+          :color="color"
+          :class="$style.backButton"
+        >
+          <v-icon>keyboard_backspace</v-icon>
+        </v-btn>
+      </v-flex>
+      <v-flex justify-start>
+        <v-tooltip right>
+          <label
+            slot="activator"
+            :class="$style.title"
+            :color="color"
+          >{{ label }}</label>
+          <span>{{ path.join('/') }}</span>
+        </v-tooltip>
+      </v-flex>
+      <v-spacer />
+      <v-btn
+        flat
+        icon
+        @click="removeActiveModule"
+        :color="color"
+      >
+        <v-icon>cancel</v-icon>
+      </v-btn>
+    </v-layout>
+  </v-container>
+  <v-list dense expand :class="$style.listPadding">
+    <v-divider />
+    <!-- DIRECTORIES -->
+    <v-list-group
+      v-if="directories.length"
+      prepend-icon="folder"
+      no-action
+      :value="files.length === 0"
+    >
+      <v-list-tile slot="activator">
+        <v-list-tile-content>
+          <v-list-tile-title>Directories</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+
+      <v-list-tile
+        v-for="directory in directories"
+        :key="directory"
+        @click="openDirectory(directory)"
+      >
+        <v-list-tile-content>
+          <v-list-tile-title v-html="directory"/>
+        </v-list-tile-content>
+      </v-list-tile>
+    </v-list-group>
+    <!-- GROUPS -->
+    <v-list-group
+      v-if="groups.length"
+      prepend-icon="folder_special"
+      no-action
+    >
+      <v-list-tile slot="activator">
+        <v-list-tile-content>
+          <v-list-tile-title>Groups</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+
+      <v-list-tile
+        v-for="group in groups"
+        :key="group.label"
+        @click="openFiles(group.files)"
+      >
+        <v-list-tile-content>
+          <v-list-tile-title v-html="group.label"/>
+        </v-list-tile-content>
+      </v-list-tile>
+    </v-list-group>
+    <!-- FILES -->
+    <v-list-group
+      v-if="files.length"
+      prepend-icon="insert_drive_file"
+      no-action
+      :value="true"
+    >
+      <v-list-tile slot="activator">
+        <v-list-tile-content>
+          <v-list-tile-title>Files</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+
+      <v-list-tile
+        v-for="file in files"
+        :key="file.label"
+        @click="openFiles([file.label])"
+      >
+        <v-list-tile-content>
+          <v-list-tile-title v-html="file.label"/>
+        </v-list-tile-content>
+      </v-list-tile>
+    </v-list-group>
+  </v-list>
+</div>

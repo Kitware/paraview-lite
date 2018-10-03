@@ -1,0 +1,234 @@
+<div :class="$style.container">
+  <v-container fluid fill-height align-center :class="$style.topBar">
+    <v-layout row justify-start align-center>
+      <v-flex xs1 justify-center>
+        <v-icon :color="color">{{ module.icon }}</v-icon>
+      </v-flex>
+      <v-flex justify-start>
+        <label :class="$style.title" :color="color">{{ module.label }}</label>
+      </v-flex>
+      <v-spacer />
+      <v-btn
+        flat
+        icon
+        @click="deleteProxy"
+        :color="color"
+      >
+        <v-icon>delete_forever</v-icon>
+      </v-btn>
+    </v-layout>
+  </v-container>
+
+  <v-card flat :class="$style.block">
+    <v-card-title :class="$style.blockTitle">
+      <span class="body-2">Origin</span>
+    </v-card-title>
+    <v-card-text :class="$style.blockContent">
+      <v-container fluid grid-list-md :class="$style.noPaddingMargin">
+        <v-layout row wrap align-center>
+          <v-flex xs1>
+            <label :class="$style.smallLabel">X</label>
+          </v-flex>
+          <v-flex xs7>
+            <v-slider
+              :class="$style.noTopPadding"
+              hide-details
+
+              v-model="xOrigin"
+              :min="inputBounds[0]"
+              :max="inputBounds[1]"
+              step="any"
+            />
+          </v-flex>
+          <v-flex xs1/>
+          <v-flex xs3>
+            <v-text-field
+              :class="$style.noTopPadding"
+              hide-details
+              type="number"
+
+              v-model="xOrigin"
+              :min="inputBounds[0]"
+              :max="inputBounds[1]"
+              step="any"
+            />
+          </v-flex>
+          <v-flex xs1>
+            <label :class="$style.smallLabel">Y</label>
+          </v-flex>
+          <v-flex xs7>
+            <v-slider
+              :class="$style.noTopPadding"
+              hide-details
+
+              v-model="yOrigin"
+              :min="inputBounds[2]"
+              :max="inputBounds[3]"
+              step="any"
+            />
+          </v-flex>
+          <v-flex xs1/>
+          <v-flex xs3>
+            <v-text-field
+              :class="$style.noTopPadding"
+              hide-details
+              type="number"
+
+              v-model="yOrigin"
+              :min="inputBounds[2]"
+              :max="inputBounds[3]"
+              step="any"
+            />
+          </v-flex>
+          <v-flex xs1>
+            <label :class="$style.smallLabel">Z</label>
+          </v-flex>
+          <v-flex xs7>
+            <v-slider
+              :class="$style.noTopPadding"
+              hide-details
+
+              v-model="zOrigin"
+              :min="inputBounds[4]"
+              :max="inputBounds[5]"
+              step="any"
+            />
+          </v-flex>
+          <v-flex xs1/>
+          <v-flex xs3>
+            <v-text-field
+              :class="$style.noTopPadding"
+              hide-details
+              type="number"
+
+              v-model="zOrigin"
+              :min="inputBounds[4]"
+              :max="inputBounds[5]"
+              step="any"
+            />
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-card-text>
+  </v-card>
+
+  <v-card flat :class="$style.block">
+    <v-card-title :class="$style.blockTitle">
+      <span class="body-2">Normal</span>
+      <v-spacer/>
+      <v-btn-toggle mandatory v-model="normalMode">
+        <v-btn flat :class="$style.iconWidth">
+          X
+        </v-btn>
+        <v-btn flat :class="$style.iconWidth">
+          Y
+        </v-btn>
+        <v-btn flat :class="$style.iconWidth">
+          Z
+        </v-btn>
+        <v-btn flat :class="$style.iconWidth">
+          <v-icon>edit</v-icon>
+        </v-btn>
+      </v-btn-toggle>
+    </v-card-title>
+    <v-card-text :class="$style.blockContent" v-show="normalMode === 3">
+      <v-container fluid grid-list-md :class="$style.noPaddingMargin">
+        <v-layout row wrap align-center>
+          <v-flex xs4>
+            <v-text-field
+              :class="$style.noTopPadding"
+              hide-details
+              type="Number"
+
+              v-model="xNormal"
+              :min="-1"
+              :max="1"
+            />
+          </v-flex>
+          <v-flex xs4>
+            <v-text-field
+              :class="$style.noTopPadding"
+              hide-details
+              type="Number"
+
+              v-model="yNormal"
+              :min="-1"
+              :max="1"
+            />
+          </v-flex>
+          <v-flex xs4>
+            <v-text-field
+              :class="$style.noTopPadding"
+              hide-details
+              type="Number"
+
+              v-model="zNormal"
+              :min="-1"
+              :max="1"
+            />
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-card-text>
+  </v-card>
+
+  <v-container fluid grid-list-md>
+    <v-layout row wrap align-center >
+      <v-flex xs6>
+        <v-switch
+          block
+          label="Crinkle"
+          v-model="crinkleclip"
+          :class="$style.noTopPadding"
+          hide-details
+        />
+      </v-flex>
+      <v-flex xs6>
+        <v-switch
+          block
+          label="Inside/Out"
+          v-model="invert"
+          :class="$style.noTopPadding"
+          hide-details
+        />
+      </v-flex>
+    </v-layout>
+  </v-container>
+
+  <v-card flat :class="$style.block">
+    <v-btn
+      block
+      outline
+      color="indigo"
+      v-if="create"
+      @click="createProxy"
+    >Create</v-btn>
+  </v-card>
+
+  <v-container
+    fluid
+    grid-list-md
+    v-if="hasChange() && !autoApply && !create"
+    :class="$style.buttonBar"
+  >
+    <v-layout row wrap align-center >
+      <v-flex xs3>
+        <v-btn
+          block
+          outline
+          color="red darken-1"
+          @click="reset"
+        >Reset</v-btn>
+      </v-flex>
+      <v-spacer />
+      <v-flex xs7>
+        <v-btn
+          block
+          outline
+          color="teal accent-4"
+          @click="apply"
+        >Apply ({{ hasChange() }})</v-btn>
+      </v-flex>
+    </v-layout>
+  </v-container>
+</div>

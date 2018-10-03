@@ -1,0 +1,32 @@
+.container :global(.v-toolbar__content) {
+  padding: 0 5px;
+}
+
+.combobox {
+  cursor: pointer !important;
+  flex: none;
+  padding-top: 0;
+  min-width: 10px;
+  margin-left: 5px !important;
+}
+
+.comboboxFirst {
+  composes: combobox;
+  margin-right: 5px !important;
+}
+
+.opacity {
+  padding-top: 0;
+  max-width: 200px;
+  width: 100px;
+  margin-right: 20px !important;
+}
+
+.timeLabel {
+  display: block;
+  max-width: 200px;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}

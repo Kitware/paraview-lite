@@ -1,0 +1,21 @@
+<v-container fluid :class="$style.toolbar" fill-height>
+  <v-layout fill-height row>
+    <v-spacer />
+    <v-flex
+      style="flex: none;"
+      fill-height
+      v-for="(module, idx) in modules"
+      :key="module.label"
+      v-if="module.showInMenu(activeSources, proxyDataMap, proxyPipeline)"
+    >
+      <v-btn
+        :class="$style.toolbarButton"
+        flat
+        @click="activate(module.name)"
+      >
+        <v-icon>{{ module.icon }}</v-icon>
+        <span v-show="!smallScreen">{{ module.label }}</span>
+      </v-btn>
+    </v-flex>
+  </v-layout>
+</v-container>

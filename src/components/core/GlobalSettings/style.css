@@ -1,0 +1,36 @@
+.container {
+  padding: 0;
+}
+
+.container * {
+  user-select: none;
+}
+
+.card {
+  padding: 8px 16px;
+}
+
+.heading {
+  padding: 8px 0;
+}
+
+.divider {
+  margin-bottom: 16px;
+}
+
+.noTop {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.noPadding {
+  padding: 0;
+}
+
+.lineTopPadding {
+  padding-top: 5px;
+}
+
+.noSelect {
+  user-select: none;
+}

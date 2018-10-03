@@ -1,0 +1,13 @@
+.image {
+  width: 200px;
+  height: 15px;
+}
+
+.field {
+  max-width: 50px;
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+  padding-top: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
