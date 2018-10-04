@@ -19,4 +19,4 @@ npm run semantic-release
 npm run bundle
 
 # Generate website
-# npm run doc:publish
+npm run doc:publish

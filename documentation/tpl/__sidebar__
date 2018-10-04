@@ -1,0 +1,13 @@
+docs:
+  getting_started:
+    overview: index.html
+    version_compatibility: compatibility.html
+  miscellaneous:
+    troubleshooting: troubleshooting.html
+    contributing: contributing.html
+  pvw_server:
+    multi_user_setup: multi_user_setup.html
+    apache_front_end: apache_front_end.html
+  launchers:
+    python_launcher: python_launcher.html
+    launching_examples: launching_examples.html

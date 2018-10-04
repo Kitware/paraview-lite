@@ -1,0 +1,38 @@
+menu:
+  docs: Docs
+  api: API
+  examples: Examples
+  news: News
+  search: Search
+
+index:
+  get_started: Get started
+
+page:
+  contents: Contents
+  back_to_top: Back to Top
+  improve: Improve this doc
+  prev: Prev
+  next: Next
+  last_updated: "Last updated: %s"
+
+sidebar:
+  docs:
+    getting_started: Getting Started
+    basic_usage: Basic Usage
+    roadmap: Roadmap
+    releases: Releases
+    import: Import
+    tools: Developer guide
+    overview: Overview
+    setup: Setup
+    miscellaneous: Miscellaneous
+    troubleshooting: Troubleshooting
+    contributing: Contributing
+    pvw_server: Server
+    version_compatibility: Version Compatibility
+    multi_user_setup: Multi-user setup
+    apache_front_end: Using Apache
+    launchers: Launchers
+    python_launcher: Python
+    launching_examples: Examples
