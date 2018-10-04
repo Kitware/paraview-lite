@@ -21,6 +21,9 @@ cache:
     - "$HOME/.npm"
     - documentation/build-tmp
 
+before_install:
+  - sudo apt-get install -y libgif-dev
+
 install:
   - npm ci
 
