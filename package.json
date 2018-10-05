@@ -29,7 +29,7 @@
     "version": "node ./build/writeVersion.js",
     "dev": "webpack --config build/webpack.dev.config.js --watch",
     "bundle": "inline-source --compress false --root ./dist ./dist/index.html ./dist/ParaViewLite.html",
-    "commit": "git-cz",
+    "commit": "git cz",
     "semantic-release": "semantic-release",
     "prepublishOnly": "npm run version && npm run bundle"
   },
@@ -48,7 +48,7 @@
   "devDependencies": {
     "eslint-plugin-vue": "4.7.1",
     "kw-doc": "1.2.1",
-    "kw-web-suite": "7.0.1",
+    "kw-web-suite": "7.0.2",
     "vue-loader": "15.4.1",
     "vue-style-loader": "4.1.2",
     "vue-template-compiler": "2.5.17"
