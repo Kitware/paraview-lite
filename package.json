@@ -46,19 +46,16 @@
     "wslink": "0.1.7"
   },
   "devDependencies": {
-    "babel-plugin-syntax-dynamic-import": "6.18.0",
     "eslint-plugin-vue": "4.7.1",
     "kw-doc": "1.2.1",
-    "kw-web-suite": "6.2.0",
+    "kw-web-suite": "7.0.1",
     "vue-loader": "15.4.1",
     "vue-style-loader": "4.1.2",
-    "vue-template-compiler": "2.5.17",
-    "webpack-merge": "4.1.4",
-    "write-file-webpack-plugin": "4.4.0"
+    "vue-template-compiler": "2.5.17"
   },
   "config": {
     "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
+      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }

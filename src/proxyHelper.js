@@ -329,8 +329,7 @@ export function generateComponentWithServerBinding(
                     }
                     subProxyValues[localState[key].subProxy][
                       localState[key].label
-                    ] =
-                      localState[key].value;
+                    ] = localState[key].value;
                   }
                 });
               }

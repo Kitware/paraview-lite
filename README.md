@@ -35,7 +35,7 @@ As a server based web application, ParaView Lite can be run by starting the serv
 Building for development
 ========================
 
-The prerequisites are [git][] and [node.js + npm][].
+The prerequisites are [git][] and [node 8.12+][]. To manage node, we recommend using [nvm][].
 
 If you wish to view, enhance, or adapt this application in any way, you can access and run the freely available source code from any platform using the following commands:
 
@@ -58,7 +58,8 @@ $ npm run build:release
 This will output the final bundle and assets to `dist/`.
 
 [git]: https://git-scm.com
-[node.js + npm]: https://nodejs.org/en
+[node 8.12+]: https://nodejs.org/en
+[nvm]: https://github.com/creationix/nvm
 
 
 Reporting Bugs and Making Contributions
