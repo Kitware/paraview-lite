@@ -1,0 +1,338 @@
+<div :class="$style.container">
+  <v-container fluid fill-height align-center :class="$style.topBar">
+    <v-layout row justify-start align-center>
+      <v-flex xs1 justify-center>
+        <v-icon :color="color">{{ module.icon }}</v-icon>
+      </v-flex>
+      <v-flex justify-start>
+        <label :class="$style.title" :color="color">{{ module.label }}</label>
+      </v-flex>
+      <v-spacer />
+      <v-btn
+        flat
+        icon
+        @click="deleteProxy"
+        :color="color"
+      >
+        <v-icon>delete_forever</v-icon>
+      </v-btn>
+    </v-layout>
+  </v-container>
+
+  <v-card flat :class="$style.block">
+    <v-card-text :class="$style.blockContent">
+      <v-container fluid grid-list-md :class="$style.noPaddingMargin">
+        <v-layout row wrap align-center>
+          <v-flex xs12>
+            <v-combobox
+              ref="comboBoxA"
+              @input="blur('comboBoxA')"
+              v-model="inputVector"
+              :items="vectorArrays"
+              label="Stream Trace By"
+            />
+          </v-flex>
+          <v-flex xs6>
+            <v-switch
+              block
+              label="Surface"
+              v-model="surfaceStreamlines"
+              :class="$style.noTopPadding"
+              hide-details
+            />
+          </v-flex>
+          <v-flex xs6>
+            <v-switch
+              block
+              label="Vorticity"
+              v-model="computeVorticity"
+              :class="$style.noTopPadding"
+              hide-details
+            />
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-card-text>
+  </v-card>
+
+  <br/>
+  <v-divider />
+
+  <v-card flat :class="$style.block">
+    <v-card-title :class="$style.blockTitle">
+      <div class="body-2">Line</div>
+      <v-spacer />
+      <v-btn icon @click="toggleContext">
+        <v-icon>{{ contextVisibility ? 'visibility' : 'visibility_off'}}</v-icon>
+      </v-btn>
+    </v-card-title>
+    <v-card-text :class="$style.blockContent">
+      <v-container fluid grid-list-md :class="$style.noPaddingMargin">
+        <v-layout row wrap align-center>
+          <v-flex xs1>
+            <label :class="$style.smallLabel">X</label>
+          </v-flex>
+          <v-flex xs8>
+            <v-range-slider
+              :class="$style.noTopPadding"
+              hide-details
+
+              v-model="xSpan"
+              :min="inputBounds[0]"
+              :max="inputBounds[1]"
+              step="any"
+            />
+          </v-flex>
+          <v-flex xs1/>
+          <v-flex xs2>
+            <v-switch
+              block
+              v-model="xSwap"
+              :class="$style.noTopPadding"
+              hide-details
+            />
+          </v-flex>
+          <v-flex xs1>
+            <label :class="$style.smallLabel">Y</label>
+          </v-flex>
+          <v-flex xs8>
+            <v-range-slider
+              :class="$style.noTopPadding"
+              hide-details
+
+              v-model="ySpan"
+              :min="inputBounds[2]"
+              :max="inputBounds[3]"
+              step="any"
+            />
+          </v-flex>
+          <v-flex xs1/>
+          <v-flex xs2>
+            <v-switch
+              block
+              v-model="ySwap"
+              :class="$style.noTopPadding"
+              hide-details
+            />
+          </v-flex>
+          <v-flex xs1>
+            <label :class="$style.smallLabel">Z</label>
+          </v-flex>
+          <v-flex xs8>
+            <v-range-slider
+              :class="$style.noTopPadding"
+              hide-details
+
+              v-model="zSpan"
+              :min="inputBounds[4]"
+              :max="inputBounds[5]"
+              step="any"
+            />
+          </v-flex>
+          <v-flex xs1/>
+          <v-flex xs2>
+            <v-switch
+              block
+              v-model="zSwap"
+              :class="$style.noTopPadding"
+              hide-details
+            />
+          </v-flex>
+          <v-flex xs12>
+            <v-text-field
+              hide-details
+              type="number"
+              label="Resolution"
+
+              v-model="resolution"
+              :min="3"
+              :max="1000"
+              step="any"
+            />
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-card-text>
+  </v-card>
+
+  <br/>
+  <v-divider />
+
+  <v-expansion-panel>
+    <v-expansion-panel-content>
+      <div slot="header">Integration Parameters</div>
+      <v-divider />
+      <v-card flat :class="$style.block">
+        <v-card-text :class="$style.blockContent">
+          <v-container fluid grid-list-md :class="$style.noPaddingMargin">
+            <v-layout row wrap align-center >
+              <v-flex xs12>
+                <v-combobox
+                  ref="comboBoxB"
+                  @input="blur('comboBoxB')"
+                  v-model="interpolatorType"
+                  :items="allItems.interpolatorType"
+                  label="Interpolator"
+                />
+              </v-flex>
+
+              <v-flex xs12>
+                <v-combobox
+                  ref="comboBoxC"
+                  @input="blur('comboBoxC')"
+                  v-model="integrationDirection"
+                  :items="allItems.integrationDirection"
+                  label="Integration Direction"
+                />
+              </v-flex>
+
+              <v-flex xs12>
+                <v-combobox
+                  ref="comboBoxD"
+                  @input="blur('comboBoxD')"
+                  v-model="integratorType"
+                  :items="allItems.integratorType"
+                  label="Integrator Type"
+                />
+              </v-flex>
+
+              <v-flex xs12>
+                <v-combobox
+                  ref="comboBoxE"
+                  @input="blur('comboBoxE')"
+                  v-model="integrationStepUnit"
+                  :items="allItems.integrationStepUnit"
+                  label="Integration Step Unit"
+                />
+              </v-flex>
+
+              <v-flex xs12>
+                <v-text-field
+                  hide-details
+                  type="number"
+                  label="Initial Step Length"
+
+                  v-model="initialIntegrationStep"
+                  step="any"
+                />
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field
+                  hide-details
+                  type="number"
+                  label="Minimum Step Length"
+
+                  v-model="minimumIntegrationStep"
+                  step="any"
+                />
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field
+                  hide-details
+                  type="number"
+                  label="Maximum Step Length"
+
+                  v-model="maximumIntegrationStep"
+                  step="any"
+                />
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-text>
+      </v-card>
+    </v-expansion-panel-content>
+    <v-expansion-panel-content>
+      <div slot="header">Streamline Parameters</div>
+      <v-divider />
+      <v-card flat :class="$style.block">
+        <v-card-text :class="$style.blockContent">
+          <v-container fluid grid-list-md :class="$style.noPaddingMargin">
+            <v-layout row wrap align-center >
+              <v-flex xs12>
+                <v-text-field
+                  hide-details
+                  type="number"
+                  label="Maximum Steps"
+
+                  v-model="maximumNumberOfSteps"
+                  step="1"
+                />
+              </v-flex>
+
+              <v-flex xs12>
+                <v-text-field
+                  hide-details
+                  type="number"
+                  label="Maximum Streamline Length"
+
+                  v-model="maximumPropagation"
+                  step="any"
+                />
+              </v-flex>
+
+              <v-flex xs12>
+                <v-text-field
+                  hide-details
+                  type="number"
+                  label="Terminal Speed"
+
+                  v-model="terminalSpeed"
+                  step="any"
+                />
+              </v-flex>
+
+              <v-flex xs12>
+                <v-text-field
+                  hide-details
+                  type="number"
+                  label="Maximun Error"
+
+                  v-model="maximumError"
+                  step="any"
+                />
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-text>
+      </v-card>
+    </v-expansion-panel-content>
+  </v-expansion-panel>
+
+  <br/>
+
+  <v-card flat :class="$style.block" v-if="create">
+    <v-btn
+      block
+      outline
+      color="indigo"
+      @click="createProxy"
+    >Create</v-btn>
+  </v-card>
+
+  <v-container
+    fluid
+    grid-list-md
+    v-if="hasChange() && !autoApply && !create"
+    :class="$style.buttonBar"
+  >
+    <v-layout row wrap align-center >
+      <v-flex xs3>
+        <v-btn
+          block
+          outline
+          color="red darken-1"
+          @click="reset"
+        >Reset</v-btn>
+      </v-flex>
+      <v-spacer />
+      <v-flex xs7>
+        <v-btn
+          block
+          outline
+          color="teal accent-4"
+          @click="apply"
+        >Apply ({{ hasChange() }})</v-btn>
+      </v-flex>
+    </v-layout>
+  </v-container>
+</div>

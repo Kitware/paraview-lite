@@ -33,7 +33,6 @@ export default {
       if (client) {
         client.remote.TimeHandler.getTimeValues()
           .then((times) => {
-            console.log('times', times);
             if (
               times.length &&
               times.length !== state.values.length &&

@@ -12,6 +12,10 @@ from vtkmodules.vtkPVServerManagerRendering import vtkSMPVRepresentationProxy, v
 from vtkmodules.vtkWebCore import vtkDataEncoder
 
 class ParaViewLite(pv_protocols.ParaViewWebProtocol):
+    def __init__(self, **kwargs):
+      super(pv_protocols.ParaViewWebProtocol, self).__init__()
+      self.lineContext = None
+
     @exportRpc("paraview.lite.proxy.name")
     def getProxyName(self, pid):
       proxy = self.mapIdToProxy(pid)
@@ -119,3 +123,20 @@ class ParaViewLite(pv_protocols.ParaViewWebProtocol):
       lutProxy = simple.GetColorTransferFunction(arrayName)
       lutProxy.ApplyPreset(presetName, True)
       self.getApplication().InvokeEvent('UpdateEvent')
+
+
+    @exportRpc("paraview.lite.context.line.set")
+    def updateLineContext(self, visible = False, p1 = [0, 0, 0], p2 = [1, 1, 1]):
+      if not self.lineContext:
+        self.lineContext = servermanager.extended_sources.HighResolutionLineSource(Resolution=2, Point1=p1, Point2=p2)
+        self.lineRepresentation = simple.Show(self.lineContext)
+
+      self.lineRepresentation.Visibility = 1 if visible else 0
+      self.lineContext.Point1 = p1
+      self.lineContext.Point2 = p2
+
+      self.getApplication().InvokeEvent('UpdateEvent')
+
+      return self.lineContext.GetGlobalIDAsString()
+
+

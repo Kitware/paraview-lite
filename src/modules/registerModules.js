@@ -21,6 +21,9 @@ import sliceModule from 'paraview-lite/src/modules/Slice/module';
 import Contour from 'paraview-lite/src/modules/Contour';
 import contourModule from 'paraview-lite/src/modules/Contour/module';
 
+import StreamTracer from 'paraview-lite/src/modules/StreamTracer';
+import streamTracerModule from 'paraview-lite/src/modules/StreamTracer/module';
+
 import Threshold from 'paraview-lite/src/modules/Threshold';
 import thresholdModule from 'paraview-lite/src/modules/Threshold/module';
 
@@ -64,6 +67,10 @@ export default function registerModules(store) {
     Mutations.MODULES_ADD,
     Object.assign({}, thresholdModule, { component: Threshold })
   );
+  store.commit(
+    Mutations.MODULES_ADD,
+    Object.assign({}, streamTracerModule, { component: StreamTracer })
+  );
 
   // --------------------------------------------------------------------------
   // Proxy to UI mapping
@@ -95,6 +102,10 @@ export default function registerModules(store) {
   store.commit(Mutations.PROXY_MODULE_BIND, {
     name: 'Threshold',
     module: 'Threshold',
+  });
+  store.commit(Mutations.PROXY_MODULE_BIND, {
+    name: 'StreamTracer',
+    module: 'StreamTracer',
   });
 
   // --------------------------------------------------------------------------

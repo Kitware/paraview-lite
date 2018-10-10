@@ -13,12 +13,11 @@ export default {
     sources: {
       type: Array,
       default: () => [
-        'AnnotateTime',
-        'Box',
+        // 'Box',
         'Cone',
-        'Cylinder',
+        // 'Cylinder',
         'Sphere',
-        'Text',
+        // 'Text',
         'Wavelet',
       ],
     },

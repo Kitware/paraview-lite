@@ -126,6 +126,9 @@ export const Actions = objEnum([
   'COLOR_FETCH_PRESET_NAMES',
   'COLOR_APPLY_PRESET',
 
+  // contexts
+  'CONTEXTS_LINE',
+
   // index
   'APP_ROUTE_LANDING',
   'APP_ROUTE_RUN',

@@ -184,7 +184,6 @@ export default {
       if (client) {
         client.remote.ProxyManager.get(proxyId, needUI)
           .then((proxy) => {
-            // console.log(JSON.stringify(proxy.data, null, 2));
             commit(Mutations.PROXY_DATA_SET, proxy);
           })
           .catch(console.error);

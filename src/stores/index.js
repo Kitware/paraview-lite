@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 
 import busy from 'paraview-lite/src/stores/busy';
 import color from 'paraview-lite/src/stores/color';
+import contexts from 'paraview-lite/src/stores/contexts';
 import modules from 'paraview-lite/src/stores/modules';
 import network from 'paraview-lite/src/stores/network';
 import proxy from 'paraview-lite/src/stores/proxy';
@@ -45,6 +46,7 @@ function createStore() {
     modules: {
       busy,
       color,
+      contexts,
       modules,
       network,
       proxy,
