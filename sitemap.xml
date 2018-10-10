@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://kitware.github.io/paraview-lite/api/components_core_View.html</loc>
+    
+    <lastmod>2018-10-10T18:54:23.623Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/paraview-lite/api/components_core_GlobalSettings.html</loc>
+    
+    <lastmod>2018-10-10T18:54:23.611Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_widgets_TreeView.html</loc>
     
     <lastmod>2018-10-05T20:04:22.727Z</lastmod>
@@ -65,23 +79,9 @@
   </url>
   
   <url>
-    <loc>https://kitware.github.io/paraview-lite/api/components_core_View.html</loc>
-    
-    <lastmod>2018-10-05T20:04:22.695Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_core_RepresentationToolbar.html</loc>
     
     <lastmod>2018-10-05T20:04:22.691Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/paraview-lite/api/components_core_LayoutView.html</loc>
-    
-    <lastmod>2018-10-05T20:04:22.687Z</lastmod>
     
   </url>
   
@@ -93,9 +93,9 @@
   </url>
   
   <url>
-    <loc>https://kitware.github.io/paraview-lite/api/components_core_GlobalSettings.html</loc>
+    <loc>https://kitware.github.io/paraview-lite/api/components_core_LayoutView.html</loc>
     
-    <lastmod>2018-10-05T20:04:22.683Z</lastmod>
+    <lastmod>2018-10-05T20:04:22.687Z</lastmod>
     
   </url>
   
