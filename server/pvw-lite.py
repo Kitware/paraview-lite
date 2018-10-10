@@ -93,12 +93,7 @@ from wslink import server
 
 import lite_protocols as local_protocols
 
-try:
-    import argparse
-except ImportError:
-    # since  Python 2.6 and earlier don't have argparse, we simply provide
-    # the source for the same as _argparse and we use it instead.
-    from vtk.util import _argparse as argparse
+import argparse
 
 # =============================================================================
 # Create custom Pipeline Manager class to handle clients requests
@@ -211,6 +206,7 @@ class _Server(pv_wslink.PVServerProtocol):
         view.Background = [0.4470588235294118, 0.4470588235294118, 0.4470588235294118]
         view.Background2 = [0.2235294117647059, 0.2235294117647059, 0.2235294117647059]
         view.UseGradientBackground = 1
+        view.OrientationAxesVisibility = 0
 
         # ProxyManager helper
         pxm = simple.servermanager.ProxyManager()

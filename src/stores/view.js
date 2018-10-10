@@ -45,7 +45,6 @@ export default {
     interactiveRatio: 1,
     maxFPS: 30,
     mouseThrottle: 16.6,
-    cameraMode: true, // left+/right-
     camera: null,
     viewProxy: null,
     inAnimation: false,
@@ -56,6 +55,9 @@ export default {
     },
     VIEW_ID(state) {
       return state.view;
+    },
+    VIEW_PROXY(state) {
+      return state.viewProxy;
     },
     VIEW_QUALITY_STILL(state) {
       return state.stillQuality;
@@ -74,9 +76,6 @@ export default {
     },
     VIEW_MOUSE_THROTTLE(state) {
       return state.mouseThrottle;
-    },
-    VIEW_CAMERA_MODE(state) {
-      return state.cameraMode;
     },
   },
   mutations: {
@@ -109,9 +108,6 @@ export default {
     },
     VIEW_MOUSE_THROTTLE_SET(state, value) {
       state.mouseThrottle = value;
-    },
-    VIEW_CAMERA_MODE_SET(state, value) {
-      state.cameraMode = value;
     },
   },
   actions: {
@@ -190,32 +186,26 @@ export default {
         intervalId = setInterval(rotate, 10);
       }
     },
-    VIEW_UPDATE_ORIENTATION({ state, commit }, { axis, orientation }) {
-      console.log('orientation', orientation, axis);
+    VIEW_UPDATE_ORIENTATION({ state, commit }, { axis, orientation, viewUp }) {
       if (state.viewProxy && !state.inAnimation) {
         state.inAnimation = true;
         state.viewProxy
-          .updateOrientation(axis, orientation, VIEW_UPS[axis], 100)
+          .updateOrientation(axis, orientation, viewUp || VIEW_UPS[axis], 100)
           .then(() => {
             state.inAnimation = false;
           });
       }
     },
     VIEW_RENDER({ rootState, state }, id) {
-      console.log('RENDER');
       const client = rootState.network.client;
       const viewId = id || state.view;
       if (client) {
-        console.log('trigger render');
         client.remote.VtkImageDelivery.stillRender({ view: viewId }).catch(
           console.error
         );
       } else {
         console.error('no client', rootState);
       }
-    },
-    VIEW_CAMERA_MODE_TOGGLE({ state, commit }) {
-      commit(Mutations.VIEW_CAMERA_MODE_SET, !state.cameraMode);
     },
   },
 };

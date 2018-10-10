@@ -13,7 +13,7 @@
           <v-icon>filter_center_focus</v-icon>
         </v-btn>
       </v-tooltip>
-      <v-tooltip left v-if="cameraMode">
+      <v-tooltip left>
         <span :class="$style.noSelect">Rotate camera left 90°</span>
         <v-btn
           slot="activator"
@@ -25,7 +25,7 @@
           <v-icon>rotate_left</v-icon>
         </v-btn>
       </v-tooltip>
-      <v-tooltip left v-if="!cameraMode">
+      <v-tooltip left>
         <span :class="$style.noSelect">Rotate camera right 90°</span>
         <v-btn
           slot="activator"
@@ -35,42 +35,6 @@
           v-on:click="rollRight()"
         >
           <v-icon>rotate_right</v-icon>
-        </v-btn>
-      </v-tooltip>
-      <v-tooltip left>
-        <span :class="$style.noSelect">Reset Camera to Orientation {{orientationLabels[0]}}</span>
-        <v-btn
-          slot="activator"
-          icon
-          dark
-          small
-          v-on:click="updateOrientation({ axis: 0, orientation: cameraMode ? 1 : -1 })"
-        >
-          {{orientationLabels[0]}}
-        </v-btn>
-      </v-tooltip>
-      <v-tooltip left>
-        <span :class="$style.noSelect">Reset Camera to Orientation {{orientationLabels[1]}}</span>
-        <v-btn
-          slot="activator"
-          icon
-          dark
-          small
-          v-on:click="updateOrientation({ axis: 1, orientation: cameraMode ? 1 : -1 })"
-        >
-          {{orientationLabels[1]}}
-        </v-btn>
-      </v-tooltip>
-      <v-tooltip left>
-        <span :class="$style.noSelect">Reset Camera to Orientation {{orientationLabels[2]}}</span>
-        <v-btn
-          slot="activator"
-          icon
-          dark
-          small
-          v-on:click="updateOrientation({ axis: 2, orientation: cameraMode ? 1 : -1 })"
-        >
-          {{orientationLabels[2]}}
         </v-btn>
       </v-tooltip>
     </v-layout>

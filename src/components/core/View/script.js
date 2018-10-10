@@ -1,4 +1,7 @@
 import vtkViewProxy from 'vtk.js/Sources/Proxy/Core/ViewProxy';
+import vtkInteractiveOrientationWidget from 'vtk.js/Sources/Widgets/Widgets3D/InteractiveOrientationWidget';
+import vtkWidgetManager from 'vtk.js/Sources/Widgets/Core/WidgetManager';
+import vtkOrientationMarkerWidget from 'vtk.js/Sources/Interaction/Widgets/OrientationMarkerWidget';
 
 import { mapGetters, mapActions } from 'vuex';
 import { Getters, Actions, Mutations } from 'paraview-lite/src/stores/types';
@@ -6,6 +9,14 @@ import { Getters, Actions, Mutations } from 'paraview-lite/src/stores/types';
 // ----------------------------------------------------------------------------
 // Component API
 // ----------------------------------------------------------------------------
+
+function majorAxis(vec3, idxA, idxB) {
+  const axis = [0, 0, 0];
+  const idx = Math.abs(vec3[idxA]) > Math.abs(vec3[idxB]) ? idxA : idxB;
+  const value = vec3[idx] > 0 ? 1 : -1;
+  axis[idx] = value;
+  return axis;
+}
 
 // ----------------------------------------------------------------------------
 
@@ -22,8 +33,8 @@ export default {
     this.viewStream = this.client.imageStream.createViewStream('-1');
     this.view.getOpenglRenderWindow().setViewStream(this.viewStream);
     this.view.setBackground([0, 0, 0, 0]);
-    this.view.setOrientationAxesVisibility(false);
-    this.viewStream.setCamera(this.view.getRenderer().getActiveCamera());
+    this.camera = this.view.getCamera();
+    this.viewStream.setCamera(this.camera);
 
     // Bind user input
     this.view
@@ -34,6 +45,46 @@ export default {
       .getRenderWindow()
       .getInteractor()
       .onEndAnimation(this.viewStream.endInteraction);
+
+    // Add orientation widget
+    const orientationWidget = this.view.getReferenceByName('orientationWidget');
+    this.widgetManager = vtkWidgetManager.newInstance();
+    this.widgetManager.setRenderer(orientationWidget.getRenderer());
+    orientationWidget.setViewportCorner(
+      vtkOrientationMarkerWidget.Corners.TOP_LEFT
+    );
+
+    const bounds = [-0.5, 0.5, -0.5, 0.5, -0.5, 0.5];
+    this.widget = vtkInteractiveOrientationWidget.newInstance();
+    this.widget.placeWidget(bounds);
+    this.widget.setBounds(bounds);
+    this.widget.setPlaceFactor(1);
+
+    // Manage user interaction
+    this.viewWidget = this.widgetManager.addWidget(this.widget);
+    this.viewWidget.onOrientationChange(({ direction }) => {
+      const originalViewUp = this.camera.getViewUp();
+      let viewUp = [0, 0, 1];
+      let axis = 0;
+      let orientation = 1;
+
+      if (direction[0]) {
+        axis = 0;
+        orientation = direction[0] > 0 ? 1 : -1;
+        viewUp = majorAxis(originalViewUp, 1, 2);
+      }
+      if (direction[1]) {
+        axis = 1;
+        orientation = direction[1] > 0 ? 1 : -1;
+        viewUp = majorAxis(originalViewUp, 0, 2);
+      }
+      if (direction[2]) {
+        axis = 2;
+        orientation = direction[2] > 0 ? 1 : -1;
+        viewUp = majorAxis(originalViewUp, 0, 1);
+      }
+      this.updateOrientation({ axis, orientation, viewUp });
+    });
 
     // Initial config
     this.updateQuality();
@@ -49,13 +100,7 @@ export default {
       this.viewStream.pushCamera();
     });
   },
-  data() {
-    return {
-      orientationLabels: ['+X', '+Y', '+Z'],
-    };
-  },
   computed: mapGetters({
-    cameraMode: Getters.VIEW_CAMERA_MODE,
     client: Getters.NETWORK_CLIENT,
     showRenderingStats: Getters.VIEW_STATS,
     stillQuality: Getters.VIEW_QUALITY_STILL,
@@ -64,6 +109,7 @@ export default {
     interactiveRatio: Getters.VIEW_RATIO_INTERACTIVE,
     mouseThrottle: Getters.VIEW_MOUSE_THROTTLE,
     maxFPS: Getters.VIEW_FPS_MAX,
+    activeSources: Getters.PROXY_SELECTED_IDS,
   }),
   watch: {
     showRenderingStats() {
@@ -81,16 +127,11 @@ export default {
     interactiveRatio() {
       this.updateRatio();
     },
-    mouseThrottle() {
-      // this.mouseListener.setThrottleTime(this.mouseThrottle);
-    },
     maxFPS() {
       this.client.imageStream.setServerAnimationFPS(this.maxFPS);
     },
-    cameraMode() {
-      this.orientationLabels = ['X', 'Y', 'Z'].map(
-        (v) => `${this.cameraMode ? '+' : '-'}${v}`
-      );
+    activeSources() {
+      this.onResize();
     },
   },
   methods: Object.assign(
@@ -101,9 +142,6 @@ export default {
           this.view.renderLater();
           this.viewStream.render();
         }
-      },
-      toggleMode() {
-        this.cameraMode = !this.cameraMode;
       },
       updateQuality() {
         this.viewStream.setInteractiveQuality(this.interactiveQuality);

@@ -3,11 +3,7 @@ import vtkMath from 'vtk.js/Sources/Common/Core/Math';
 
 import { Actions, Mutations } from 'paraview-lite/src/stores/types';
 
-import {
-  generateComponentWithServerBinding,
-  bool2int,
-  toBoolean,
-} from 'paraview-lite/src/proxyHelper';
+import { generateComponentWithServerBinding } from 'paraview-lite/src/proxyHelper';
 
 // ----------------------------------------------------------------------------
 // Component API
@@ -20,12 +16,6 @@ export default generateComponentWithServerBinding(
     bg: { name: 'Background', noAutoApply: true },
     bg2: { name: 'Background2', noAutoApply: true },
     gradient: { name: 'UseGradientBackground', noAutoApply: true },
-    axis: {
-      name: 'OrientationAxesVisibility',
-      clientToServer: bool2int,
-      serverToClient: toBoolean,
-      autoApply: true,
-    },
   },
   {
     name: 'GlobalSettings',
