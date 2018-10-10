@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Mutations } from 'paraview-lite/src/stores/types';
+import { Actions, Mutations } from 'paraview-lite/src/stores/types';
 
 import vtkActor from 'vtk.js/Sources/Rendering/Core/Actor';
 import vtkMapper from 'vtk.js/Sources/Rendering/Core/Mapper';
@@ -33,6 +33,13 @@ function updateCamera(viewProxy, cameraInfo) {
   if (centerOfRotation) {
     viewProxy.getInteractorStyle3D().setCenterOfRotation(centerOfRotation);
   }
+
+  // Update changes
+  viewProxy
+    .getOpenglRenderWindow()
+    .getReferenceByName('viewStream')
+    .pushCamera();
+  viewProxy.renderLater();
 }
 
 export default {
@@ -186,13 +193,17 @@ export default {
         intervalId = setInterval(rotate, 10);
       }
     },
-    VIEW_UPDATE_ORIENTATION({ state, commit }, { axis, orientation, viewUp }) {
+    VIEW_UPDATE_ORIENTATION(
+      { state, commit, dispatch },
+      { axis, orientation, viewUp }
+    ) {
       if (state.viewProxy && !state.inAnimation) {
         state.inAnimation = true;
         state.viewProxy
           .updateOrientation(axis, orientation, viewUp || VIEW_UPS[axis], 100)
           .then(() => {
             state.inAnimation = false;
+            dispatch(Actions.VIEW_RESET_CAMERA);
           });
       }
     },

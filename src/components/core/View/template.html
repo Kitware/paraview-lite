@@ -39,5 +39,10 @@
       </v-tooltip>
     </v-layout>
   </v-container>
+  <div
+    :class="$style.tootip"
+    :style="tooltipStyle"
+    v-show="orientationTooltip"
+  >{{ orientationTooltip }}</div>
   <div :class="[$style.renderer, 'js-renderer']" />
 </v-container>
