@@ -54,7 +54,7 @@ export default {
       vtkOrientationMarkerWidget.Corners.TOP_LEFT
     );
 
-    const bounds = [-0.5, 0.5, -0.5, 0.5, -0.5, 0.5];
+    const bounds = [-0.51, 0.51, -0.51, 0.51, -0.51, 0.51];
     this.widget = vtkInteractiveOrientationWidget.newInstance();
     this.widget.placeWidget(bounds);
     this.widget.setBounds(bounds);
@@ -98,6 +98,7 @@ export default {
     this.client.remote.Lite.getCamera('-1').then((cameraInfo) => {
       this.updateCamera(cameraInfo);
       this.viewStream.pushCamera();
+      this.onResize();
     });
   },
   computed: mapGetters({

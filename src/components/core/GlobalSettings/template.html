@@ -3,6 +3,16 @@
   <v-card flat :class="$style.card">
     <div :class="$style.heading">
       <span class="body-2">Settings</span>
+      <v-btn
+        @click="resetSettings"
+        absolute
+        icon
+        flat
+        style="top: 50%; right: 0; transform: translateY(-50%);"
+        v-show="hasChanges"
+      >
+        <v-icon>undo</v-icon>
+    </v-btn>
     </div>
     <v-divider :class="$style.divider" />
     <v-container fluid grid-list-md :class="$style.noPadding">

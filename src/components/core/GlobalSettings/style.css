@@ -12,6 +12,7 @@
 
 .heading {
   padding: 8px 0;
+  position: relative;
 }
 
 .divider {

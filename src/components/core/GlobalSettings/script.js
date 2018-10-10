@@ -5,6 +5,88 @@ import { Actions, Mutations } from 'paraview-lite/src/stores/types';
 
 import { generateComponentWithServerBinding } from 'paraview-lite/src/proxyHelper';
 
+function storeItem(key, value) {
+  window.localStorage.setItem(
+    `paraview.lite.config.${key.name}`,
+    key.set(value)
+  );
+}
+
+function retreiveItem(key, defaultValue) {
+  const vStr = window.localStorage.getItem(`paraview.lite.config.${key.name}`);
+  if (vStr === undefined || vStr === null) {
+    return defaultValue || key.defaultValue;
+  }
+  return key.get(vStr);
+}
+
+function booleanSet(v) {
+  return v ? '1' : '0';
+}
+
+function booleanGet(v) {
+  return !!Number(v);
+}
+
+function numberSet(v) {
+  return `${v}`;
+}
+
+function numberGet(v) {
+  return Number(v);
+}
+
+const KEYS = {
+  DARK_MODE: {
+    name: 'darkmode',
+    set: booleanSet,
+    get: booleanGet,
+    defaultValue: false,
+    variable: 'darkMode',
+  },
+  AUTO_APPLY: {
+    name: 'autoapply',
+    set: booleanSet,
+    get: booleanGet,
+    defaultValue: true,
+    variable: 'autoApply',
+  },
+  MAX_FPS: {
+    name: 'fps',
+    set: numberSet,
+    get: numberGet,
+    defaultValue: 30,
+    variable: 'maxFPS',
+  },
+  MOUSE_THROTTLE: {
+    name: 'throttle',
+    set: numberSet,
+    get: numberGet,
+    defaultValue: 16.6,
+    variable: 'mouseThottle',
+  },
+  RATIO: {
+    name: 'ratio',
+    set: numberSet,
+    get: numberGet,
+    defaultValue: 1,
+    variable: 'interactiveRatio',
+  },
+  QUALITY: {
+    name: 'quality',
+    set: numberSet,
+    get: numberGet,
+    defaultValue: 80,
+    variable: 'interactiveQuality',
+  },
+};
+
+// function purgeLocalStorage() {
+//   Object.values(KEYS).forEach(({ name }) => {
+//     localStorage.removeItem(`paraview.lite.config.${name}`);
+//   });
+// }
+
 // ----------------------------------------------------------------------------
 // Component API
 // ----------------------------------------------------------------------------
@@ -49,45 +131,91 @@ export default generateComponentWithServerBinding(
         ],
       };
     },
+    methods: {
+      wrapGet(storeGetKey, storeSetKey, storageKey) {
+        const originalValue = this.$store.getters[storeGetKey];
+        const value = retreiveItem(KEYS[storageKey], originalValue);
+        if (value !== originalValue) {
+          this.$store.commit(Mutations[storeSetKey], value);
+        }
+        return value;
+      },
+      wrapSet(storeSetKey, storageKey, value) {
+        storeItem(KEYS[storageKey], value);
+        this.$store.commit(Mutations[storeSetKey], value);
+      },
+      resetSettings() {
+        Object.values(KEYS).forEach(({ variable, defaultValue }) => {
+          this[variable] = defaultValue;
+        });
+      },
+    },
     computed: {
+      hasChanges() {
+        let changeDetected = false;
+        Object.values(KEYS).forEach(({ variable, defaultValue }) => {
+          if (this[variable] !== defaultValue) {
+            changeDetected = true;
+          }
+        });
+        return changeDetected;
+      },
       darkMode: {
         get() {
-          return this.$store.getters.APP_DARK_THEME;
+          return this.wrapGet(
+            'APP_DARK_THEME',
+            'APP_DARK_THEME_SET',
+            'DARK_MODE'
+          );
         },
         set(value) {
-          this.$store.commit(Mutations.APP_DARK_THEME_SET, value);
+          return this.wrapSet('APP_DARK_THEME_SET', 'DARK_MODE', value);
         },
       },
       interactiveQuality: {
         get() {
-          return this.$store.getters.VIEW_QUALITY_INTERACTIVE;
+          return this.wrapGet(
+            'VIEW_QUALITY_INTERACTIVE',
+            'VIEW_QUALITY_INTERACTIVE_SET',
+            'QUALITY'
+          );
         },
         set(value) {
-          this.$store.commit(Mutations.VIEW_QUALITY_INTERACTIVE_SET, value);
+          this.wrapSet('VIEW_QUALITY_INTERACTIVE_SET', 'QUALITY', value);
         },
       },
       interactiveRatio: {
         get() {
-          return this.$store.getters.VIEW_RATIO_INTERACTIVE;
+          return this.wrapGet(
+            'VIEW_RATIO_INTERACTIVE',
+            'VIEW_RATIO_INTERACTIVE_SET',
+            'RATIO'
+          );
         },
         set(value) {
-          this.$store.commit(Mutations.VIEW_RATIO_INTERACTIVE_SET, value);
+          this.wrapSet('VIEW_RATIO_INTERACTIVE_SET', 'RATIO', value);
         },
       },
       maxFPS: {
         get() {
-          return this.$store.getters.VIEW_FPS_MAX;
+          return this.wrapGet('VIEW_FPS_MAX', 'VIEW_FPS_MAX_SET', 'MAX_FPS');
         },
         set(value) {
-          this.$store.commit(Mutations.VIEW_FPS_MAX_SET, value);
-          this.$store.commit(
-            Mutations.VIEW_MOUSE_THROTTLE_SET,
-            1000 / (2 * value)
-          );
+          this.wrapSet('VIEW_FPS_MAX_SET', 'MAX_FPS', value);
+          this.mouseThottle = 1000 / (2 * value);
         },
       },
-      mouseThottle() {
-        return this.$store.getters.VIEW_MOUSE_THROTTLE;
+      mouseThottle: {
+        get() {
+          return this.wrapGet(
+            'VIEW_MOUSE_THROTTLE',
+            'VIEW_MOUSE_THROTTLE_SET',
+            'MOUSE_THROTTLE'
+          );
+        },
+        set(value) {
+          this.wrapSet('VIEW_MOUSE_THROTTLE_SET', 'MOUSE_THROTTLE', value);
+        },
       },
       showRenderingStats: {
         get() {
@@ -100,10 +228,14 @@ export default generateComponentWithServerBinding(
       },
       autoApply: {
         get() {
-          return this.$store.getters.APP_AUTO_APPLY;
+          return this.wrapGet(
+            'APP_AUTO_APPLY',
+            'APP_AUTO_APPLY_SET',
+            'AUTO_APPLY'
+          );
         },
         set(value) {
-          this.$store.commit(Mutations.APP_AUTO_APPLY_SET, value);
+          this.wrapSet('APP_AUTO_APPLY_SET', 'AUTO_APPLY', value);
         },
       },
       background: {
