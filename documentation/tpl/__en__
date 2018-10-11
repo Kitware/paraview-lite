@@ -1,5 +1,6 @@
 menu:
-  docs: Docs
+  docs: Documentation
+  gallery: Gallery
   api: API
   examples: Examples
   news: News
