@@ -1,6 +1,23 @@
 /* eslint-disable no-unused-vars */
 import { Mutations, Actions } from 'paraview-lite/src/stores/types';
 
+function getInputRepresentation(repStr, replaceInput) {
+  switch (repStr) {
+    case '3D Glyphs':
+    case 'Feature Edges':
+    case 'Outline':
+    case 'Point Gaussian':
+    case 'Points':
+    case 'Wireframe':
+      return repStr;
+    case 'Surface':
+    case 'Surface With Edges':
+    case 'Volume':
+    default:
+      return 'Outline';
+  }
+}
+
 export default {
   state: {
     selectedSources: [], // list of ids of the selected sources
@@ -61,7 +78,7 @@ export default {
   },
   actions: {
     PROXY_CREATE(
-      { rootState, commit, dispatch },
+      { rootState, state, commit, dispatch },
       { name, parentId, initialValues, skipDomain, subProxyValues }
     ) {
       // console.log(
@@ -82,6 +99,23 @@ export default {
           subProxyValues
         )
           .then((proxy) => {
+            // Handle replaceInput hint
+            if (proxy.hints && proxy.hints.replaceInput !== undefined) {
+              const rep =
+                state.proxyDataMap[state.sourceToRepresentationMap[parentId]];
+              if (rep && proxy.hints.replaceInput === 2) {
+                const changeset = rep.properties.filter(
+                  (p) => p.name === 'Representation'
+                );
+                changeset[0].value = getInputRepresentation(
+                  changeset[0].value,
+                  proxy.hints.replaceInput
+                );
+                dispatch(Actions.PROXY_UPDATE, changeset);
+              }
+            }
+
+            // Fetch new data
             commit(Mutations.PROXY_DATA_SET, proxy);
             commit(Mutations.PROXY_SELECTED_IDS_SET, [proxy.id]);
             dispatch(Actions.PROXY_PIPELINE_FETCH);
