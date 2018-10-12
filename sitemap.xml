@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://kitware.github.io/paraview-lite/api/components_core_AboutBox.html</loc>
+    
+    <lastmod>2018-10-12T17:25:27.854Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://kitware.github.io/paraview-lite/gallery/index.html</loc>
     
     <lastmod>2018-10-11T22:18:48.810Z</lastmod>
@@ -65,14 +72,14 @@
   </url>
   
   <url>
-    <loc>https://kitware.github.io/paraview-lite/api/components_widgets_GitTree.html</loc>
+    <loc>https://kitware.github.io/paraview-lite/api/components_widgets_FloatingLookupTable.html</loc>
     
     <lastmod>2018-10-05T20:04:22.703Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://kitware.github.io/paraview-lite/api/components_widgets_FloatingLookupTable.html</loc>
+    <loc>https://kitware.github.io/paraview-lite/api/components_widgets_GitTree.html</loc>
     
     <lastmod>2018-10-05T20:04:22.703Z</lastmod>
     
@@ -138,13 +145,6 @@
     <loc>https://kitware.github.io/paraview-lite/api/components_core_ActionModules.html</loc>
     
     <lastmod>2018-10-05T20:04:22.663Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/paraview-lite/api/components_core_AboutBox.html</loc>
-    
-    <lastmod>2018-10-05T20:04:22.655Z</lastmod>
     
   </url>
   
