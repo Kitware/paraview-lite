@@ -114,6 +114,10 @@ export default class Client {
     this.connectionCallback = callback;
   }
 
+  getConfiguration() {
+    return this.smartConnect.getConfig();
+  }
+
   connect(config) {
     if (this.connection) {
       return Promise.reject(new Error('Need to disconnect before'));

@@ -34,6 +34,12 @@
       <li class="body-1">
         <span>Current version: {{version}}</span>
       </li>
+      <li class="body-1" v-if="sessionURL">
+        <span>Session URL: {{sessionURL}}</span>
+      </li>
+      <li class="body-1" v-if="token">
+        <span>Token: {{token}}</span>
+      </li>
     </ul>
     <v-layout row wrap class="text-xs-center" align-end>
       <v-flex xs6>
