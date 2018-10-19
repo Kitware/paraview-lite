@@ -29,6 +29,13 @@ export default {
         client.disconnect();
       }
       const clientToConnect = client || new Client();
+
+      clientToConnect.setBusyCallback((count) => {
+        commit(Mutations.BUSY_COUNT_SET, count);
+      });
+
+      clientToConnect.updateBusy(+1);
+
       clientToConnect
         .connect(config)
         .then((validClient) => {
@@ -37,14 +44,11 @@ export default {
           dispatch(Actions.PROXY_PIPELINE_FETCH);
           dispatch(Actions.APP_ROUTE_RUN);
           dispatch(Actions.COLOR_FETCH_PRESET_NAMES, 500);
+          clientToConnect.updateBusy(-1);
         })
         .catch((error) => {
           console.error(error);
         });
-
-      clientToConnect.setBusyCallback((count) => {
-        commit(Mutations.BUSY_COUNT_SET, count);
-      });
 
       clientToConnect.setConnectionErrorCallback((type, error) => {
         const message = (error && error.message) || `Connection ${type}`;
