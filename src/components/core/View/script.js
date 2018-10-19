@@ -199,9 +199,6 @@ export default {
     maxFPS() {
       this.client.imageStream.setServerAnimationFPS(this.maxFPS);
     },
-    activeSources() {
-      this.onResize();
-    },
   },
   methods: Object.assign(
     {

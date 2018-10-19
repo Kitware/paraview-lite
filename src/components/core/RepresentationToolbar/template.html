@@ -1,5 +1,6 @@
-<v-toolbar dense :class="$style.container" v-if="activeProxyData">
-  <collapsable-item icon="widgets" small>
+<v-toolbar dense :class="$style.container">
+  <v-layout row v-if="activeProxyData">
+    <collapsable-item icon="widgets" small>
     <v-combobox
       :class="$style.comboboxFirst"
       dense
@@ -11,37 +12,37 @@
       :items="representationItems"
       label="Representation"
     />
-  </collapsable-item>
-  <collapsable-item icon="palette">
-    <v-layout row fill-height align-center>
-      <v-combobox
-        :class="$style.combobox"
-        dense
-        flat
-        single-line
-        hide-details
+    </collapsable-item>
+    <collapsable-item icon="palette">
+      <v-layout row fill-height align-center>
+        <v-combobox
+          :class="$style.combobox"
+          dense
+          flat
+          single-line
+          hide-details
 
-        label="Color By"
+          label="Color By"
 
-        ref="colorBy"
+          ref="colorBy"
 
-        :value="colorValue"
-        :items="colorByItems"
-        @input="applyColor"
-      />
-      <palette-picker
-        v-if="colorValue === SOLID_COLOR_ITEM"
-        :palette="['#ffffff', '#cccccc', '#aaaaaa', '#777777', '#333333']"
-        :value="diffuseColor"
-        @input="updateColor"
-      />
-    </v-layout>
-  </collapsable-item>
-  <lookup-table-toolbar :lookupTable="lookupTable" />
+          :value="colorValue"
+          :items="colorByItems"
+          @input="applyColor"
+        />
+        <palette-picker
+          v-if="colorValue === SOLID_COLOR_ITEM"
+          :palette="['#ffffff', '#cccccc', '#aaaaaa', '#777777', '#333333']"
+          :value="diffuseColor"
+          @input="updateColor"
+        />
+      </v-layout>
+    </collapsable-item>
+    <lookup-table-toolbar :lookupTable="lookupTable"/>
 
-  <v-spacer />
+    <v-spacer />
 
-  <collapsable-item icon="access_time" small v-if="timeValues.length">
+    <collapsable-item icon="access_time" small v-if="timeValues.length">
     <v-slider
       :class="$style.opacity"
       hide-details
@@ -64,9 +65,9 @@
     <label :class="$style.timeLabel" :title="timeValues[timeIndex]">
       {{ timeValues[timeIndex] }}
     </label>
-  </collapsable-item>
+    </collapsable-item>
 
-  <collapsable-item icon="exposure" small>
+    <collapsable-item icon="exposure" small>
     <v-slider
       :class="$style.opacity"
       hide-details
@@ -76,8 +77,8 @@
       :max="1"
       step="0.01"
     />
-  </collapsable-item>
-  <collapsable-item icon="bubble_chart" small>
+    </collapsable-item>
+    <collapsable-item icon="bubble_chart" small>
     <v-text-field
       v-model="pointSize"
       class="pt-0"
@@ -87,8 +88,8 @@
       min="1"
       max="10"
     ></v-text-field>
-  </collapsable-item>
-  <collapsable-item icon="line_weight" small>
+    </collapsable-item>
+    <collapsable-item icon="line_weight" small>
     <v-text-field
       v-model="lineWidth"
       class="pt-0"
@@ -98,5 +99,7 @@
       min="1"
       max="10"
     ></v-text-field>
-  </collapsable-item>
+    </collapsable-item>
+  </v-layout>
+  <div v-if="!activeProxyData" :class="$style.empty"></div>
 </v-toolbar>
