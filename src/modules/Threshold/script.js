@@ -19,7 +19,7 @@ export default generateComponentWithServerBinding(
       clientToServer: ({ value }) => value.split(SEPARATOR),
       serverToClient: (v) => ({ text: v[1], value: v.join(SEPARATOR) }),
       autoApply: false,
-      default: ['POINTS', ''],
+      default: ['', ''],
     },
     thresholdRange: {
       name: 'ThresholdBetween',
@@ -109,7 +109,7 @@ export default generateComponentWithServerBinding(
         if (compute) {
           this.localRange = [min, max];
           this.thresholdRange = [min, max];
-          this.resetThresholdValues = false;
+          this.resetThresholdValues = !activeArray;
         }
 
         this.dataRange = newData;
