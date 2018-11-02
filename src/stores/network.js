@@ -36,6 +36,14 @@ export default {
 
       clientToConnect.updateBusy(+1);
 
+      clientToConnect.setConnectionErrorCallback((type, httpReq) => {
+        const message =
+          (httpReq && httpReq.response && httpReq.response.error) ||
+          `Connection ${type}`;
+        console.error(message);
+        console.log(httpReq);
+      });
+
       clientToConnect
         .connect(config)
         .then((validClient) => {
@@ -49,12 +57,6 @@ export default {
         .catch((error) => {
           console.error(error);
         });
-
-      clientToConnect.setConnectionErrorCallback((type, error) => {
-        const message = (error && error.message) || `Connection ${type}`;
-        console.log(error);
-        console.error(message);
-      });
     },
   },
 };
