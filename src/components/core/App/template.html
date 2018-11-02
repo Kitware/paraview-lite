@@ -102,6 +102,10 @@
     v-model="errorDialog"
     max-width="50%"
   >
-    <error-box :errors="errors" v-on:close="errorDialog = false" />
+    <error-box
+      :errors="errors"
+      v-on:close="errorDialog = false"
+      v-on:clear="errors = []"
+    />
   </component>
 </v-app>
