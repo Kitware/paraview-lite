@@ -1,5 +1,4 @@
 module.exports = {
-  cname: 'kitware.github.io',
   baseUrl: '/paraview-lite',
   work: './build-tmp',
   api: ['../src'],
