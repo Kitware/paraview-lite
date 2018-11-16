@@ -118,41 +118,45 @@ export default {
     },
   },
   actions: {
+    VIEW_UPDATE_CAMERA({ dispatch, rootState, state }, id) {
+      const client = rootState.network.client;
+      const viewId = id || state.view;
+      if (client && state.viewProxy) {
+        client.remote.Lite.getCamera(viewId)
+          .then(
+            ({ focalPoint, viewUp, position, centerOfRotation, bounds }) => {
+              // Update bounds in local vtk.js renderer
+              source
+                .getPoints()
+                .setData(
+                  Float64Array.from([
+                    bounds[0],
+                    bounds[2],
+                    bounds[4],
+                    bounds[1],
+                    bounds[3],
+                    bounds[5],
+                  ]),
+                  3
+                );
+
+              updateCamera(state.viewProxy, {
+                centerOfRotation,
+                focalPoint,
+                position,
+                viewUp,
+              });
+            }
+          )
+          .catch(console.error);
+      }
+    },
     VIEW_RESET_CAMERA({ dispatch, rootState, state }, id) {
       const client = rootState.network.client;
       const viewId = id || state.view;
       if (client) {
         client.remote.ViewPort.resetCamera(viewId).catch(console.error);
-
-        if (state.viewProxy) {
-          client.remote.Lite.getCamera(viewId)
-            .then(
-              ({ focalPoint, viewUp, position, centerOfRotation, bounds }) => {
-                // Update bounds in local vtk.js renderer
-                source
-                  .getPoints()
-                  .setData(
-                    Float64Array.from([
-                      bounds[0],
-                      bounds[2],
-                      bounds[4],
-                      bounds[1],
-                      bounds[3],
-                      bounds[5],
-                    ]),
-                    3
-                  );
-
-                updateCamera(state.viewProxy, {
-                  centerOfRotation,
-                  focalPoint,
-                  position,
-                  viewUp,
-                });
-              }
-            )
-            .catch(console.error);
-        }
+        dispatch(Actions.VIEW_UPDATE_CAMERA, id);
       } else {
         console.error('no client', rootState);
       }

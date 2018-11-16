@@ -1,6 +1,6 @@
 <v-container fluid :class="$style.container" fill-height>
   <v-layout column fill-height>
     <representation-toolbar />
-    <vtk-view />
+    <vtk-view :viewId="$store.getters.VIEW_ID"/>
   </v-layout>
 </v-container>

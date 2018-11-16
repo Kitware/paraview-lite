@@ -155,6 +155,7 @@ export const Actions = objEnum([
   'TIME_FETCH_ACTIVE_INDEX',
 
   // view
+  'VIEW_UPDATE_CAMERA',
   'VIEW_RESET_CAMERA',
   'VIEW_ROLL_LEFT',
   'VIEW_ROLL_RIGHT',

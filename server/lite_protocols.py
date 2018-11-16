@@ -19,6 +19,12 @@ class ParaViewLite(pv_protocols.ParaViewWebProtocol):
     @exportRpc("paraview.lite.proxy.name")
     def getProxyName(self, pid):
       proxy = self.mapIdToProxy(pid)
+      if not proxy:
+        return {
+          'id': pid,
+          'error': 'No proxy for id %s' % pid,
+        }
+
       return {
         'id': pid,
         'group': proxy.GetXMLGroup(),

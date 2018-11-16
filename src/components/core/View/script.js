@@ -180,6 +180,12 @@ export default {
       tooltipStyle: { top: 0, left: 0 },
     };
   },
+  props: {
+    viewId: {
+      type: String,
+      default: '-1',
+    },
+  },
   watch: {
     showRenderingStats() {
       // this.renderer.setDrawFPS(this.showRenderingStats);
@@ -198,6 +204,17 @@ export default {
     },
     maxFPS() {
       this.client.imageStream.setServerAnimationFPS(this.maxFPS);
+    },
+    viewId() {
+      if (this.viewStream) {
+        if (this.viewStream.setViewId(this.viewId)) {
+          this.fetchCamera();
+          const currentSize = this.view.getOpenglRenderWindow().getSize();
+          this.viewStream
+            .setSize(currentSize[0] + 1, currentSize[1] + 1) // Force size push
+            .then(this.viewStream.render);
+        }
+      }
     },
   },
   methods: Object.assign(
@@ -235,6 +252,7 @@ export default {
       },
     },
     mapActions({
+      fetchCamera: Actions.VIEW_UPDATE_CAMERA,
       updateOrientation: Actions.VIEW_UPDATE_ORIENTATION,
       resetCamera: Actions.VIEW_RESET_CAMERA,
       rollLeft: Actions.VIEW_ROLL_LEFT,
