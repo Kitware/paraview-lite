@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://kitware.github.io/paraview-lite/api/components_core_View.html</loc>
+    
+    <lastmod>2018-11-16T16:39:28.807Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/paraview-lite/api/components_core_LayoutView.html</loc>
+    
+    <lastmod>2018-11-16T16:39:28.803Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://kitware.github.io/paraview-lite/docs/compatibility.html</loc>
     
     <lastmod>2018-11-09T21:48:56.779Z</lastmod>
@@ -19,13 +33,6 @@
     <loc>https://kitware.github.io/paraview-lite/api/components_core_App.html</loc>
     
     <lastmod>2018-11-02T15:05:12.573Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/paraview-lite/api/components_core_View.html</loc>
-    
-    <lastmod>2018-10-19T22:47:25.471Z</lastmod>
     
   </url>
   
@@ -121,13 +128,6 @@
   </url>
   
   <url>
-    <loc>https://kitware.github.io/paraview-lite/api/components_core_LayoutView.html</loc>
-    
-    <lastmod>2018-10-05T20:04:22.687Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_core_Landing.html</loc>
     
     <lastmod>2018-10-05T20:04:22.687Z</lastmod>
@@ -191,6 +191,13 @@
   </url>
   
   <url>
+    <loc>https://kitware.github.io/paraview-lite/docs/index.html</loc>
+    
+    <lastmod>2018-10-05T20:04:22.611Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://kitware.github.io/paraview-lite/docs/contributing.html</loc>
     
     <lastmod>2018-10-05T20:04:22.611Z</lastmod>
@@ -199,13 +206,6 @@
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/index.html</loc>
-    
-    <lastmod>2018-10-05T20:04:22.611Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/paraview-lite/docs/index.html</loc>
     
     <lastmod>2018-10-05T20:04:22.611Z</lastmod>
     
