@@ -2,19 +2,19 @@ import SmartConnect from 'wslink/src/SmartConnect';
 
 import vtkImageStream from 'vtk.js/Sources/IO/Core/ImageStream';
 
-import ColorManager from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient/ColorManager';
-import FileListing from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient/FileListing';
-import KeyValuePairStore from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient/KeyValuePairStore';
-import MouseHandler from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient/MouseHandler';
-import ProgressUpdate from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient/ProgressUpdate';
-import ProxyManager from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient/ProxyManager';
-import SaveData from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient/SaveData';
-import TimeHandler from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient/TimeHandler';
-import ViewPort from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient/ViewPort';
-import ViewPortGeometryDelivery from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient/ViewPortGeometryDelivery';
-import ViewPortImageDelivery from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient/ViewPortImageDelivery';
-import VtkGeometryDelivery from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient/VtkGeometryDelivery';
-import VtkImageDelivery from 'paraviewweb/src/IO/WebSocket/ParaViewWebClient/VtkImageDelivery';
+import ColorManager from 'paraview-lite/src/io/protocols/ColorManager';
+import FileListing from 'paraview-lite/src/io/protocols/FileListing';
+import KeyValuePairStore from 'paraview-lite/src/io/protocols/KeyValuePairStore';
+import MouseHandler from 'paraview-lite/src/io/protocols/MouseHandler';
+import ProgressUpdate from 'paraview-lite/src/io/protocols/ProgressUpdate';
+import ProxyManager from 'paraview-lite/src/io/protocols/ProxyManager';
+import SaveData from 'paraview-lite/src/io/protocols/SaveData';
+import TimeHandler from 'paraview-lite/src/io/protocols/TimeHandler';
+import ViewPort from 'paraview-lite/src/io/protocols/ViewPort';
+import ViewPortGeometryDelivery from 'paraview-lite/src/io/protocols/ViewPortGeometryDelivery';
+import ViewPortImageDelivery from 'paraview-lite/src/io/protocols/ViewPortImageDelivery';
+import VtkGeometryDelivery from 'paraview-lite/src/io/protocols/VtkGeometryDelivery';
+import VtkImageDelivery from 'paraview-lite/src/io/protocols/VtkImageDelivery';
 
 import Lite from 'paraview-lite/src/io/protocols/Lite';
 
