@@ -36,51 +36,53 @@ import { Mutations } from 'paraview-lite/src/stores/types';
 // }
 /* eslint-enable no-param-reassign */
 
-function createStore() {
-  return new Vuex.Store({
-    state: {
-      route: 'landing', // valid values: landing, app
-      autoApply: true,
-      dark: false,
+export const store = {
+  state: {
+    route: 'landing', // valid values: landing, app
+    autoApply: true,
+    dark: false,
+  },
+  modules: {
+    busy,
+    color,
+    contexts,
+    modules,
+    network,
+    proxy,
+    time,
+    view,
+  },
+  getters: {
+    APP_AUTO_APPLY(state) {
+      return state.autoApply;
     },
-    modules: {
-      busy,
-      color,
-      contexts,
-      modules,
-      network,
-      proxy,
-      time,
-      view,
+    APP_DARK_THEME(state) {
+      return state.dark;
     },
-    getters: {
-      APP_AUTO_APPLY(state) {
-        return state.autoApply;
-      },
-      APP_DARK_THEME(state) {
-        return state.dark;
-      },
+  },
+  mutations: {
+    APP_ROUTE_SET(state, route) {
+      state.route = route;
     },
-    mutations: {
-      APP_ROUTE_SET(state, route) {
-        state.route = route;
-      },
-      APP_AUTO_APPLY_SET(state, auto) {
-        state.autoApply = auto;
-      },
-      APP_DARK_THEME_SET(state, isDark) {
-        state.dark = isDark;
-      },
+    APP_AUTO_APPLY_SET(state, auto) {
+      state.autoApply = auto;
     },
-    actions: {
-      APP_ROUTE_LANDING({ commit }) {
-        commit(Mutations.APP_ROUTE_SET, 'landing');
-      },
-      APP_ROUTE_RUN({ commit }) {
-        commit(Mutations.APP_ROUTE_SET, 'app');
-      },
+    APP_DARK_THEME_SET(state, isDark) {
+      state.dark = isDark;
     },
-  });
+  },
+  actions: {
+    APP_ROUTE_LANDING({ commit }) {
+      commit(Mutations.APP_ROUTE_SET, 'landing');
+    },
+    APP_ROUTE_RUN({ commit }) {
+      commit(Mutations.APP_ROUTE_SET, 'app');
+    },
+  },
+};
+
+export function createStore() {
+  return new Vuex.Store(store);
 }
 
 export default createStore;

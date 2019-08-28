@@ -13,7 +13,7 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import registerModules from 'paraview-lite/src/modules/registerModules';
 
 import App from 'paraview-lite/src/components/core/App';
-import createStore from 'paraview-lite/src/stores';
+import { createStore } from 'paraview-lite/src/stores';
 import { Mutations, Actions } from 'paraview-lite/src/stores/types';
 
 Vue.use(Vuex);
