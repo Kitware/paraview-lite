@@ -106,22 +106,22 @@ export function generateComponentWithServerBinding(
   const computed = Object.assign(
     {
       isNetworkBusy() {
-        return this.$store.getters.BUSY_COUNT;
+        return this.$store.getters.PVL_BUSY_COUNT;
       },
       activeSourceId() {
-        return this.$store.getters.PROXY_SELECTED_IDS[0];
+        return this.$store.getters.PVL_PROXY_SELECTED_IDS[0];
       },
       activeViewId() {
-        return this.$store.getters.VIEW_ID;
+        return this.$store.getters.PVL_VIEW_ID;
       },
       activeRepresentationId() {
-        return this.$store.getters.PROXY_SOURCE_TO_REPRESENTATION_MAP[
-          this.$store.getters.PROXY_SELECTED_IDS[0]
+        return this.$store.getters.PVL_PROXY_SOURCE_TO_REPRESENTATION_MAP[
+          this.$store.getters.PVL_PROXY_SELECTED_IDS[0]
         ];
       },
       activeProxyData() {
         const id = this[`active${proxyType}Id`];
-        const proxyData = this.$store.getters.PROXY_DATA_MAP;
+        const proxyData = this.$store.getters.PVL_PROXY_DATA_MAP;
 
         if (!id) {
           // console.log(proxyType, 'No id available to update state');
@@ -139,11 +139,11 @@ export function generateComponentWithServerBinding(
           return this.activeProxyData.data.bounds;
         }
         const myId = this.activeProxyData.id;
-        const nodeInfo = this.$store.getters.PROXY_PIPELINE.find(
+        const nodeInfo = this.$store.getters.PVL_PROXY_PIPELINE.find(
           (n) => n.id === myId
         );
         const parentId = nodeInfo.parent;
-        const proxyData = this.$store.getters.PROXY_DATA_MAP;
+        const proxyData = this.$store.getters.PVL_PROXY_DATA_MAP;
         if (!proxyData || !proxyData[parentId]) {
           // Fallback
           return [-1, 1, -1, 1, -1, 1];
@@ -152,8 +152,8 @@ export function generateComponentWithServerBinding(
       },
       inputArrays() {
         const sourceId = this.activeSourceId;
-        const proxyData = this.$store.getters.PROXY_DATA_MAP;
-        const nodeInfo = this.$store.getters.PROXY_PIPELINE.find(
+        const proxyData = this.$store.getters.PVL_PROXY_DATA_MAP;
+        const nodeInfo = this.$store.getters.PVL_PROXY_PIPELINE.find(
           (n) => n.id === sourceId
         );
         if (!proxyData || !proxyData[sourceId]) {
@@ -237,8 +237,8 @@ export function generateComponentWithServerBinding(
     }
     if (this.isNetworkBusy < 3 && hasChange()) {
       // console.log('apply', JSON.stringify(changeSet, null, 2));
-      store.dispatch(Actions.PROXY_UPDATE, changeSet);
-      store.dispatch(Actions.PROXY_DATA_FETCH, {
+      store.dispatch(Actions.PVL_PROXY_UPDATE, changeSet);
+      store.dispatch(Actions.PVL_PROXY_DATA_FETCH, {
         proxyId: this[`active${proxyType}Id`],
         needUI: false,
       });
@@ -309,10 +309,10 @@ export function generateComponentWithServerBinding(
         ? {
             deleteProxy() {
               if (!this.create) {
-                this.$store.dispatch(Actions.PROXY_DELETE, this.activeSourceId);
-                this.$store.commit(Mutations.PROXY_SELECTED_IDS_SET, []);
+                this.$store.dispatch(Actions.PVL_PROXY_DELETE, this.activeSourceId);
+                this.$store.commit(Mutations.PVL_PROXY_SELECTED_IDS_SET, []);
               } else {
-                this.$store.dispatch(Actions.MODULES_ACTIVE_CLEAR);
+                this.$store.dispatch(Actions.PVL_MODULES_ACTIVE_CLEAR);
               }
             },
             createProxy() {
@@ -334,7 +334,7 @@ export function generateComponentWithServerBinding(
                 });
               }
 
-              this.$store.dispatch(Actions.PROXY_CREATE, {
+              this.$store.dispatch(Actions.PVL_PROXY_CREATE, {
                 name: proxyNameToCreate,
                 parentId: this.activeSourceId,
                 initialValues,

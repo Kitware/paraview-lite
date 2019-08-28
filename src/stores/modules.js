@@ -21,18 +21,18 @@ export default {
     moduleMap: {},
   },
   getters: {
-    MODULES_LIST(state) {
+    PVL_MODULES_LIST(state) {
       return state.modules;
     },
-    MODULES_ACTIVE(state) {
+    PVL_MODULES_ACTIVE(state) {
       return state.active;
     },
-    MODULES_MAP(state) {
+    PVL_MODULES_MAP(state) {
       return state.moduleMap;
     },
   },
   mutations: {
-    MODULES_ADD(
+    PVL_MODULES_ADD(
       state,
       { icon, label, component, isSource, showInMenu, priority, name }
     ) {
@@ -48,16 +48,16 @@ export default {
       state.modules.sort(moduleSorting);
       state.moduleMap[name] = module;
     },
-    MODULES_ACTIVE_SET(state, module) {
+    PVL_MODULES_ACTIVE_SET(state, module) {
       state.active = module;
     },
   },
   actions: {
-    MODULES_ACTIVE_CLEAR({ commit }) {
-      commit(Mutations.MODULES_ACTIVE_SET, null);
+    PVL_MODULES_ACTIVE_CLEAR({ commit }) {
+      commit(Mutations.PVL_MODULES_ACTIVE_SET, null);
     },
-    MODULES_ACTIVE_BY_NAME({ commit, state }, name) {
-      commit(Mutations.MODULES_ACTIVE_SET, state.moduleMap[name]);
+    PVL_MODULES_ACTIVE_BY_NAME({ commit, state }, name) {
+      commit(Mutations.PVL_MODULES_ACTIVE_SET, state.moduleMap[name]);
     },
   },
 };

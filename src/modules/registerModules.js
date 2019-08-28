@@ -36,39 +36,39 @@ export default function registerModules(store) {
   // --------------------------------------------------------------------------
 
   store.commit(
-    Mutations.MODULES_ADD,
+    Mutations.PVL_MODULES_ADD,
     Object.assign({}, sourcesModule, { component: Sources })
   );
   store.commit(
-    Mutations.MODULES_ADD,
+    Mutations.PVL_MODULES_ADD,
     Object.assign({}, filesModule, { component: Files })
   );
   store.commit(
-    Mutations.MODULES_ADD,
+    Mutations.PVL_MODULES_ADD,
     Object.assign({}, sphereModule, { component: Sphere })
   );
   store.commit(
-    Mutations.MODULES_ADD,
+    Mutations.PVL_MODULES_ADD,
     Object.assign({}, coneModule, { component: Cone })
   );
   store.commit(
-    Mutations.MODULES_ADD,
+    Mutations.PVL_MODULES_ADD,
     Object.assign({}, clipModule, { component: Clip })
   );
   store.commit(
-    Mutations.MODULES_ADD,
+    Mutations.PVL_MODULES_ADD,
     Object.assign({}, sliceModule, { component: Slice })
   );
   store.commit(
-    Mutations.MODULES_ADD,
+    Mutations.PVL_MODULES_ADD,
     Object.assign({}, contourModule, { component: Contour })
   );
   store.commit(
-    Mutations.MODULES_ADD,
+    Mutations.PVL_MODULES_ADD,
     Object.assign({}, thresholdModule, { component: Threshold })
   );
   store.commit(
-    Mutations.MODULES_ADD,
+    Mutations.PVL_MODULES_ADD,
     Object.assign({}, streamTracerModule, { component: StreamTracer })
   );
 
@@ -76,34 +76,34 @@ export default function registerModules(store) {
   // Proxy to UI mapping
   // --------------------------------------------------------------------------
 
-  store.commit(Mutations.PROXY_MODULE_BIND, {
+  store.commit(Mutations.PVL_PROXY_MODULE_BIND, {
     name: 'SphereSource',
     module: 'Sphere',
   });
 
-  store.commit(Mutations.PROXY_MODULE_BIND, {
+  store.commit(Mutations.PVL_PROXY_MODULE_BIND, {
     name: 'ConeSource',
     module: 'Cone',
   });
 
-  store.commit(Mutations.PROXY_MODULE_BIND, {
+  store.commit(Mutations.PVL_PROXY_MODULE_BIND, {
     name: 'Clip',
     module: 'Clip',
   });
 
-  store.commit(Mutations.PROXY_MODULE_BIND, {
+  store.commit(Mutations.PVL_PROXY_MODULE_BIND, {
     name: 'Cut',
     module: 'Slice',
   });
-  store.commit(Mutations.PROXY_MODULE_BIND, {
+  store.commit(Mutations.PVL_PROXY_MODULE_BIND, {
     name: 'Contour',
     module: 'Contour',
   });
-  store.commit(Mutations.PROXY_MODULE_BIND, {
+  store.commit(Mutations.PVL_PROXY_MODULE_BIND, {
     name: 'Threshold',
     module: 'Threshold',
   });
-  store.commit(Mutations.PROXY_MODULE_BIND, {
+  store.commit(Mutations.PVL_PROXY_MODULE_BIND, {
     name: 'StreamTracer',
     module: 'StreamTracer',
   });
@@ -113,7 +113,7 @@ export default function registerModules(store) {
   // --------------------------------------------------------------------------
 
   store.commit(
-    Mutations.MODULES_ADD,
+    Mutations.PVL_MODULES_ADD,
     Object.assign({}, defaultModule, {
       component: DefaultComponent,
       name: 'default',
@@ -122,7 +122,7 @@ export default function registerModules(store) {
 
   // --------------------------------------------------------------------------
 
-  store.commit(Mutations.PROXY_MODULE_BIND, {
+  store.commit(Mutations.PVL_PROXY_MODULE_BIND, {
     name: 'default',
     module: 'default',
   });

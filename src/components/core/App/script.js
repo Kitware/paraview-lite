@@ -43,10 +43,10 @@ export default {
   },
   computed: mapState({
     client() {
-      return this.$store.getters.NETWORK_CLIENT;
+      return this.$store.getters.PVL_NETWORK_CLIENT;
     },
     darkMode() {
-      return this.$store.getters.APP_DARK_THEME;
+      return this.$store.getters.PVL_APP_DARK_THEME;
     },
     busyPercent(state) {
       return state.busy.progress;
@@ -67,16 +67,16 @@ export default {
     },
     floatingLookupTables() {
       return Object.values(
-        this.$store.getters.COLOR_LOOKUP_TABLE_WINDOWS
+        this.$store.getters.PVL_COLOR_LOOKUP_TABLE_WINDOWS
       ).filter((l) => l.visible);
     },
     lookupTables() {
-      return this.$store.getters.COLOR_ARRAYS;
+      return this.$store.getters.PVL_COLOR_ARRAYS;
     },
     dataFields() {
       const arrayRanges = {};
-      const selectedProxies = this.$store.getters.PROXY_SELECTED_IDS;
-      const dataMap = this.$store.getters.PROXY_DATA_MAP;
+      const selectedProxies = this.$store.getters.PVL_PROXY_SELECTED_IDS;
+      const dataMap = this.$store.getters.PVL_PROXY_DATA_MAP;
       const id = selectedProxies[0];
       const pData = dataMap[id];
       if (pData) {
@@ -156,9 +156,9 @@ export default {
       },
     },
     mapActions({
-      showApp: Actions.APP_ROUTE_RUN,
-      showLanding: Actions.APP_ROUTE_LANDING,
-      connect: Actions.NETWORK_CONNECT,
+      showApp: Actions.PVL_APP_ROUTE_RUN,
+      showLanding: Actions.PVL_APP_ROUTE_LANDING,
+      connect: Actions.PVL_NETWORK_CONNECT,
     })
   ),
 };

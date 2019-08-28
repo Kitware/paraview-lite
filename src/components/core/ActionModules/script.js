@@ -9,12 +9,12 @@ export default {
     },
   },
   computed: mapGetters({
-    modules: Getters.MODULES_LIST,
-    activeSources: Getters.PROXY_SELECTED_IDS,
-    proxyDataMap: Getters.PROXY_DATA_MAP,
-    proxyPipeline: Getters.PROXY_PIPELINE,
+    modules: Getters.PVL_MODULES_LIST,
+    activeSources: Getters.PVL_PROXY_SELECTED_IDS,
+    proxyDataMap: Getters.PVL_PROXY_DATA_MAP,
+    proxyPipeline: Getters.PVL_PROXY_PIPELINE,
   }),
   methods: mapActions({
-    activate: Actions.MODULES_ACTIVE_BY_NAME,
+    activate: Actions.PVL_MODULES_ACTIVE_BY_NAME,
   }),
 };

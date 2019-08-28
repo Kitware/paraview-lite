@@ -12,10 +12,10 @@ export default {
     floating: {
       get() {
         return (
-          this.$store.getters.COLOR_LOOKUP_TABLE_WINDOWS[
+          this.$store.getters.PVL_COLOR_LOOKUP_TABLE_WINDOWS[
             this.lookupTable.name
           ] &&
-          this.$store.getters.COLOR_LOOKUP_TABLE_WINDOWS[this.lookupTable.name]
+          this.$store.getters.PVL_COLOR_LOOKUP_TABLE_WINDOWS[this.lookupTable.name]
             .visible
         );
       },
@@ -25,11 +25,11 @@ export default {
             position: [15, 65],
             orientation: 'HORIZONTAL',
           },
-          this.$store.getters.COLOR_ARRAYS[this.lookupTable.name],
-          this.$store.getters.COLOR_LOOKUP_TABLE_WINDOWS[this.lookupTable.name]
+          this.$store.getters.PVL_COLOR_ARRAYS[this.lookupTable.name],
+          this.$store.getters.PVL_COLOR_LOOKUP_TABLE_WINDOWS[this.lookupTable.name]
         );
         obj.visible = value;
-        this.$store.commit(Mutations.COLOR_LOOKUP_TABLE_WINDOWS_SET, obj);
+        this.$store.commit(Mutations.PVL_COLOR_LOOKUP_TABLE_WINDOWS_SET, obj);
       },
     },
   },

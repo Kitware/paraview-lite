@@ -155,7 +155,7 @@ export default {
     this.client.imageStream.setServerAnimationFPS(this.maxFPS);
 
     // Expose viewProxy to store (for camera update...)
-    this.$store.commit(Mutations.VIEW_PROXY_SET, this.view);
+    this.$store.commit(Mutations.PVL_VIEW_PVL_PROXY_SET, this.view);
 
     // Link server side camera to local
     this.client.remote.Lite.getCamera('-1').then((cameraInfo) => {
@@ -164,15 +164,15 @@ export default {
     });
   },
   computed: mapGetters({
-    client: Getters.NETWORK_CLIENT,
-    showRenderingStats: Getters.VIEW_STATS,
-    stillQuality: Getters.VIEW_QUALITY_STILL,
-    interactiveQuality: Getters.VIEW_QUALITY_INTERACTIVE,
-    stillRatio: Getters.VIEW_RATIO_STILL,
-    interactiveRatio: Getters.VIEW_RATIO_INTERACTIVE,
-    mouseThrottle: Getters.VIEW_MOUSE_THROTTLE,
-    maxFPS: Getters.VIEW_FPS_MAX,
-    activeSources: Getters.PROXY_SELECTED_IDS,
+    client: Getters.PVL_NETWORK_CLIENT,
+    showRenderingStats: Getters.PVL_VIEW_STATS,
+    stillQuality: Getters.PVL_VIEW_QUALITY_STILL,
+    interactiveQuality: Getters.PVL_VIEW_QUALITY_INTERACTIVE,
+    stillRatio: Getters.PVL_VIEW_RATIO_STILL,
+    interactiveRatio: Getters.PVL_VIEW_RATIO_INTERACTIVE,
+    mouseThrottle: Getters.PVL_VIEW_MOUSE_THROTTLE,
+    maxFPS: Getters.PVL_VIEW_FPS_MAX,
+    activeSources: Getters.PVL_PROXY_SELECTED_IDS,
   }),
   data() {
     return {
@@ -252,11 +252,11 @@ export default {
       },
     },
     mapActions({
-      fetchCamera: Actions.VIEW_UPDATE_CAMERA,
-      updateOrientation: Actions.VIEW_UPDATE_ORIENTATION,
-      resetCamera: Actions.VIEW_RESET_CAMERA,
-      rollLeft: Actions.VIEW_ROLL_LEFT,
-      rollRight: Actions.VIEW_ROLL_RIGHT,
+      fetchCamera: Actions.PVL_VIEW_UPDATE_CAMERA,
+      updateOrientation: Actions.PVL_VIEW_UPDATE_ORIENTATION,
+      resetCamera: Actions.PVL_VIEW_RESET_CAMERA,
+      rollLeft: Actions.PVL_VIEW_ROLL_LEFT,
+      rollRight: Actions.PVL_VIEW_ROLL_RIGHT,
     })
   ),
   beforeDestroy() {

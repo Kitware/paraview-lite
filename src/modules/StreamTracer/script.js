@@ -333,7 +333,7 @@ export default generateComponentWithServerBinding(
         const visible = this.contextVisibility;
         const point1 = this.point1;
         const point2 = this.point2;
-        this.$store.dispatch(Actions.CONTEXTS_LINE, {
+        this.$store.dispatch(Actions.PVL_CONTEXTS_LINE, {
           visible,
           point1,
           point2,

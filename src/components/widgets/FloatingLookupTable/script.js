@@ -42,10 +42,10 @@ export default {
   },
   computed: {
     presets() {
-      return Object.values(this.$store.getters.COLOR_PRESETS);
+      return Object.values(this.$store.getters.PVL_COLOR_PRESETS);
     },
     darkMode() {
-      return this.$store.getters.APP_DARK_THEME;
+      return this.$store.getters.PVL_APP_DARK_THEME;
     },
   },
   methods: {
@@ -71,7 +71,7 @@ export default {
     },
     usePreset(presetName) {
       const arrayName = this.lookupTable.name;
-      this.$store.dispatch(Actions.COLOR_APPLY_PRESET, {
+      this.$store.dispatch(Actions.PVL_COLOR_APPLY_PRESET, {
         presetName,
         arrayName,
       });
@@ -80,14 +80,14 @@ export default {
       this.lookupTable.range = this.lookupTable.range.map(Number);
       const range = this.lookupTable.range.slice();
       const name = this.lookupTable.name;
-      this.$store.dispatch(Actions.COLOR_CUSTOM_DATA_RANGE, { name, range });
+      this.$store.dispatch(Actions.PVL_COLOR_CUSTOM_DATA_RANGE, { name, range });
     },
     resetDataRange() {
       const name = this.lookupTable.name;
       const dataRanges = this.dataFields[name];
       if (dataRanges) {
         const range = [dataRanges[0].min, dataRanges[0].max];
-        this.$store.dispatch(Actions.COLOR_CUSTOM_DATA_RANGE, { name, range });
+        this.$store.dispatch(Actions.PVL_COLOR_CUSTOM_DATA_RANGE, { name, range });
         this.lookupTable.range = range;
       }
     },

@@ -163,79 +163,79 @@ export default generateComponentWithServerBinding(
       darkMode: {
         get() {
           return this.wrapGet(
-            'APP_DARK_THEME',
-            'APP_DARK_THEME_SET',
+            'PVL_APP_DARK_THEME',
+            'PVL_APP_DARK_THEME_SET',
             'DARK_MODE'
           );
         },
         set(value) {
-          return this.wrapSet('APP_DARK_THEME_SET', 'DARK_MODE', value);
+          return this.wrapSet('PVL_APP_DARK_THEME_SET', 'DARK_MODE', value);
         },
       },
       interactiveQuality: {
         get() {
           return this.wrapGet(
-            'VIEW_QUALITY_INTERACTIVE',
-            'VIEW_QUALITY_INTERACTIVE_SET',
+            'PVL_VIEW_QUALITY_INTERACTIVE',
+            'PVL_VIEW_QUALITY_INTERACTIVE_SET',
             'QUALITY'
           );
         },
         set(value) {
-          this.wrapSet('VIEW_QUALITY_INTERACTIVE_SET', 'QUALITY', value);
+          this.wrapSet('PVL_VIEW_QUALITY_INTERACTIVE_SET', 'QUALITY', value);
         },
       },
       interactiveRatio: {
         get() {
           return this.wrapGet(
-            'VIEW_RATIO_INTERACTIVE',
-            'VIEW_RATIO_INTERACTIVE_SET',
+            'PVL_VIEW_RATIO_INTERACTIVE',
+            'PVL_VIEW_RATIO_INTERACTIVE_SET',
             'RATIO'
           );
         },
         set(value) {
-          this.wrapSet('VIEW_RATIO_INTERACTIVE_SET', 'RATIO', value);
+          this.wrapSet('PVL_VIEW_RATIO_INTERACTIVE_SET', 'RATIO', value);
         },
       },
       maxFPS: {
         get() {
-          return this.wrapGet('VIEW_FPS_MAX', 'VIEW_FPS_MAX_SET', 'MAX_FPS');
+          return this.wrapGet('PVL_VIEW_FPS_MAX', 'PVL_VIEW_FPS_MAX_SET', 'MAX_FPS');
         },
         set(value) {
-          this.wrapSet('VIEW_FPS_MAX_SET', 'MAX_FPS', value);
+          this.wrapSet('PVL_VIEW_FPS_MAX_SET', 'MAX_FPS', value);
           this.mouseThottle = 1000 / (2 * value);
         },
       },
       mouseThottle: {
         get() {
           return this.wrapGet(
-            'VIEW_MOUSE_THROTTLE',
-            'VIEW_MOUSE_THROTTLE_SET',
+            'PVL_VIEW_MOUSE_THROTTLE',
+            'PVL_VIEW_MOUSE_THROTTLE_SET',
             'MOUSE_THROTTLE'
           );
         },
         set(value) {
-          this.wrapSet('VIEW_MOUSE_THROTTLE_SET', 'MOUSE_THROTTLE', value);
+          this.wrapSet('PVL_VIEW_MOUSE_THROTTLE_SET', 'MOUSE_THROTTLE', value);
         },
       },
       showRenderingStats: {
         get() {
-          return this.$store.getters.VIEW_STATS;
+          return this.$store.getters.PVL_VIEW_STATS;
         },
         set(value) {
-          this.$store.commit(Mutations.VIEW_STATS_SET, value);
-          this.$store.dispatch(Actions.VIEW_RENDER);
+          this.$store.commit(Mutations.PVL_VIEW_STATS_SET, value);
+          this.$store.dispatch(Actions.PVL_VIEW_RENDER);
         },
       },
       autoApply: {
         get() {
           return this.wrapGet(
-            'APP_AUTO_APPLY',
-            'APP_AUTO_APPLY_SET',
+            'PVL_APP_AUTO_APPLY',
+            'PVL_APP_AUTO_APPLY_SET',
             'AUTO_APPLY'
           );
         },
         set(value) {
-          this.wrapSet('APP_AUTO_APPLY_SET', 'AUTO_APPLY', value);
+          this.wrapSet('PVL_APP_AUTO_APPLY_SET', 'AUTO_APPLY', value);
         },
       },
       background: {

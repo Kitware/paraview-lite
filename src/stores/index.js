@@ -53,30 +53,30 @@ export const store = {
     view,
   },
   getters: {
-    APP_AUTO_APPLY(state) {
+    PVL_APP_AUTO_APPLY(state) {
       return state.autoApply;
     },
-    APP_DARK_THEME(state) {
+    PVL_APP_DARK_THEME(state) {
       return state.dark;
     },
   },
   mutations: {
-    APP_ROUTE_SET(state, route) {
+    PVL_APP_ROUTE_SET(state, route) {
       state.route = route;
     },
-    APP_AUTO_APPLY_SET(state, auto) {
+    PVL_APP_AUTO_APPLY_SET(state, auto) {
       state.autoApply = auto;
     },
-    APP_DARK_THEME_SET(state, isDark) {
+    PVL_APP_DARK_THEME_SET(state, isDark) {
       state.dark = isDark;
     },
   },
   actions: {
-    APP_ROUTE_LANDING({ commit }) {
-      commit(Mutations.APP_ROUTE_SET, 'landing');
+    PVL_APP_ROUTE_LANDING({ commit }) {
+      commit(Mutations.PVL_APP_ROUTE_SET, 'landing');
     },
-    APP_ROUTE_RUN({ commit }) {
-      commit(Mutations.APP_ROUTE_SET, 'app');
+    PVL_APP_ROUTE_RUN({ commit }) {
+      commit(Mutations.PVL_APP_ROUTE_SET, 'app');
     },
   },
 };

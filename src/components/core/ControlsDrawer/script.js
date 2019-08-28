@@ -33,23 +33,23 @@ export default {
       },
     },
     mapGetters({
-      autoApply: Getters.APP_AUTO_APPLY,
-      panel: Getters.MODULES_ACTIVE,
-      pipeline: Getters.PROXY_PIPELINE,
-      selectedSources: Getters.PROXY_SELECTED_IDS,
-      proxyToPanel: Getters.PROXY_TO_MODULE_MAP,
-      proxyToName: Getters.PROXY_NAME_MAP,
-      moduleMap: Getters.MODULES_MAP,
-      sourceToRepresentationMap: Getters.PROXY_SOURCE_TO_REPRESENTATION_MAP,
+      autoApply: Getters.PVL_APP_AUTO_APPLY,
+      panel: Getters.PVL_MODULES_ACTIVE,
+      pipeline: Getters.PVL_PROXY_PIPELINE,
+      selectedSources: Getters.PVL_PROXY_SELECTED_IDS,
+      proxyToPanel: Getters.PVL_PROXY_TO_MODULE_MAP,
+      proxyToName: Getters.PVL_PROXY_NAME_MAP,
+      moduleMap: Getters.PVL_MODULES_MAP,
+      sourceToRepresentationMap: Getters.PVL_PROXY_SOURCE_TO_REPRESENTATION_MAP,
     })
   ),
   methods: Object.assign(
     mapActions({
-      updatePipeline: Actions.PROXY_PIPELINE_FETCH,
-      updateProxy: Actions.PROXY_UPDATE,
+      updatePipeline: Actions.PVL_PROXY_PIPELINE_FETCH,
+      updateProxy: Actions.PVL_PROXY_UPDATE,
     }),
     mapMutations({
-      updateSelectedSource: Mutations.PROXY_SELECTED_IDS_SET,
+      updateSelectedSource: Mutations.PVL_PROXY_SELECTED_IDS_SET,
     }),
     {
       updateVisibility({ id, visible }) {

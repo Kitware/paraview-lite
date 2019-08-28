@@ -21,7 +21,7 @@ export default {
     };
   },
   computed: mapGetters({
-    client: Getters.NETWORK_CLIENT,
+    client: Getters.PVL_NETWORK_CLIENT,
   }),
   methods: Object.assign(
     {
@@ -43,10 +43,10 @@ export default {
           this.path.length > 1 ? files.map((f) => `${pathPrefix}/${f}`) : files;
         this.client.remote.ProxyManager.open(relativePathFiles)
           .then((readerProxy) => {
-            this.$store.dispatch(Actions.PROXY_NAME_FETCH, readerProxy.id);
-            this.$store.dispatch(Actions.PROXY_PIPELINE_FETCH);
-            this.$store.dispatch(Actions.MODULES_ACTIVE_CLEAR);
-            this.$store.commit(Mutations.PROXY_SELECTED_IDS_SET, [
+            this.$store.dispatch(Actions.PVL_PROXY_NAME_FETCH, readerProxy.id);
+            this.$store.dispatch(Actions.PVL_PROXY_PIPELINE_FETCH);
+            this.$store.dispatch(Actions.PVL_MODULES_ACTIVE_CLEAR);
+            this.$store.commit(Mutations.PVL_PROXY_SELECTED_IDS_SET, [
               readerProxy.id,
             ]);
           })
@@ -63,7 +63,7 @@ export default {
         }
       },
     },
-    mapActions({ removeActiveModule: Actions.MODULES_ACTIVE_CLEAR })
+    mapActions({ removeActiveModule: Actions.PVL_MODULES_ACTIVE_CLEAR })
   ),
   mounted() {
     this.listServerDirectory('.');

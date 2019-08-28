@@ -37,12 +37,12 @@ export function createViewer(
   config = createConfigurationFromURLArgs()
 ) {
   const store = createStore();
-  store.commit(Mutations.NETWORK_CONFIG_SET, config);
+  store.commit(Mutations.PVL_NETWORK_CONFIG_SET, config);
   registerModules(store);
-  setInterval(() => store.dispatch(Actions.BUSY_UPDATE_PROGRESS, 1), 50);
+  setInterval(() => store.dispatch(Actions.PVL_BUSY_UPDATE_PROGRESS, 1), 50);
 
   // Fetch preset images
-  store.commit(Mutations.COLOR_PRESET_NAMES_SET, [
+  store.commit(Mutations.PVL_COLOR_PRESET_NAMES_SET, [
     'Cool to Warm',
     'Cool to Warm (Extended)',
     'Rainbow Desaturated',
@@ -66,9 +66,9 @@ export function createViewer(
   function onRoute(event) {
     const state = event.state || {};
     if (state.app) {
-      store.dispatch(Actions.APP_ROUTE_RUN);
+      store.dispatch(Actions.PVL_APP_ROUTE_RUN);
     } else {
-      store.dispatch(Actions.APP_ROUTE_LANDING);
+      store.dispatch(Actions.PVL_APP_ROUTE_LANDING);
     }
   }
   store.watch(

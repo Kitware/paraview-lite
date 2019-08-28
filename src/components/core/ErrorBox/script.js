@@ -39,7 +39,7 @@ export default {
   },
   computed: {
     readableErrors() {
-      const version = window.PARAVIEW_LITE_VERSION || 'not available';
+      const version = window.PARAPVL_VIEW_LITE_VERSION || 'not available';
       const errorStrings = this.errors.map((err) => {
         if (err instanceof ErrorEvent) {
           return err.message;

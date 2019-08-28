@@ -6,7 +6,7 @@ import vtkMapper from 'vtk.js/Sources/Rendering/Core/Mapper';
 import vtkPolyData from 'vtk.js/Sources/Common/DataModel/PolyData';
 
 const ROTATION_STEP = 2;
-const VIEW_UPS = [[0, 1, 0], [0, 0, 1], [0, 1, 0]];
+const PVL_VIEW_UPS = [[0, 1, 0], [0, 0, 1], [0, 1, 0]];
 
 const actor = vtkActor.newInstance();
 const mapper = vtkMapper.newInstance();
@@ -57,68 +57,68 @@ export default {
     inAnimation: false,
   },
   getters: {
-    VIEW_STATS(state) {
+    PVL_VIEW_STATS(state) {
       return state.stats;
     },
-    VIEW_ID(state) {
+    PVL_VIEW_ID(state) {
       return state.view;
     },
-    VIEW_PROXY(state) {
+    PVL_VIEW_PROXY(state) {
       return state.viewProxy;
     },
-    VIEW_QUALITY_STILL(state) {
+    PVL_VIEW_QUALITY_STILL(state) {
       return state.stillQuality;
     },
-    VIEW_QUALITY_INTERACTIVE(state) {
+    PVL_VIEW_QUALITY_INTERACTIVE(state) {
       return state.interactiveQuality;
     },
-    VIEW_RATIO_STILL(state) {
+    PVL_VIEW_RATIO_STILL(state) {
       return state.stillRatio;
     },
-    VIEW_RATIO_INTERACTIVE(state) {
+    PVL_VIEW_RATIO_INTERACTIVE(state) {
       return state.interactiveRatio;
     },
-    VIEW_FPS_MAX(state) {
+    PVL_VIEW_FPS_MAX(state) {
       return state.maxFPS;
     },
-    VIEW_MOUSE_THROTTLE(state) {
+    PVL_VIEW_MOUSE_THROTTLE(state) {
       return state.mouseThrottle;
     },
   },
   mutations: {
-    VIEW_PROXY_SET(state, viewProxy) {
+    PVL_VIEW_PVL_PROXY_SET(state, viewProxy) {
       if (state.viewProxy !== viewProxy) {
         state.viewProxy = viewProxy;
         state.viewProxy.getRenderer().addActor(actor);
       }
     },
-    VIEW_ID_SET(state, id) {
+    PVL_VIEW_ID_SET(state, id) {
       state.view = id;
     },
-    VIEW_STATS_SET(state, enable) {
+    PVL_VIEW_STATS_SET(state, enable) {
       state.stats = enable;
     },
-    VIEW_QUALITY_STILL_SET(state, value) {
+    PVL_VIEW_QUALITY_STILL_SET(state, value) {
       state.stillQuality = value;
     },
-    VIEW_QUALITY_INTERACTIVE_SET(state, value) {
+    PVL_VIEW_QUALITY_INTERACTIVE_SET(state, value) {
       state.interactiveQuality = value;
     },
-    VIEW_RATIO_STILL_SET(state, value) {
+    PVL_VIEW_RATIO_STILL_SET(state, value) {
       state.stillRatio = value;
     },
-    VIEW_RATIO_INTERACTIVE_SET(state, value) {
+    PVL_VIEW_RATIO_INTERACTIVE_SET(state, value) {
       state.interactiveRatio = value;
     },
-    VIEW_FPS_MAX_SET(state, value) {
+    PVL_VIEW_FPS_MAX_SET(state, value) {
       state.maxFPS = value;
     },
-    VIEW_MOUSE_THROTTLE_SET(state, value) {
+    PVL_VIEW_MOUSE_THROTTLE_SET(state, value) {
       state.mouseThrottle = value;
     },
   },
   actions: {
-    VIEW_UPDATE_CAMERA({ dispatch, rootState, state }, id) {
+    PVL_VIEW_UPDATE_CAMERA({ dispatch, rootState, state }, id) {
       const client = rootState.network.client;
       const viewId = id || state.view;
       if (client && state.viewProxy) {
@@ -151,17 +151,17 @@ export default {
           .catch(console.error);
       }
     },
-    VIEW_RESET_CAMERA({ dispatch, rootState, state }, id) {
+    PVL_VIEW_RESET_CAMERA({ dispatch, rootState, state }, id) {
       const client = rootState.network.client;
       const viewId = id || state.view;
       if (client) {
         client.remote.ViewPort.resetCamera(viewId).catch(console.error);
-        dispatch(Actions.VIEW_UPDATE_CAMERA, id);
+        dispatch(Actions.PVL_VIEW_UPDATE_CAMERA, id);
       } else {
         console.error('no client', rootState);
       }
     },
-    VIEW_ROLL_LEFT({ state, commit }, id) {
+    PVL_VIEW_ROLL_LEFT({ state, commit }, id) {
       if (state.viewProxy) {
         state.viewProxy.setAnimation(true, this);
         let count = 0;
@@ -179,7 +179,7 @@ export default {
         intervalId = setInterval(rotate, 10);
       }
     },
-    VIEW_ROLL_RIGHT({ state, commit }, id) {
+    PVL_VIEW_ROLL_RIGHT({ state, commit }, id) {
       if (state.viewProxy) {
         state.viewProxy.setAnimation(true, this);
         let count = 0;
@@ -197,21 +197,21 @@ export default {
         intervalId = setInterval(rotate, 10);
       }
     },
-    VIEW_UPDATE_ORIENTATION(
+    PVL_VIEW_UPDATE_ORIENTATION(
       { state, commit, dispatch },
       { axis, orientation, viewUp }
     ) {
       if (state.viewProxy && !state.inAnimation) {
         state.inAnimation = true;
         state.viewProxy
-          .updateOrientation(axis, orientation, viewUp || VIEW_UPS[axis], 100)
+          .updateOrientation(axis, orientation, viewUp || PVL_VIEW_UPS[axis], 100)
           .then(() => {
             state.inAnimation = false;
-            dispatch(Actions.VIEW_RESET_CAMERA);
+            dispatch(Actions.PVL_VIEW_RESET_CAMERA);
           });
       }
     },
-    VIEW_RENDER({ rootState, state }, id) {
+    PVL_VIEW_RENDER({ rootState, state }, id) {
       const client = rootState.network.client;
       const viewId = id || state.view;
       if (client) {

@@ -36,8 +36,8 @@ export default {
       },
     },
     mapActions({
-      removeActiveModule: Actions.MODULES_ACTIVE_CLEAR,
-      createProxy: Actions.PROXY_CREATE,
+      removeActiveModule: Actions.PVL_MODULES_ACTIVE_CLEAR,
+      createProxy: Actions.PVL_PROXY_CREATE,
     })
   ),
 };

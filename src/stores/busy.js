@@ -7,27 +7,27 @@ export default {
     progress: 0,
   },
   getters: {
-    BUSY_PROGRESS(state) {
+    PVL_BUSY_PROGRESS(state) {
       return state.progress;
     },
-    BUSY_COUNT(state) {
+    PVL_BUSY_COUNT(state) {
       return state.count;
     },
   },
   mutations: {
-    BUSY_PROGRESS_SET(state, value) {
+    PVL_BUSY_PROGRESS_SET(state, value) {
       state.progress = value;
     },
-    BUSY_COUNT_SET(state, value) {
+    PVL_BUSY_COUNT_SET(state, value) {
       state.count = value;
     },
   },
   actions: {
-    BUSY_UPDATE_PROGRESS({ state, commit }, delta = 0.5) {
+    PVL_BUSY_UPDATE_PROGRESS({ state, commit }, delta = 0.5) {
       if (state.count) {
-        commit(Mutations.BUSY_PROGRESS_SET, state.progress + delta);
+        commit(Mutations.PVL_BUSY_PROGRESS_SET, state.progress + delta);
       } else {
-        commit(Mutations.BUSY_PROGRESS_SET, 0);
+        commit(Mutations.PVL_BUSY_PROGRESS_SET, 0);
       }
     },
   },

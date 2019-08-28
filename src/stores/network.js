@@ -7,23 +7,23 @@ export default {
     config: null,
   },
   getters: {
-    NETWORK_CLIENT(state) {
+    PVL_NETWORK_CLIENT(state) {
       return state.client;
     },
-    NETWORK_CONFIG(state) {
+    PVL_NETWORK_CONFIG(state) {
       return state.config;
     },
   },
   mutations: {
-    NETWORK_CLIENT_SET(state, client) {
+    PVL_NETWORK_CLIENT_SET(state, client) {
       state.client = client;
     },
-    NETWORK_CONFIG_SET(state, config) {
+    PVL_NETWORK_CONFIG_SET(state, config) {
       state.config = config;
     },
   },
   actions: {
-    NETWORK_CONNECT({ commit, dispatch, state }) {
+    PVL_NETWORK_CONNECT({ commit, dispatch, state }) {
       const { config, client } = state;
       if (client && client.isConnected()) {
         client.disconnect();
@@ -31,7 +31,7 @@ export default {
       const clientToConnect = client || new Client();
 
       clientToConnect.setBusyCallback((count) => {
-        commit(Mutations.BUSY_COUNT_SET, count);
+        commit(Mutations.PVL_BUSY_COUNT_SET, count);
       });
 
       clientToConnect.updateBusy(+1);
@@ -47,11 +47,11 @@ export default {
       clientToConnect
         .connect(config)
         .then((validClient) => {
-          commit(Mutations.NETWORK_CLIENT_SET, validClient);
-          dispatch(Actions.TIME_FETCH_ACTIVE_INDEX);
-          dispatch(Actions.PROXY_PIPELINE_FETCH);
-          dispatch(Actions.APP_ROUTE_RUN);
-          dispatch(Actions.COLOR_FETCH_PRESET_NAMES, 500);
+          commit(Mutations.PVL_NETWORK_CLIENT_SET, validClient);
+          dispatch(Actions.PVL_TIME_FETCH_ACTIVE_INDEX);
+          dispatch(Actions.PVL_PROXY_PIPELINE_FETCH);
+          dispatch(Actions.PVL_APP_ROUTE_RUN);
+          dispatch(Actions.PVL_COLOR_FETCH_PRESET_NAMES, 500);
           clientToConnect.updateBusy(-1);
         })
         .catch((error) => {

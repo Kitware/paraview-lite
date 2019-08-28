@@ -30,13 +30,13 @@ export default {
     },
     connectToSession() {
       if (this.sessionURL) {
-        const config = Object.assign({}, this.$store.getters.NETWORK_CONFIG, {
+        const config = Object.assign({}, this.$store.getters.PVL_NETWORK_CONFIG, {
           sessionURL: this.sessionURL,
         });
         if (this.token) {
           config.secret = this.token;
         }
-        this.$store.commit(Mutations.NETWORK_CONFIG_SET, config);
+        this.$store.commit(Mutations.PVL_NETWORK_CONFIG_SET, config);
         this.$emit('connect');
       } else {
         console.error('No Session URL provided');
@@ -44,13 +44,13 @@ export default {
     },
     startSession() {
       if (this.sessionManagerURL) {
-        const config = Object.assign({}, this.$store.getters.NETWORK_CONFIG, {
+        const config = Object.assign({}, this.$store.getters.PVL_NETWORK_CONFIG, {
           sessionManagerURL: this.sessionManagerURL,
         });
         if (this.token) {
           config.secret = this.token;
         }
-        this.$store.commit(Mutations.NETWORK_CONFIG_SET, config);
+        this.$store.commit(Mutations.PVL_NETWORK_CONFIG_SET, config);
         this.$emit('connect');
       } else {
         console.error('No Session Manager URL provided');

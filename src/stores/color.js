@@ -9,31 +9,31 @@ export default {
     presetNames: [],
   },
   getters: {
-    COLOR_PRESETS(state) {
+    PVL_COLOR_PRESETS(state) {
       return state.presets;
     },
-    COLOR_ARRAYS(state) {
+    PVL_COLOR_ARRAYS(state) {
       return state.arrays;
     },
-    COLOR_LOOKUP_TABLE_WINDOWS(state) {
+    PVL_COLOR_LOOKUP_TABLE_WINDOWS(state) {
       return state.lookupTableWindows;
     },
   },
   mutations: {
-    COLOR_PRESET_NAMES_SET(state, names) {
+    PVL_COLOR_PRESET_NAMES_SET(state, names) {
       state.presetNames = names;
     },
-    COLOR_PRESETS_SET(state, { image, name }) {
+    PVL_COLOR_PRESETS_SET(state, { image, name }) {
       state.presets = Object.assign({}, state.presets, {
         [name]: { image, name },
       });
     },
-    COLOR_ARRAYS_SET(state, { image, range, name }) {
+    PVL_COLOR_ARRAYS_SET(state, { image, range, name }) {
       state.arrays = Object.assign({}, state.arrays, {
         [name]: { image, range, name },
       });
     },
-    COLOR_LOOKUP_TABLE_WINDOWS_SET(
+    PVL_COLOR_LOOKUP_TABLE_WINDOWS_SET(
       state,
       { name, visible, position, orientation }
     ) {
@@ -49,7 +49,7 @@ export default {
     },
   },
   actions: {
-    COLOR_FETCH_PRESET_NAMES(
+    PVL_COLOR_FETCH_PRESET_NAMES(
       { rootState, state, dispatch, commit },
       intervalTime = 500
     ) {
@@ -62,48 +62,48 @@ export default {
           const name = presetToFetch.pop();
           client.remote.Lite.getLookupTablePreset(name, 255)
             .then(({ image }) => {
-              commit(Mutations.COLOR_PRESETS_SET, { name, image });
+              commit(Mutations.PVL_COLOR_PRESETS_SET, { name, image });
               setTimeout(() => {
-                dispatch(Actions.COLOR_FETCH_PRESET_NAMES, intervalTime);
+                dispatch(Actions.PVL_COLOR_FETCH_PRESET_NAMES, intervalTime);
               }, intervalTime);
             })
             .catch(console.error);
         }
       }
     },
-    COLOR_FETCH_PRESET_IMAGE({ rootState, commit }, { name }) {
+    PVL_COLOR_FETCH_PRESET_IMAGE({ rootState, commit }, { name }) {
       const client = rootState.network.client;
       if (client) {
         client.remote.Lite.getLookupTablePreset(name, 255).then(({ image }) => {
-          commit(Mutations.COLOR_PRESETS_SET, { name, image });
+          commit(Mutations.PVL_COLOR_PRESETS_SET, { name, image });
         });
       }
     },
-    COLOR_FETCH_LOOKUP_IMAGE({ rootState, commit }, name) {
+    PVL_COLOR_FETCH_LOOKUP_IMAGE({ rootState, commit }, name) {
       const client = rootState.network.client;
       if (client) {
         client.remote.Lite.getLookupTableForArrayName(name, 255).then(
           ({ image, range }) => {
-            commit(Mutations.COLOR_ARRAYS_SET, { name, image, range });
+            commit(Mutations.PVL_COLOR_ARRAYS_SET, { name, image, range });
           }
         );
       }
     },
-    COLOR_APPLY_PRESET({ rootState, dispatch }, { arrayName, presetName }) {
+    PVL_COLOR_APPLY_PRESET({ rootState, dispatch }, { arrayName, presetName }) {
       const client = rootState.network.client;
       if (client) {
         client.remote.Lite.applyPreset(arrayName, presetName).then(() => {
-          dispatch(Actions.COLOR_FETCH_LOOKUP_IMAGE, arrayName);
+          dispatch(Actions.PVL_COLOR_FETCH_LOOKUP_IMAGE, arrayName);
         });
       }
     },
-    COLOR_CUSTOM_DATA_RANGE({ rootState, commit, dispatch }, { name, range }) {
+    PVL_COLOR_CUSTOM_DATA_RANGE({ rootState, commit, dispatch }, { name, range }) {
       const client = rootState.network.client;
       if (client) {
         client.remote.Lite.updateLookupTableRange(name, range);
       }
     },
-    COLOR_BY(
+    PVL_COLOR_BY(
       { rootState, commit, dispatch },
       {
         colorMode,
@@ -116,7 +116,7 @@ export default {
       }
     ) {
       // console.log(
-      //   'COLOR_BY',
+      //   'PVL_COLOR_BY',
       //   JSON.stringify(
       //     {
       //       colorMode,
@@ -143,7 +143,7 @@ export default {
           rescale || false
         )
           .then(() => {
-            dispatch(Actions.PROXY_DATA_FETCH, {
+            dispatch(Actions.PVL_PROXY_DATA_FETCH, {
               proxyId: representationId,
               needUI: false,
             });

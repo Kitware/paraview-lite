@@ -88,7 +88,7 @@ export default generateComponentWithServerBinding(
 
             // Fetch LookupTable for any array available
             if (!this.lookupTables[name]) {
-              this.$store.dispatch(Actions.COLOR_FETCH_LOOKUP_IMAGE, name);
+              this.$store.dispatch(Actions.PVL_COLOR_FETCH_LOOKUP_IMAGE, name);
             }
 
             return {
@@ -129,14 +129,14 @@ export default generateComponentWithServerBinding(
             return this.timeActiveIdx;
           },
           set(idx) {
-            this.$store.dispatch(Actions.TIME_ACTIVATE_INDEX, idx);
+            this.$store.dispatch(Actions.PVL_TIME_ACTIVATE_INDEX, idx);
           },
         },
       },
       mapGetters({
-        lookupTables: Getters.COLOR_ARRAYS,
-        timeValues: Getters.TIME_VALUES,
-        timeActiveIdx: Getters.TIME_ACTIVE_IDX,
+        lookupTables: Getters.PVL_COLOR_ARRAYS,
+        timeValues: Getters.PVL_TIME_VALUES,
+        timeActiveIdx: Getters.PVL_TIME_ACTIVE_IDX,
       })
     ),
     methods: {
@@ -154,7 +154,7 @@ export default generateComponentWithServerBinding(
         const vectorComponent = this.vectorComponent;
         const rescale = true;
 
-        this.$store.dispatch(Actions.COLOR_BY, {
+        this.$store.dispatch(Actions.PVL_COLOR_BY, {
           colorMode,
           representationId,
           arrayLocation,
