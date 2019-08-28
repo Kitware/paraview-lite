@@ -309,7 +309,10 @@ export function generateComponentWithServerBinding(
         ? {
             deleteProxy() {
               if (!this.create) {
-                this.$store.dispatch(Actions.PVL_PROXY_DELETE, this.activeSourceId);
+                this.$store.dispatch(
+                  Actions.PVL_PROXY_DELETE,
+                  this.activeSourceId
+                );
                 this.$store.commit(Mutations.PVL_PROXY_SELECTED_IDS_SET, []);
               } else {
                 this.$store.dispatch(Actions.PVL_MODULES_ACTIVE_CLEAR);

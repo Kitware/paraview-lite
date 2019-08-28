@@ -198,7 +198,11 @@ export default generateComponentWithServerBinding(
       },
       maxFPS: {
         get() {
-          return this.wrapGet('PVL_VIEW_FPS_MAX', 'PVL_VIEW_FPS_MAX_SET', 'MAX_FPS');
+          return this.wrapGet(
+            'PVL_VIEW_FPS_MAX',
+            'PVL_VIEW_FPS_MAX_SET',
+            'MAX_FPS'
+          );
         },
         set(value) {
           this.wrapSet('PVL_VIEW_FPS_MAX_SET', 'MAX_FPS', value);

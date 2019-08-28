@@ -15,8 +15,9 @@ export default {
           this.$store.getters.PVL_COLOR_LOOKUP_TABLE_WINDOWS[
             this.lookupTable.name
           ] &&
-          this.$store.getters.PVL_COLOR_LOOKUP_TABLE_WINDOWS[this.lookupTable.name]
-            .visible
+          this.$store.getters.PVL_COLOR_LOOKUP_TABLE_WINDOWS[
+            this.lookupTable.name
+          ].visible
         );
       },
       set(value) {
@@ -26,7 +27,9 @@ export default {
             orientation: 'HORIZONTAL',
           },
           this.$store.getters.PVL_COLOR_ARRAYS[this.lookupTable.name],
-          this.$store.getters.PVL_COLOR_LOOKUP_TABLE_WINDOWS[this.lookupTable.name]
+          this.$store.getters.PVL_COLOR_LOOKUP_TABLE_WINDOWS[
+            this.lookupTable.name
+          ]
         );
         obj.visible = value;
         this.$store.commit(Mutations.PVL_COLOR_LOOKUP_TABLE_WINDOWS_SET, obj);

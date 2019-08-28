@@ -80,14 +80,20 @@ export default {
       this.lookupTable.range = this.lookupTable.range.map(Number);
       const range = this.lookupTable.range.slice();
       const name = this.lookupTable.name;
-      this.$store.dispatch(Actions.PVL_COLOR_CUSTOM_DATA_RANGE, { name, range });
+      this.$store.dispatch(Actions.PVL_COLOR_CUSTOM_DATA_RANGE, {
+        name,
+        range,
+      });
     },
     resetDataRange() {
       const name = this.lookupTable.name;
       const dataRanges = this.dataFields[name];
       if (dataRanges) {
         const range = [dataRanges[0].min, dataRanges[0].max];
-        this.$store.dispatch(Actions.PVL_COLOR_CUSTOM_DATA_RANGE, { name, range });
+        this.$store.dispatch(Actions.PVL_COLOR_CUSTOM_DATA_RANGE, {
+          name,
+          range,
+        });
         this.lookupTable.range = range;
       }
     },
