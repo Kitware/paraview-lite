@@ -28,8 +28,8 @@ export default {
     },
   },
   actions: {
-    PVL_TIME_FETCH_VALUES({ rootState, state, dispatch, commit }) {
-      const client = rootState.network.client;
+    PVL_TIME_FETCH_VALUES({ getters, state, dispatch, commit }) {
+      const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         client.remote.TimeHandler.getTimeValues()
           .then((times) => {
@@ -48,16 +48,16 @@ export default {
           .catch(console.error);
       }
     },
-    PVL_TIME_FETCH_ACTIVE_INDEX({ rootState, commit }) {
-      const client = rootState.network.client;
+    PVL_TIME_FETCH_ACTIVE_INDEX({ getters, commit }) {
+      const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         client.remote.TimeHandler.getTimeStep().then((idx) => {
           commit(Mutations.PVL_TIME_ACTIVE_IDX_SET, idx);
         });
       }
     },
-    PVL_TIME_ACTIVATE_INDEX({ rootState, state, commit, dispatch }, timeIndex) {
-      const client = rootState.network.client;
+    PVL_TIME_ACTIVATE_INDEX({ getters, state, commit, dispatch }, timeIndex) {
+      const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         commit(Mutations.PVL_TIME_ACTIVE_IDX_SET, timeIndex);
         if (state.busy) {

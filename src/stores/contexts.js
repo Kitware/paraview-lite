@@ -5,12 +5,12 @@ let networkCalls = 0;
 
 export default {
   actions: {
-    PVL_CONTEXTS_LINE({ rootState, dispatch }, { visible, point1, point2 }) {
+    PVL_CONTEXTS_LINE({ getters, dispatch }, { visible, point1, point2 }) {
       if (PVL_NETWORK_BUFFER.nextLineUpdate || networkCalls) {
         PVL_NETWORK_BUFFER.nextLineUpdate = { visible, point1, point2 };
         return;
       }
-      const client = rootState.network.client;
+      const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         networkCalls++;
         client.remote.Lite.updateLineContext(visible, point1, point2)

@@ -50,14 +50,14 @@ export default {
   },
   actions: {
     PVL_COLOR_FETCH_PRESET_NAMES(
-      { rootState, state, dispatch, commit },
+      { getters, state, dispatch, commit },
       intervalTime = 500
     ) {
       const presetToFetch = state.presetNames.filter(
         (name) => !state.presets[name]
       );
       if (presetToFetch.length) {
-        const client = rootState.network.client;
+        const client = getters.PVL_NETWORK_CLIENT;
         if (client) {
           const name = presetToFetch.pop();
           client.remote.Lite.getLookupTablePreset(name, 255)
@@ -71,16 +71,16 @@ export default {
         }
       }
     },
-    PVL_COLOR_FETCH_PRESET_IMAGE({ rootState, commit }, { name }) {
-      const client = rootState.network.client;
+    PVL_COLOR_FETCH_PRESET_IMAGE({ getters, commit }, { name }) {
+      const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         client.remote.Lite.getLookupTablePreset(name, 255).then(({ image }) => {
           commit(Mutations.PVL_COLOR_PRESETS_SET, { name, image });
         });
       }
     },
-    PVL_COLOR_FETCH_LOOKUP_IMAGE({ rootState, commit }, name) {
-      const client = rootState.network.client;
+    PVL_COLOR_FETCH_LOOKUP_IMAGE({ getters, commit }, name) {
+      const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         client.remote.Lite.getLookupTableForArrayName(name, 255).then(
           ({ image, range }) => {
@@ -89,22 +89,25 @@ export default {
         );
       }
     },
-    PVL_COLOR_APPLY_PRESET({ rootState, dispatch }, { arrayName, presetName }) {
-      const client = rootState.network.client;
+    PVL_COLOR_APPLY_PRESET({ getters, dispatch }, { arrayName, presetName }) {
+      const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         client.remote.Lite.applyPreset(arrayName, presetName).then(() => {
           dispatch(Actions.PVL_COLOR_FETCH_LOOKUP_IMAGE, arrayName);
         });
       }
     },
-    PVL_COLOR_CUSTOM_DATA_RANGE({ rootState, commit, dispatch }, { name, range }) {
-      const client = rootState.network.client;
+    PVL_COLOR_CUSTOM_DATA_RANGE(
+      { getters, commit, dispatch },
+      { name, range }
+    ) {
+      const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         client.remote.Lite.updateLookupTableRange(name, range);
       }
     },
     PVL_COLOR_BY(
-      { rootState, commit, dispatch },
+      { getters, commit, dispatch },
       {
         colorMode,
         representationId,
@@ -131,7 +134,7 @@ export default {
       //     2
       //   )
       // );
-      const client = rootState.network.client;
+      const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         client.remote.ColorManager.colorBy(
           representationId,

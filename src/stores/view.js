@@ -118,8 +118,8 @@ export default {
     },
   },
   actions: {
-    PVL_VIEW_UPDATE_CAMERA({ dispatch, rootState, state }, id) {
-      const client = rootState.network.client;
+    PVL_VIEW_UPDATE_CAMERA({ dispatch, getters, state }, id) {
+      const client = getters.PVL_NETWORK_CLIENT;
       const viewId = id || state.view;
       if (client && state.viewProxy) {
         client.remote.Lite.getCamera(viewId)
@@ -151,14 +151,14 @@ export default {
           .catch(console.error);
       }
     },
-    PVL_VIEW_RESET_CAMERA({ dispatch, rootState, state }, id) {
-      const client = rootState.network.client;
+    PVL_VIEW_RESET_CAMERA({ dispatch, getters, state }, id) {
+      const client = getters.PVL_NETWORK_CLIENT;
       const viewId = id || state.view;
       if (client) {
         client.remote.ViewPort.resetCamera(viewId).catch(console.error);
         dispatch(Actions.PVL_VIEW_UPDATE_CAMERA, id);
       } else {
-        console.error('no client', rootState);
+        console.error('no client', getters.PVL_NETWORK_CLIENT);
       }
     },
     PVL_VIEW_ROLL_LEFT({ state, commit }, id) {
@@ -204,22 +204,27 @@ export default {
       if (state.viewProxy && !state.inAnimation) {
         state.inAnimation = true;
         state.viewProxy
-          .updateOrientation(axis, orientation, viewUp || PVL_VIEW_UPS[axis], 100)
+          .updateOrientation(
+            axis,
+            orientation,
+            viewUp || PVL_VIEW_UPS[axis],
+            100
+          )
           .then(() => {
             state.inAnimation = false;
             dispatch(Actions.PVL_VIEW_RESET_CAMERA);
           });
       }
     },
-    PVL_VIEW_RENDER({ rootState, state }, id) {
-      const client = rootState.network.client;
+    PVL_VIEW_RENDER({ getters, state }, id) {
+      const client = getters.PVL_NETWORK_CLIENT;
       const viewId = id || state.view;
       if (client) {
         client.remote.VtkImageDelivery.stillRender({ view: viewId }).catch(
           console.error
         );
       } else {
-        console.error('no client', rootState);
+        console.error('no client', getters.PVL_NETWORK_CLIENT);
       }
     },
   },

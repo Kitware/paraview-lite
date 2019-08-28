@@ -78,7 +78,7 @@ export default {
   },
   actions: {
     PVL_PROXY_CREATE(
-      { rootState, state, commit, dispatch },
+      { state, getters, commit, dispatch },
       { name, parentId, initialValues, skipDomain, subProxyValues }
     ) {
       // console.log(
@@ -89,7 +89,7 @@ export default {
       //     2
       //   )
       // );
-      const client = rootState.network.client;
+      const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         client.remote.ProxyManager.create(
           name,
@@ -127,9 +127,9 @@ export default {
           .catch(console.error);
       }
     },
-    PVL_PROXY_UPDATE({ rootState, state, dispatch }, changeset) {
+    PVL_PROXY_UPDATE({ state, getters, dispatch }, changeset) {
       // console.log('UPDATE', JSON.stringify(changeset, null, 2));
-      const client = rootState.network.client;
+      const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         // const idToUpdate = new Set(changeset.map((i) => i.id));
         client.remote.ProxyManager.update(changeset)
@@ -142,8 +142,8 @@ export default {
           .catch(console.error);
       }
     },
-    PVL_PROXY_DELETE({ dispatch, rootState }, id) {
-      const client = rootState.network.client;
+    PVL_PROXY_DELETE({ getters, dispatch }, id) {
+      const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         client.remote.ProxyManager.delete(id)
           .then(({ sources, view }) => {
@@ -153,8 +153,8 @@ export default {
           .catch(console.error);
       }
     },
-    PVL_PROXY_NAME_FETCH({ rootState, commit }, id) {
-      const client = rootState.network.client;
+    PVL_PROXY_NAME_FETCH({ getters, commit }, id) {
+      const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         client.remote.Lite.getProxyName(id)
           .then((info) => {
@@ -163,8 +163,8 @@ export default {
           .catch(console.error);
       }
     },
-    PVL_PROXY_PIPELINE_FETCH({ rootState, state, commit, dispatch }) {
-      const client = rootState.network.client;
+    PVL_PROXY_PIPELINE_FETCH({ state, getters, commit, dispatch }) {
+      const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         client.remote.ProxyManager.list()
           .then(({ sources, view }) => {
@@ -212,9 +212,12 @@ export default {
           .catch(console.error);
       }
     },
-    PVL_PROXY_DATA_FETCH({ rootState, commit, state }, { proxyId, needUI = true }) {
+    PVL_PROXY_DATA_FETCH(
+      { getters, commit, state },
+      { proxyId, needUI = true }
+    ) {
       // console.log('fetch', proxyId, needUI);
-      const client = rootState.network.client;
+      const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         client.remote.ProxyManager.get(proxyId, needUI)
           .then((proxy) => {
@@ -223,8 +226,8 @@ export default {
           .catch(console.error);
       }
     },
-    PVL_PROXY_DATA_REFETCH({ rootState, commit, state }) {
-      const client = rootState.network.client;
+    PVL_PROXY_DATA_REFETCH({ getters, commit, state }) {
+      const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         const proxies = state.pipeline;
         for (let i = 0; i < proxies.length; i++) {
