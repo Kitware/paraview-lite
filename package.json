@@ -32,14 +32,16 @@
   },
   "author": "Kitware",
   "dependencies": {
+    "commitizen": "^4.0.3",
+    "core-js": "^2.6.5",
     "material-design-icons-iconfont": "3.0.3",
     "mousetrap": "1.6.2",
+    "semantic-release": "^15.13.24",
     "typeface-roboto": "0.0.54",
-    "core-js": "^2.6.5",
+    "vtk.js": "11.0.0",
     "vue": "2.6.10",
     "vuetify": "1.2.3",
     "vuex": "3.0.1",
-    "vtk.js": "11.0.0",
     "wslink": "0.1.8"
   },
   "devDependencies": {
