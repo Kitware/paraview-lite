@@ -44,15 +44,17 @@ If you wish to view, enhance, or adapt this application in any way, you can acce
 $ git clone https://github.com/Kitware/paraview-lite.git
 $ cd paraview-lite/
 $ npm install
-$ npm run build -- --watch
+$ npm run serve
 ```
 
 This will build a development version inside the `./dist` directory. You will have to point the ParaView process to use that directory as web content. (i.e.: `$ pvpython ./server/pvw-lite.py --content ./dist --data ~ --port 1234`)
 
+`open http://localhost:8080/?sessionURL=ws://localhost:1234/ws` assuming the serve command started using port 8080.
+
 To generate a production build, use the following commands:
 
 ```
-$ npm run build:release
+$ npm run build
 ```
 
 This will output the final bundle and assets to `dist/`.
