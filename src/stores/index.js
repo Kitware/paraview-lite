@@ -36,7 +36,7 @@ import { Mutations } from 'paraview-lite/src/stores/types';
 // }
 /* eslint-enable no-param-reassign */
 
-export const store = {
+export const ROOT_STATE = {
   state: {
     route: 'landing', // valid values: landing, app
     autoApply: true,
@@ -82,7 +82,7 @@ export const store = {
 };
 
 export function createStore() {
-  return new Vuex.Store(store);
+  return new Vuex.Store(ROOT_STATE);
 }
 
 export default createStore;
