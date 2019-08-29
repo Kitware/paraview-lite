@@ -1,4 +1,4 @@
-import { mapState, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import Mousetrap from 'mousetrap';
 
 import AboutBox from 'paraview-lite/src/components/core/AboutBox';
@@ -12,7 +12,6 @@ import LayoutView from 'paraview-lite/src/components/core/LayoutView';
 import ProgressBar from 'paraview-lite/src/components/widgets/ProgressBar';
 import shortcuts from 'paraview-lite/src/shortcuts';
 import SvgIcon from 'paraview-lite/src/components/widgets/SvgIcon';
-import { Actions } from 'paraview-lite/src/stores/types';
 
 // ----------------------------------------------------------------------------
 // Component API
@@ -41,54 +40,49 @@ export default {
       errors: [],
     };
   },
-  computed: mapState({
-    client() {
-      return this.$store.getters.PVL_NETWORK_CLIENT;
-    },
-    darkMode() {
-      return this.$store.getters.PVL_APP_DARK_THEME;
-    },
-    busyPercent(state) {
-      return state.busy.progress;
-    },
-    landingVisible: (state) => state.route === 'landing',
-    smallScreen() {
-      // vuetify xs is 600px, but our buttons collide at around 700.
-      return this.$vuetify.breakpoint.smAndDown;
-    },
-    dialogType() {
-      return this.smallScreen ? 'v-bottom-sheet' : 'v-dialog';
-    },
-    iconLogo() {
-      if (this.darkMode) {
-        return this.smallScreen ? 'lite-small-dark' : 'lite-dark';
-      }
-      return this.smallScreen ? 'lite-small' : 'lite';
-    },
-    floatingLookupTables() {
-      return Object.values(
-        this.$store.getters.PVL_COLOR_LOOKUP_TABLE_WINDOWS
-      ).filter((l) => l.visible);
-    },
-    lookupTables() {
-      return this.$store.getters.PVL_COLOR_ARRAYS;
-    },
-    dataFields() {
-      const arrayRanges = {};
-      const selectedProxies = this.$store.getters.PVL_PROXY_SELECTED_IDS;
-      const dataMap = this.$store.getters.PVL_PROXY_DATA_MAP;
-      const id = selectedProxies[0];
-      const pData = dataMap[id];
-      if (pData) {
-        const arrays = pData.data.arrays;
-        for (let i = 0; i < arrays.length; i++) {
-          const { name, range } = arrays[i];
-          arrayRanges[name] = range;
+  computed: Object.assign(
+    {
+      smallScreen() {
+        // vuetify xs is 600px, but our buttons collide at around 700.
+        return this.$vuetify.breakpoint.smAndDown;
+      },
+      dialogType() {
+        return this.smallScreen ? 'v-bottom-sheet' : 'v-dialog';
+      },
+      iconLogo() {
+        if (this.darkMode) {
+          return this.smallScreen ? 'lite-small-dark' : 'lite-dark';
         }
-      }
-      return arrayRanges;
+        return this.smallScreen ? 'lite-small' : 'lite';
+      },
+      floatingLookupTables() {
+        return Object.values(this.lookupTablesMap).filter((l) => l.visible);
+      },
+      dataFields() {
+        const arrayRanges = {};
+        const id = this.selectedProxies[0];
+        const pData = this.dataMap[id];
+        if (pData) {
+          const arrays = pData.data.arrays;
+          for (let i = 0; i < arrays.length; i++) {
+            const { name, range } = arrays[i];
+            arrayRanges[name] = range;
+          }
+        }
+        return arrayRanges;
+      },
     },
-  }),
+    mapGetters({
+      client: 'PVL_NETWORK_CLIENT',
+      darkMode: 'PVL_APP_DARK_THEME',
+      busyPercent: 'PVL_BUSY_PROGRESS',
+      landingVisible: 'PVL_LANDING_VISIBLE',
+      lookupTables: 'PVL_COLOR_ARRAYS',
+      lookupTablesMap: 'PVL_COLOR_LOOKUP_TABLE_WINDOWS',
+      selectedProxies: 'PVL_PROXY_SELECTED_IDS',
+      dataMap: 'PVL_PROXY_DATA_MAP',
+    })
+  ),
   watch: {
     landingVisible(value) {
       // matches the mobile breakpoint for navigation-drawer
@@ -102,12 +96,10 @@ export default {
   mounted() {
     // attach keyboard shortcuts
     shortcuts.forEach(({ key, action }) => {
-      if (Actions[action]) {
-        Mousetrap.bind(key, (e) => {
-          e.preventDefault();
-          this.$store.dispatch(Actions[action]);
-        });
-      }
+      Mousetrap.bind(key, (e) => {
+        e.preventDefault();
+        this.$store.dispatch(action);
+      });
     });
 
     // listen for errors
@@ -133,10 +125,8 @@ export default {
       window.console.error = this.origConsoleError;
     }
 
-    shortcuts.forEach(({ key, action }) => {
-      if (Actions[action]) {
-        Mousetrap.unbind(key);
-      }
+    shortcuts.forEach(({ key }) => {
+      Mousetrap.unbind(key);
     });
   },
   methods: Object.assign(
@@ -156,9 +146,9 @@ export default {
       },
     },
     mapActions({
-      showApp: Actions.PVL_APP_ROUTE_RUN,
-      showLanding: Actions.PVL_APP_ROUTE_LANDING,
-      connect: Actions.PVL_NETWORK_CONNECT,
+      showApp: 'PVL_APP_ROUTE_RUN',
+      showLanding: 'PVL_APP_ROUTE_LANDING',
+      connect: 'PVL_NETWORK_CONNECT',
     })
   ),
 };

@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-import { Mutations } from 'paraview-lite/src/stores/types';
-
 export default {
   state: {
     count: 0,
@@ -25,9 +22,9 @@ export default {
   actions: {
     PVL_BUSY_UPDATE_PROGRESS({ state, commit }, delta = 0.5) {
       if (state.count) {
-        commit(Mutations.PVL_BUSY_PROGRESS_SET, state.progress + delta);
+        commit('PVL_BUSY_PROGRESS_SET', state.progress + delta);
       } else {
-        commit(Mutations.PVL_BUSY_PROGRESS_SET, 0);
+        commit('PVL_BUSY_PROGRESS_SET', 0);
       }
     },
   },

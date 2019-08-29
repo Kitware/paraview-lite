@@ -10,32 +10,6 @@ import proxy from 'paraview-lite/src/stores/proxy';
 import time from 'paraview-lite/src/stores/time';
 import view from 'paraview-lite/src/stores/view';
 
-import { Mutations } from 'paraview-lite/src/stores/types';
-
-// http://jsperf.com/typeofvar
-// function typeOf(o) {
-//   return {}.toString
-//     .call(o)
-//     .slice(8, -1)
-//     .toLowerCase();
-// }
-
-// quick object merge using Vue.set
-/* eslint-disable no-param-reassign */
-// function merge(dst, src) {
-//   const keys = Object.keys(src);
-//   for (let i = 0; i < keys.length; ++i) {
-//     const key = keys[i];
-//     if (typeOf(dst[key]) === 'object' && typeOf(src[key]) === 'object') {
-//       Vue.set(dst, key, merge(dst[key], src[key]));
-//     } else {
-//       Vue.set(dst, key, src[key]);
-//     }
-//   }
-//   return dst;
-// }
-/* eslint-enable no-param-reassign */
-
 export const ROOT_STATE = {
   state: {
     route: 'landing', // valid values: landing, app
@@ -59,6 +33,9 @@ export const ROOT_STATE = {
     PVL_APP_DARK_THEME(state) {
       return state.dark;
     },
+    PVL_LANDING_VISIBLE(state) {
+      return state.route === 'landing';
+    },
   },
   mutations: {
     PVL_APP_ROUTE_SET(state, route) {
@@ -73,10 +50,10 @@ export const ROOT_STATE = {
   },
   actions: {
     PVL_APP_ROUTE_LANDING({ commit }) {
-      commit(Mutations.PVL_APP_ROUTE_SET, 'landing');
+      commit('PVL_APP_ROUTE_SET', 'landing');
     },
     PVL_APP_ROUTE_RUN({ commit }) {
-      commit(Mutations.PVL_APP_ROUTE_SET, 'app');
+      commit('PVL_APP_ROUTE_SET', 'app');
     },
   },
 };

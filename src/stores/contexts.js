@@ -1,5 +1,3 @@
-import { Actions } from 'paraview-lite/src/stores/types';
-
 const PVL_NETWORK_BUFFER = {};
 let networkCalls = 0;
 
@@ -19,7 +17,7 @@ export default {
             if (PVL_NETWORK_BUFFER.nextLineUpdate) {
               const arg = PVL_NETWORK_BUFFER.nextLineUpdate;
               PVL_NETWORK_BUFFER.nextLineUpdate = null;
-              dispatch(Actions.PVL_CONTEXTS_LINE, arg);
+              dispatch('PVL_CONTEXTS_LINE', arg);
             }
           })
           .catch(console.error);

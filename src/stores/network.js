@@ -1,5 +1,4 @@
 import Client from 'paraview-lite/src/io/Client';
-import { Mutations, Actions } from 'paraview-lite/src/stores/types';
 
 export default {
   state: {
@@ -31,7 +30,7 @@ export default {
       const clientToConnect = client || new Client();
 
       clientToConnect.setBusyCallback((count) => {
-        commit(Mutations.PVL_BUSY_COUNT_SET, count);
+        commit('PVL_BUSY_COUNT_SET', count);
       });
 
       clientToConnect.updateBusy(+1);
@@ -47,11 +46,11 @@ export default {
       clientToConnect
         .connect(config)
         .then((validClient) => {
-          commit(Mutations.PVL_NETWORK_CLIENT_SET, validClient);
-          dispatch(Actions.PVL_TIME_FETCH_ACTIVE_INDEX);
-          dispatch(Actions.PVL_PROXY_PIPELINE_FETCH);
-          dispatch(Actions.PVL_APP_ROUTE_RUN);
-          dispatch(Actions.PVL_COLOR_FETCH_PRESET_NAMES, 500);
+          commit('PVL_NETWORK_CLIENT_SET', validClient);
+          dispatch('PVL_TIME_FETCH_ACTIVE_INDEX');
+          dispatch('PVL_PROXY_PIPELINE_FETCH');
+          dispatch('PVL_APP_ROUTE_RUN');
+          dispatch('PVL_COLOR_FETCH_PRESET_NAMES', 500);
           clientToConnect.updateBusy(-1);
         })
         .catch((error) => {

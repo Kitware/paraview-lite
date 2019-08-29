@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-import { Actions, Mutations } from 'paraview-lite/src/stores/types';
-
 import vtkActor from 'vtk.js/Sources/Rendering/Core/Actor';
 import vtkMapper from 'vtk.js/Sources/Rendering/Core/Mapper';
 import vtkPolyData from 'vtk.js/Sources/Common/DataModel/PolyData';
@@ -118,7 +115,7 @@ export default {
     },
   },
   actions: {
-    PVL_VIEW_UPDATE_CAMERA({ dispatch, getters, state }, id) {
+    PVL_VIEW_UPDATE_CAMERA({ getters, state }, id) {
       const client = getters.PVL_NETWORK_CLIENT;
       const viewId = id || state.view;
       if (client && state.viewProxy) {
@@ -156,12 +153,12 @@ export default {
       const viewId = id || state.view;
       if (client) {
         client.remote.ViewPort.resetCamera(viewId).catch(console.error);
-        dispatch(Actions.PVL_VIEW_UPDATE_CAMERA, id);
+        dispatch('PVL_VIEW_UPDATE_CAMERA', id);
       } else {
         console.error('no client', getters.PVL_NETWORK_CLIENT);
       }
     },
-    PVL_VIEW_ROLL_LEFT({ state, commit }, id) {
+    PVL_VIEW_ROLL_LEFT({ state }) {
       if (state.viewProxy) {
         state.viewProxy.setAnimation(true, this);
         let count = 0;
@@ -179,7 +176,7 @@ export default {
         intervalId = setInterval(rotate, 10);
       }
     },
-    PVL_VIEW_ROLL_RIGHT({ state, commit }, id) {
+    PVL_VIEW_ROLL_RIGHT({ state }) {
       if (state.viewProxy) {
         state.viewProxy.setAnimation(true, this);
         let count = 0;
@@ -198,7 +195,7 @@ export default {
       }
     },
     PVL_VIEW_UPDATE_ORIENTATION(
-      { state, commit, dispatch },
+      { state, dispatch },
       { axis, orientation, viewUp }
     ) {
       if (state.viewProxy && !state.inAnimation) {
@@ -212,7 +209,7 @@ export default {
           )
           .then(() => {
             state.inAnimation = false;
-            dispatch(Actions.PVL_VIEW_RESET_CAMERA);
+            dispatch('PVL_VIEW_RESET_CAMERA');
           });
       }
     },

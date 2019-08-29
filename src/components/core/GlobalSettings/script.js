@@ -1,8 +1,6 @@
 import PalettePicker from 'paraview-lite/src/components/widgets/PalettePicker';
 import vtkMath from 'vtk.js/Sources/Common/Core/Math';
 
-import { Actions, Mutations } from 'paraview-lite/src/stores/types';
-
 import { generateComponentWithServerBinding } from 'paraview-lite/src/proxyHelper';
 
 function storeItem(key, value) {
@@ -136,13 +134,13 @@ export default generateComponentWithServerBinding(
         const originalValue = this.$store.getters[storeGetKey];
         const value = retreiveItem(KEYS[storageKey], originalValue);
         if (value !== originalValue) {
-          this.$store.commit(Mutations[storeSetKey], value);
+          this.$store.commit(storeSetKey, value);
         }
         return value;
       },
       wrapSet(storeSetKey, storageKey, value) {
         storeItem(KEYS[storageKey], value);
-        this.$store.commit(Mutations[storeSetKey], value);
+        this.$store.commit(storeSetKey, value);
       },
       resetSettings() {
         Object.values(KEYS).forEach(({ variable, defaultValue }) => {
@@ -226,8 +224,8 @@ export default generateComponentWithServerBinding(
           return this.$store.getters.PVL_VIEW_STATS;
         },
         set(value) {
-          this.$store.commit(Mutations.PVL_VIEW_STATS_SET, value);
-          this.$store.dispatch(Actions.PVL_VIEW_RENDER);
+          this.$store.commit('PVL_VIEW_STATS_SET', value);
+          this.$store.dispatch('PVL_VIEW_RENDER');
         },
       },
       autoApply: {

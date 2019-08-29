@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-import { Mutations, Actions } from 'paraview-lite/src/stores/types';
-
 export default {
   state: {
     arrays: {},
@@ -62,9 +59,9 @@ export default {
           const name = presetToFetch.pop();
           client.remote.Lite.getLookupTablePreset(name, 255)
             .then(({ image }) => {
-              commit(Mutations.PVL_COLOR_PRESETS_SET, { name, image });
+              commit('PVL_COLOR_PRESETS_SET', { name, image });
               setTimeout(() => {
-                dispatch(Actions.PVL_COLOR_FETCH_PRESET_NAMES, intervalTime);
+                dispatch('PVL_COLOR_FETCH_PRESET_NAMES', intervalTime);
               }, intervalTime);
             })
             .catch(console.error);
@@ -75,7 +72,7 @@ export default {
       const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         client.remote.Lite.getLookupTablePreset(name, 255).then(({ image }) => {
-          commit(Mutations.PVL_COLOR_PRESETS_SET, { name, image });
+          commit('PVL_COLOR_PRESETS_SET', { name, image });
         });
       }
     },
@@ -84,7 +81,7 @@ export default {
       if (client) {
         client.remote.Lite.getLookupTableForArrayName(name, 255).then(
           ({ image, range }) => {
-            commit(Mutations.PVL_COLOR_ARRAYS_SET, { name, image, range });
+            commit('PVL_COLOR_ARRAYS_SET', { name, image, range });
           }
         );
       }
@@ -93,21 +90,18 @@ export default {
       const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         client.remote.Lite.applyPreset(arrayName, presetName).then(() => {
-          dispatch(Actions.PVL_COLOR_FETCH_LOOKUP_IMAGE, arrayName);
+          dispatch('PVL_COLOR_FETCH_LOOKUP_IMAGE', arrayName);
         });
       }
     },
-    PVL_COLOR_CUSTOM_DATA_RANGE(
-      { getters, commit, dispatch },
-      { name, range }
-    ) {
+    PVL_COLOR_CUSTOM_DATA_RANGE({ getters }, { name, range }) {
       const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         client.remote.Lite.updateLookupTableRange(name, range);
       }
     },
     PVL_COLOR_BY(
-      { getters, commit, dispatch },
+      { getters, dispatch },
       {
         colorMode,
         representationId,
@@ -146,7 +140,7 @@ export default {
           rescale || false
         )
           .then(() => {
-            dispatch(Actions.PVL_PROXY_DATA_FETCH, {
+            dispatch('PVL_PROXY_DATA_FETCH', {
               proxyId: representationId,
               needUI: false,
             });

@@ -14,7 +14,6 @@ import registerModules from 'paraview-lite/src/modules/registerModules';
 
 import App from 'paraview-lite/src/components/core/App';
 import { createStore } from 'paraview-lite/src/stores';
-import { Mutations, Actions } from 'paraview-lite/src/stores/types';
 
 Vue.use(Vuex);
 Vue.use(Vuetify);
@@ -37,12 +36,12 @@ export function createViewer(
   config = createConfigurationFromURLArgs()
 ) {
   const store = createStore();
-  store.commit(Mutations.PVL_NETWORK_CONFIG_SET, config);
+  store.commit('PVL_NETWORK_CONFIG_SET', config);
   registerModules(store);
-  setInterval(() => store.dispatch(Actions.PVL_BUSY_UPDATE_PROGRESS, 1), 50);
+  setInterval(() => store.dispatch('PVL_BUSY_UPDATE_PROGRESS', 1), 50);
 
   // Fetch preset images
-  store.commit(Mutations.PVL_COLOR_PRESET_NAMES_SET, [
+  store.commit('PVL_COLOR_PRESET_NAMES_SET', [
     'Cool to Warm',
     'Cool to Warm (Extended)',
     'Rainbow Desaturated',
@@ -66,9 +65,9 @@ export function createViewer(
   function onRoute(event) {
     const state = event.state || {};
     if (state.app) {
-      store.dispatch(Actions.PVL_APP_ROUTE_RUN);
+      store.dispatch('PVL_APP_ROUTE_RUN');
     } else {
-      store.dispatch(Actions.PVL_APP_ROUTE_LANDING);
+      store.dispatch('PVL_APP_ROUTE_LANDING');
     }
   }
   store.watch(

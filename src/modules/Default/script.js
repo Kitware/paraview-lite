@@ -1,6 +1,4 @@
 import { mapGetters } from 'vuex';
-import { Getters, Actions, Mutations } from 'paraview-lite/src/stores/types';
-
 import module from './module';
 
 // ----------------------------------------------------------------------------
@@ -23,15 +21,15 @@ export default {
       },
     },
     mapGetters({
-      proxies: Getters.PVL_PROXY_SELECTED_IDS,
-      names: Getters.PVL_PROXY_NAME_MAP,
+      proxies: 'PVL_PROXY_SELECTED_IDS',
+      names: 'PVL_PROXY_NAME_MAP',
     })
   ),
   methods: {
     deleteProxy() {
       const id = this.proxies[0];
-      this.$store.dispatch(Actions.PVL_PROXY_DELETE, id);
-      this.$store.commit(Mutations.PVL_PROXY_SELECTED_IDS_SET, []);
+      this.$store.dispatch('PVL_PROXY_DELETE', id);
+      this.$store.commit('PVL_PROXY_SELECTED_IDS_SET', []);
     },
   },
 };

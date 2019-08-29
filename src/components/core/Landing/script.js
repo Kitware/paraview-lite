@@ -1,13 +1,9 @@
-import samples from 'paraview-lite/src/samples';
 import { Breakpoints } from 'paraview-lite/src/constants';
-
-import { Mutations } from 'paraview-lite/src/stores/types';
 
 export default {
   name: 'Landing',
   data() {
     return {
-      samples,
       token: null,
       sessionURL: null,
       sessionManagerURL: null,
@@ -40,7 +36,7 @@ export default {
         if (this.token) {
           config.secret = this.token;
         }
-        this.$store.commit(Mutations.PVL_NETWORK_CONFIG_SET, config);
+        this.$store.commit('PVL_NETWORK_CONFIG_SET', config);
         this.$emit('connect');
       } else {
         console.error('No Session URL provided');
@@ -58,7 +54,7 @@ export default {
         if (this.token) {
           config.secret = this.token;
         }
-        this.$store.commit(Mutations.PVL_NETWORK_CONFIG_SET, config);
+        this.$store.commit('PVL_NETWORK_CONFIG_SET', config);
         this.$emit('connect');
       } else {
         console.error('No Session Manager URL provided');

@@ -1,5 +1,3 @@
-import { Actions } from 'paraview-lite/src/stores/types';
-
 export default {
   name: 'FloatingLookupTable',
   props: {
@@ -71,7 +69,7 @@ export default {
     },
     usePreset(presetName) {
       const arrayName = this.lookupTable.name;
-      this.$store.dispatch(Actions.PVL_COLOR_APPLY_PRESET, {
+      this.$store.dispatch('PVL_COLOR_APPLY_PRESET', {
         presetName,
         arrayName,
       });
@@ -80,7 +78,7 @@ export default {
       this.lookupTable.range = this.lookupTable.range.map(Number);
       const range = this.lookupTable.range.slice();
       const name = this.lookupTable.name;
-      this.$store.dispatch(Actions.PVL_COLOR_CUSTOM_DATA_RANGE, {
+      this.$store.dispatch('PVL_COLOR_CUSTOM_DATA_RANGE', {
         name,
         range,
       });
@@ -90,7 +88,7 @@ export default {
       const dataRanges = this.dataFields[name];
       if (dataRanges) {
         const range = [dataRanges[0].min, dataRanges[0].max];
-        this.$store.dispatch(Actions.PVL_COLOR_CUSTOM_DATA_RANGE, {
+        this.$store.dispatch('PVL_COLOR_CUSTOM_DATA_RANGE', {
           name,
           range,
         });

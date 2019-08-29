@@ -1,5 +1,3 @@
-import { Mutations } from 'paraview-lite/src/stores/types';
-
 export default {
   name: 'LookupTableToolbar',
   props: {
@@ -32,7 +30,7 @@ export default {
           ]
         );
         obj.visible = value;
-        this.$store.commit(Mutations.PVL_COLOR_LOOKUP_TABLE_WINDOWS_SET, obj);
+        this.$store.commit('PVL_COLOR_LOOKUP_TABLE_WINDOWS_SET', obj);
       },
     },
   },

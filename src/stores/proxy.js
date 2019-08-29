@@ -1,7 +1,4 @@
-/* eslint-disable no-unused-vars */
-import { Mutations, Actions } from 'paraview-lite/src/stores/types';
-
-function getInputRepresentation(repStr, replaceInput) {
+function getInputRepresentation(repStr) {
   switch (repStr) {
     case '3D Glyphs':
     case 'Feature Edges':
@@ -111,33 +108,33 @@ export default {
                   changeset[0].value,
                   proxy.hints.replaceInput
                 );
-                dispatch(Actions.PVL_PROXY_UPDATE, changeset);
+                dispatch('PVL_PROXY_UPDATE', changeset);
               }
             }
 
             // Fetch new data
-            commit(Mutations.PVL_PROXY_DATA_SET, proxy);
-            commit(Mutations.PVL_PROXY_SELECTED_IDS_SET, [proxy.id]);
-            dispatch(Actions.PVL_PROXY_PIPELINE_FETCH);
-            dispatch(Actions.PVL_MODULES_ACTIVE_CLEAR);
+            commit('PVL_PROXY_DATA_SET', proxy);
+            commit('PVL_PROXY_SELECTED_IDS_SET', [proxy.id]);
+            dispatch('PVL_PROXY_PIPELINE_FETCH');
+            dispatch('PVL_MODULES_ACTIVE_CLEAR');
 
             // Make sure we pull the actual server values
-            dispatch(Actions.PVL_PROXY_DATA_FETCH, { proxyId: proxy.id });
+            dispatch('PVL_PROXY_DATA_FETCH', { proxyId: proxy.id });
           })
           .catch(console.error);
       }
     },
-    PVL_PROXY_UPDATE({ state, getters, dispatch }, changeset) {
+    PVL_PROXY_UPDATE({ getters, dispatch }, changeset) {
       // console.log('UPDATE', JSON.stringify(changeset, null, 2));
       const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         // const idToUpdate = new Set(changeset.map((i) => i.id));
         client.remote.ProxyManager.update(changeset)
-          .then((result) => {
+          .then(() => {
             // idToUpdate.forEach((id) => {
             //   dispatch(Actions.PVL_PROXY_DATA_FETCH, id, false);
             // });
-            dispatch(Actions.PVL_PROXY_PIPELINE_FETCH);
+            dispatch('PVL_PROXY_PIPELINE_FETCH');
           })
           .catch(console.error);
       }
@@ -146,9 +143,9 @@ export default {
       const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         client.remote.ProxyManager.delete(id)
-          .then(({ sources, view }) => {
-            dispatch(Actions.PVL_PROXY_PIPELINE_FETCH);
-            dispatch(Actions.PVL_TIME_FETCH_VALUES);
+          .then((/* { sources, view } */) => {
+            dispatch('PVL_PROXY_PIPELINE_FETCH');
+            dispatch('PVL_TIME_FETCH_VALUES');
           })
           .catch(console.error);
       }
@@ -158,7 +155,7 @@ export default {
       if (client) {
         client.remote.Lite.getProxyName(id)
           .then((info) => {
-            commit(Mutations.PVL_PROXY_NAME_SET, info);
+            commit('PVL_PROXY_NAME_SET', info);
           })
           .catch(console.error);
       }
@@ -168,60 +165,57 @@ export default {
       if (client) {
         client.remote.ProxyManager.list()
           .then(({ sources, view }) => {
-            commit(Mutations.PVL_PROXY_PIPELINE_SET, sources);
-            commit(Mutations.PVL_VIEW_ID_SET, view);
+            commit('PVL_PROXY_PIPELINE_SET', sources);
+            commit('PVL_VIEW_ID_SET', view);
 
             // Fetch view data if first time
             if (!state.proxyDataMap[view]) {
-              dispatch(Actions.PVL_PROXY_DATA_FETCH, { proxyId: view });
+              dispatch('PVL_PROXY_DATA_FETCH', { proxyId: view });
             }
 
             // Update source -> rep mapping
             sources.forEach((proxy) => {
-              commit(Mutations.PVL_PROXY_SOURCE_TO_REPRESENTATION_SET, proxy);
+              commit('PVL_PROXY_SOURCE_TO_REPRESENTATION_SET', proxy);
 
               // Fetch proxy data if not available
               if (!state.proxyDataMap[proxy.id]) {
-                dispatch(Actions.PVL_PROXY_DATA_FETCH, { proxyId: proxy.id });
+                dispatch('PVL_PROXY_DATA_FETCH', { proxyId: proxy.id });
               }
 
               // Fetch proxy name if not available
               if (!state.proxyNames[proxy.id]) {
-                dispatch(Actions.PVL_PROXY_NAME_FETCH, proxy.id);
+                dispatch('PVL_PROXY_NAME_FETCH', proxy.id);
               }
 
               // Fetch representation data if not available
               if (!state.proxyDataMap[proxy.rep]) {
-                dispatch(Actions.PVL_PROXY_DATA_FETCH, { proxyId: proxy.rep });
+                dispatch('PVL_PROXY_DATA_FETCH', { proxyId: proxy.rep });
               }
 
               // Fetch representation name if not available
               if (!state.proxyNames[proxy.rep]) {
-                dispatch(Actions.PVL_PROXY_NAME_FETCH, proxy.rep);
+                dispatch('PVL_PROXY_NAME_FETCH', proxy.rep);
               }
             });
 
             // If only one source trigger a reset camera
             if (sources.length === 1) {
-              dispatch(Actions.PVL_VIEW_RESET_CAMERA);
+              dispatch('PVL_VIEW_RESET_CAMERA');
             }
 
             // Fetch new time values
-            dispatch(Actions.PVL_TIME_FETCH_VALUES);
+            dispatch('PVL_TIME_FETCH_VALUES');
           })
           .catch(console.error);
       }
     },
-    PVL_PROXY_DATA_FETCH(
-      { getters, commit, state },
-      { proxyId, needUI = true }
-    ) {
+    PVL_PROXY_DATA_FETCH({ getters, commit }, { proxyId, needUI = true }) {
       // console.log('fetch', proxyId, needUI);
       const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         client.remote.ProxyManager.get(proxyId, needUI)
           .then((proxy) => {
-            commit(Mutations.PVL_PROXY_DATA_SET, proxy);
+            commit('PVL_PROXY_DATA_SET', proxy);
           })
           .catch(console.error);
       }
@@ -233,7 +227,7 @@ export default {
         for (let i = 0; i < proxies.length; i++) {
           client.remote.ProxyManager.get(proxies[i].id, false)
             .then((proxy) => {
-              commit(Mutations.PVL_PROXY_DATA_SET, proxy);
+              commit('PVL_PROXY_DATA_SET', proxy);
             })
             .catch(console.error);
         }

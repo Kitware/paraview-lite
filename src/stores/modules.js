@@ -1,5 +1,3 @@
-import { Mutations } from 'paraview-lite/src/stores/types';
-
 /* eslint-disable no-unused-vars */
 const DEFAULT_VALUES = {
   showInMenu(proxyData) {
@@ -54,10 +52,10 @@ export default {
   },
   actions: {
     PVL_MODULES_ACTIVE_CLEAR({ commit }) {
-      commit(Mutations.PVL_MODULES_ACTIVE_SET, null);
+      commit('PVL_MODULES_ACTIVE_SET', null);
     },
     PVL_MODULES_ACTIVE_BY_NAME({ commit, state }, name) {
-      commit(Mutations.PVL_MODULES_ACTIVE_SET, state.moduleMap[name]);
+      commit('PVL_MODULES_ACTIVE_SET', state.moduleMap[name]);
     },
   },
 };

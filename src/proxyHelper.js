@@ -1,5 +1,3 @@
-import { Actions, Mutations } from 'paraview-lite/src/stores/types';
-
 /* eslint-disable no-param-reassign */
 function extractProperties(names, properties, result) {
   for (let i = 0; i < properties.length; i++) {
@@ -237,8 +235,8 @@ export function generateComponentWithServerBinding(
     }
     if (this.isNetworkBusy < 3 && hasChange()) {
       // console.log('apply', JSON.stringify(changeSet, null, 2));
-      store.dispatch(Actions.PVL_PROXY_UPDATE, changeSet);
-      store.dispatch(Actions.PVL_PROXY_DATA_FETCH, {
+      store.dispatch('PVL_PROXY_UPDATE', changeSet);
+      store.dispatch('PVL_PROXY_DATA_FETCH', {
         proxyId: this[`active${proxyType}Id`],
         needUI: false,
       });
@@ -309,13 +307,10 @@ export function generateComponentWithServerBinding(
         ? {
             deleteProxy() {
               if (!this.create) {
-                this.$store.dispatch(
-                  Actions.PVL_PROXY_DELETE,
-                  this.activeSourceId
-                );
-                this.$store.commit(Mutations.PVL_PROXY_SELECTED_IDS_SET, []);
+                this.$store.dispatch('PVL_PROXY_DELETE', this.activeSourceId);
+                this.$store.commit('PVL_PROXY_SELECTED_IDS_SET', []);
               } else {
-                this.$store.dispatch(Actions.PVL_MODULES_ACTIVE_CLEAR);
+                this.$store.dispatch('PVL_MODULES_ACTIVE_CLEAR');
               }
             },
             createProxy() {
@@ -337,7 +332,7 @@ export function generateComponentWithServerBinding(
                 });
               }
 
-              this.$store.dispatch(Actions.PVL_PROXY_CREATE, {
+              this.$store.dispatch('PVL_PROXY_CREATE', {
                 name: proxyNameToCreate,
                 parentId: this.activeSourceId,
                 initialValues,

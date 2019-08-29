@@ -1,5 +1,4 @@
 import { mapActions } from 'vuex';
-import { Actions } from 'paraview-lite/src/stores/types';
 
 import module from './module';
 
@@ -36,8 +35,8 @@ export default {
       },
     },
     mapActions({
-      removeActiveModule: Actions.PVL_MODULES_ACTIVE_CLEAR,
-      createProxy: Actions.PVL_PROXY_CREATE,
+      removeActiveModule: 'PVL_MODULES_ACTIVE_CLEAR',
+      createProxy: 'PVL_PROXY_CREATE',
     })
   ),
 };

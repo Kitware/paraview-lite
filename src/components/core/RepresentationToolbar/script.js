@@ -3,7 +3,6 @@ import { mapGetters } from 'vuex';
 import vtkMath from 'vtk.js/Sources/Common/Core/Math';
 
 import { generateComponentWithServerBinding } from 'paraview-lite/src/proxyHelper';
-import { Getters, Actions } from 'paraview-lite/src/stores/types';
 
 import CollapsableItem from 'paraview-lite/src/components/widgets/CollapsableItem';
 import LookupTableToolbar from 'paraview-lite/src/components/widgets/LookupTableToolbar';
@@ -88,7 +87,7 @@ export default generateComponentWithServerBinding(
 
             // Fetch LookupTable for any array available
             if (!this.lookupTables[name]) {
-              this.$store.dispatch(Actions.PVL_COLOR_FETCH_LOOKUP_IMAGE, name);
+              this.$store.dispatch('PVL_COLOR_FETCH_LOOKUP_IMAGE', name);
             }
 
             return {
@@ -129,14 +128,14 @@ export default generateComponentWithServerBinding(
             return this.timeActiveIdx;
           },
           set(idx) {
-            this.$store.dispatch(Actions.PVL_TIME_ACTIVATE_INDEX, idx);
+            this.$store.dispatch('PVL_TIME_ACTIVATE_INDEX', idx);
           },
         },
       },
       mapGetters({
-        lookupTables: Getters.PVL_COLOR_ARRAYS,
-        timeValues: Getters.PVL_TIME_VALUES,
-        timeActiveIdx: Getters.PVL_TIME_ACTIVE_IDX,
+        lookupTables: 'PVL_COLOR_ARRAYS',
+        timeValues: 'PVL_TIME_VALUES',
+        timeActiveIdx: 'PVL_TIME_ACTIVE_IDX',
       })
     ),
     methods: {
@@ -154,7 +153,7 @@ export default generateComponentWithServerBinding(
         const vectorComponent = this.vectorComponent;
         const rescale = true;
 
-        this.$store.dispatch(Actions.PVL_COLOR_BY, {
+        this.$store.dispatch('PVL_COLOR_BY', {
           colorMode,
           representationId,
           arrayLocation,

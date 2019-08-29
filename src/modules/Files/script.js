@@ -1,5 +1,4 @@
 import { mapGetters, mapActions } from 'vuex';
-import { Getters, Actions, Mutations } from 'paraview-lite/src/stores/types';
 
 import module from './module';
 
@@ -21,7 +20,7 @@ export default {
     };
   },
   computed: mapGetters({
-    client: Getters.PVL_NETWORK_CLIENT,
+    client: 'PVL_NETWORK_CLIENT',
   }),
   methods: Object.assign(
     {
@@ -43,12 +42,10 @@ export default {
           this.path.length > 1 ? files.map((f) => `${pathPrefix}/${f}`) : files;
         this.client.remote.ProxyManager.open(relativePathFiles)
           .then((readerProxy) => {
-            this.$store.dispatch(Actions.PVL_PROXY_NAME_FETCH, readerProxy.id);
-            this.$store.dispatch(Actions.PVL_PROXY_PIPELINE_FETCH);
-            this.$store.dispatch(Actions.PVL_MODULES_ACTIVE_CLEAR);
-            this.$store.commit(Mutations.PVL_PROXY_SELECTED_IDS_SET, [
-              readerProxy.id,
-            ]);
+            this.$store.dispatch('PVL_PROXY_NAME_FETCH', readerProxy.id);
+            this.$store.dispatch('PVL_PROXY_PIPELINE_FETCH');
+            this.$store.dispatch('PVL_MODULES_ACTIVE_CLEAR');
+            this.$store.commit('PVL_PROXY_SELECTED_IDS_SET', [readerProxy.id]);
           })
           .catch(console.error);
       },
@@ -63,7 +60,7 @@ export default {
         }
       },
     },
-    mapActions({ removeActiveModule: Actions.PVL_MODULES_ACTIVE_CLEAR })
+    mapActions({ removeActiveModule: 'PVL_MODULES_ACTIVE_CLEAR' })
   ),
   mounted() {
     this.listServerDirectory('.');
