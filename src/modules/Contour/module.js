@@ -1,6 +1,6 @@
 export default {
   name: 'Contour',
-  icon: 'fingerprint',
+  icon: 'mdi-fingerprint',
   label: 'Contour',
   showInMenu(selectedSourceIds, proxyDataMap) {
     if (selectedSourceIds.length === 1 && proxyDataMap) {

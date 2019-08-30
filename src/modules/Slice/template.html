@@ -14,7 +14,7 @@
         @click="deleteProxy"
         :color="color"
       >
-        <v-icon>delete_forever</v-icon>
+        <v-icon>{{ $vuetify.icons.pvLite.delete }}</v-icon>
       </v-btn>
     </v-layout>
   </v-container>
@@ -129,7 +129,7 @@
               :color="offset == 0 ? color: 'pink'"
               :disabled="offset == 0"
             >
-              <v-icon>clear</v-icon>
+              <v-icon>{{ $vuetify.icons.pvLite.close }}</v-icon>
             </v-btn>
           </v-flex>
         </v-layout>
@@ -152,7 +152,7 @@
           Z
         </v-btn>
         <v-btn flat :class="$style.iconWidth">
-          <v-icon>edit</v-icon>
+          <v-icon>{{ $vuetify.icons.pvLite.edit }}</v-icon>
         </v-btn>
       </v-btn-toggle>
     </v-card-title>

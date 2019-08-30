@@ -1,6 +1,6 @@
 export default {
   name: 'Slice',
-  icon: 'texture',
+  icon: 'mdi-texture',
   label: 'Cut',
   showInMenu(selectedSourceIds) {
     return selectedSourceIds.length === 1;

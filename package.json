@@ -32,6 +32,7 @@
   },
   "author": "Kitware",
   "dependencies": {
+    "@mdi/font": "4.2.95",
     "commitizen": "^4.0.3",
     "core-js": "^2.6.5",
     "material-design-icons-iconfont": "3.0.3",

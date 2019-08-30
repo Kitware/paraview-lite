@@ -1,6 +1,6 @@
 export default {
   name: 'StreamTracer',
-  icon: 'gesture',
+  icon: 'mdi-gesture',
   label: 'StreamTracer',
   showInMenu(selectedSourceIds, proxyDataMap) {
     if (selectedSourceIds.length === 1 && proxyDataMap) {

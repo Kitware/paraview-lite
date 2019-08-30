@@ -1,6 +1,6 @@
 export default {
   name: 'Files',
-  icon: 'folder',
+  icon: 'mdi-folder',
   label: 'Files',
   priority: 100,
   isRoot() {

@@ -1,6 +1,6 @@
 <v-toolbar dense :class="$style.container">
   <v-layout row v-if="activeProxyData">
-    <collapsable-item icon="widgets" small>
+    <collapsable-item :icon="$vuetify.icons.pvLite.representationType" small>
     <v-combobox
       :class="$style.comboboxFirst"
       dense
@@ -13,7 +13,7 @@
       label="Representation"
     />
     </collapsable-item>
-    <collapsable-item icon="palette">
+    <collapsable-item :icon="$vuetify.icons.pvLite.representationColor">
       <v-layout row fill-height align-center>
         <v-combobox
           :class="$style.combobox"
@@ -42,7 +42,7 @@
 
     <v-spacer />
 
-    <collapsable-item icon="access_time" small v-if="timeValues.length">
+    <collapsable-item :icon="$vuetify.icons.pvLite.time" small v-if="timeValues.length">
     <v-slider
       :class="$style.opacity"
       hide-details
@@ -67,7 +67,7 @@
     </label>
     </collapsable-item>
 
-    <collapsable-item icon="exposure" small>
+    <collapsable-item :icon="$vuetify.icons.pvLite.representationOpacity" small>
     <v-slider
       :class="$style.opacity"
       hide-details
@@ -78,7 +78,7 @@
       step="0.01"
     />
     </collapsable-item>
-    <collapsable-item icon="bubble_chart" small>
+    <collapsable-item :icon="$vuetify.icons.pvLite.pointSize" small>
     <v-text-field
       v-model="pointSize"
       class="pt-0"
@@ -89,7 +89,7 @@
       max="10"
     ></v-text-field>
     </collapsable-item>
-    <collapsable-item icon="line_weight" small>
+    <collapsable-item :icon="$vuetify.icons.pvLite.lineWidth" small>
     <v-text-field
       v-model="lineWidth"
       class="pt-0"

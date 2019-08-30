@@ -14,7 +14,7 @@
           :color="color"
           :class="$style.backButton"
         >
-          <v-icon>keyboard_backspace</v-icon>
+          <v-icon>{{ $vuetify.icons.pvLite.upDirectory }}</v-icon>
         </v-btn>
       </v-flex>
       <v-flex justify-start>
@@ -34,7 +34,7 @@
         @click="removeActiveModule"
         :color="color"
       >
-        <v-icon>cancel</v-icon>
+        <v-icon>{{ $vuetify.icons.pvLite.cancel }}</v-icon>
       </v-btn>
     </v-layout>
   </v-container>
@@ -43,7 +43,7 @@
     <!-- DIRECTORIES -->
     <v-list-group
       v-if="directories.length"
-      prepend-icon="folder"
+      :prepend-icon="$vuetify.icons.pvLite.directory"
       no-action
       :value="files.length === 0"
     >
@@ -66,7 +66,7 @@
     <!-- GROUPS -->
     <v-list-group
       v-if="groups.length"
-      prepend-icon="folder_special"
+      :prepend-icon="$vuetify.icons.pvLite.group"
       no-action
     >
       <v-list-tile slot="activator">
@@ -88,7 +88,7 @@
     <!-- FILES -->
     <v-list-group
       v-if="files.length"
-      prepend-icon="insert_drive_file"
+      :prepend-icon="$vuetify.icons.pvLite.file"
       no-action
       :value="true"
     >

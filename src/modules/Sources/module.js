@@ -1,6 +1,6 @@
 export default {
   name: 'Sources',
-  icon: 'format_shapes',
+  icon: 'mdi-format-textbox',
   label: 'Sources',
   priority: 101,
   isRoot() {

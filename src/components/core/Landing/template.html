@@ -32,7 +32,9 @@
           >
             <div :class="['white--text body-2', $style.fileUploadContents]">
               <span :class="$style.buttonText">Connect to ParaView</span>
-              <v-icon color="white">cast_connected</v-icon>
+              <v-icon color="white">
+                {{ $vuetify.icons.pvLite.connect}}
+              </v-icon>
             </div>
           </div>
         </v-flex>

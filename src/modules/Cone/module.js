@@ -1,6 +1,6 @@
 export default {
   name: 'Cone',
-  icon: 'build',
+  icon: 'mdi-wrench',
   label: 'Cone',
   showInMenu() {
     return false;

@@ -11,15 +11,51 @@ import vtkURLExtract from 'vtk.js/Sources/Common/Core/URLExtract';
 /* eslint-disable-next-line import/extensions */
 import 'typeface-roboto';
 import 'vuetify/dist/vuetify.min.css';
-import 'material-design-icons-iconfont/dist/material-design-icons.css';
+import '@mdi/font/css/materialdesignicons.css';
 
 import registerModules from 'paraview-lite/src/modules/registerModules';
 
-import App from 'paraview-lite/src/components/core/App';
+import App from 'paraview-lite/src/components/core/RootNode';
 import { createStore } from 'paraview-lite/src/stores';
 
 Vue.use(Vuex);
-Vue.use(Vuetify);
+Vue.use(Vuetify, {
+  iconfont: 'mdi',
+  icons: {
+    pvLite: {
+      connect: 'mdi-cast-connected',
+      close: 'mdi-close',
+      error: 'mdi-alert-circle',
+      edit: 'mdi-pencil',
+      resetCamera: 'mdi-image-filter-center-focus',
+      rotateLeft: 'mdi-rotate-left',
+      rotateRight: 'mdi-rotate-right',
+      undo: 'mdi-undo',
+      floating: 'mdi-map-marker-plus',
+      cancel: 'mdi-close-circle',
+      caretDown: 'mdi-menu-down',
+      check: 'mdi-check',
+      advanced: 'mdi-settings',
+      piecewise: 'mdi-chart-timeline-variant',
+      expandRange: 'mdi-arrow-expand-horizontal',
+      colorPalette: 'mdi-palette',
+      delete: 'mdi-trash-can-outline',
+      upDirectory: 'mdi-arrow-top-left',
+      directory: 'mdi-folder',
+      group: 'mdi-folder-star',
+      file: 'mdi-file',
+      show: 'mdi-eye-outline',
+      hide: 'mdi-eye-off-outline',
+
+      representationType: 'mdi-widgets',
+      representationColor: 'mdi-palette',
+      representationOpacity: 'mdi-contrast-box',
+      time: 'mdi-clock-outline',
+      pointSize: 'mdi-chart-bubble',
+      lineWidth: 'mdi-format-line-weight',
+    },
+  },
+});
 
 /**
  * Sets the active proxy configuration to be used by createViewer.

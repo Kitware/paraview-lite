@@ -1,6 +1,6 @@
 export default {
   name: 'Default',
-  icon: 'help_outline',
+  icon: 'mdi-help-circle-outline',
   label: 'Default',
   showInMenu() {
     return false;

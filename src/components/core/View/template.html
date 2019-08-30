@@ -10,7 +10,7 @@
           small
           v-on:click="resetCamera()"
         >
-          <v-icon>filter_center_focus</v-icon>
+          <v-icon>{{ $vuetify.icons.pvLite.resetCamera }}</v-icon>
         </v-btn>
       </v-tooltip>
       <v-tooltip left>
@@ -22,7 +22,7 @@
           small
           v-on:click="rollLeft()"
         >
-          <v-icon>rotate_left</v-icon>
+          <v-icon>{{ $vuetify.icons.pvLite.rotateLeft }}</v-icon>
         </v-btn>
       </v-tooltip>
       <v-tooltip left>
@@ -34,7 +34,7 @@
           small
           v-on:click="rollRight()"
         >
-          <v-icon>rotate_right</v-icon>
+          <v-icon>{{ $vuetify.icons.pvLite.rotateRight }}</v-icon>
         </v-btn>
       </v-tooltip>
     </v-layout>

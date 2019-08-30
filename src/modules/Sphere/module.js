@@ -1,6 +1,6 @@
 export default {
   name: 'Sphere',
-  icon: 'build',
+  icon: 'mdi-radius-outline',
   label: 'Sphere',
   showInMenu() {
     return false;

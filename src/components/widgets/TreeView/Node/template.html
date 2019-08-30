@@ -10,7 +10,7 @@
       <v-icon
         :class="{ [$style.arrow]: true, [$style.openArrow]: open || value }"
       >
-        arrow_drop_down
+        {{ $vuetify.icons.pvLite.caretDown }}
       </v-icon>
     </div>
     <span class="body-1" :class="$style.name">{{ item[labelKey] }}</span>
