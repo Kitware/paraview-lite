@@ -7,9 +7,14 @@ from paraview.web import protocols as pv_protocols
 
 from vtkmodules.vtkCommonCore import vtkUnsignedCharArray, vtkCollection
 from vtkmodules.vtkCommonDataModel import vtkImageData
-from vtkmodules.vtkPVClientServerCoreRendering import vtkPVRenderView
-from vtkmodules.vtkPVServerManagerRendering import vtkSMPVRepresentationProxy, vtkSMTransferFunctionProxy, vtkSMTransferFunctionManager
 from vtkmodules.vtkWebCore import vtkDataEncoder
+
+try:
+    from vtkmodules.vtkPVClientServerCoreRendering import vtkPVRenderView
+    from vtkmodules.vtkPVServerManagerRendering import vtkSMPVRepresentationProxy, vtkSMTransferFunctionProxy, vtkSMTransferFunctionManager
+except:
+    from paraview.modules.vtkPVClientServerCoreRendering import vtkPVRenderView
+    from paraview.modules.vtkPVServerManagerRendering import vtkSMPVRepresentationProxy, vtkSMTransferFunctionProxy, vtkSMTransferFunctionManager
 
 class ParaViewLite(pv_protocols.ParaViewWebProtocol):
     def __init__(self, **kwargs):
