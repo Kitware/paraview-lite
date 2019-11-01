@@ -4,6 +4,7 @@ import vtkViewProxy from 'vtk.js/Sources/Proxy/Core/ViewProxy';
 import vtkInteractiveOrientationWidget from 'vtk.js/Sources/Widgets/Widgets3D/InteractiveOrientationWidget';
 import vtkWidgetManager from 'vtk.js/Sources/Widgets/Core/WidgetManager';
 import vtkOrientationMarkerWidget from 'vtk.js/Sources/Interaction/Widgets/OrientationMarkerWidget';
+import { CaptureOn } from 'vtk.js/Sources/Widgets/Core/WidgetManager/Constants';
 
 import { mapGetters, mapActions } from 'vuex';
 
@@ -110,6 +111,7 @@ export default {
     // Add orientation widget
     const orientationWidget = this.view.getReferenceByName('orientationWidget');
     this.widgetManager = vtkWidgetManager.newInstance();
+    this.widgetManager.setCaptureOn(CaptureOn.MOUSE_MOVE);
     this.widgetManager.setRenderer(orientationWidget.getRenderer());
     orientationWidget.setViewportCorner(
       vtkOrientationMarkerWidget.Corners.TOP_LEFT
