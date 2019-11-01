@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://kitware.github.io/paraview-lite/api/components_core_View.html</loc>
+    
+    <lastmod>2019-11-01T20:11:44.032Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_widgets_TreeView.html</loc>
     
     <lastmod>2019-10-25T15:49:10.576Z</lastmod>
@@ -61,13 +68,6 @@
     <loc>https://kitware.github.io/paraview-lite/api/components_widgets_CollapsableItem.html</loc>
     
     <lastmod>2019-10-25T15:49:10.544Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/paraview-lite/api/components_core_View.html</loc>
-    
-    <lastmod>2019-10-25T15:49:10.540Z</lastmod>
     
   </url>
   
