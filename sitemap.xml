@@ -2,233 +2,233 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://kitware.github.io/paraview-lite/api/components_core_View.html</loc>
-    
-    <lastmod>2019-11-01T20:11:44.032Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_widgets_TreeView.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.576Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.152Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_widgets_SvgIcon.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.572Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.148Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_widgets_ProgressBar.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.568Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.148Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_widgets_PiecewiseFunctionEditor.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.564Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.144Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_widgets_PalettePicker.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.560Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.136Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_widgets_LookupTableToolbar.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.556Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.132Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_widgets_GitTree.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.552Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.132Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_widgets_FloatingLookupTable.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.548Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.128Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_widgets_CollapsableItem.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.544Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.124Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://kitware.github.io/paraview-lite/api/components_core_RepresentationToolbar.html</loc>
+    <loc>https://kitware.github.io/paraview-lite/api/components_core_View.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.536Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.124Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_core_RootNode.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.536Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.120Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_core_LayoutView.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.532Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.116Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/paraview-lite/api/components_core_RepresentationToolbar.html</loc>
+    
+    <lastmod>2020-04-20T10:33:49.116Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_core_Landing.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.528Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.112Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_core_GlobalSettings.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.524Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.108Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_core_ErrorBox.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.520Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.108Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_core_ControlsDrawer.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.516Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.104Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_core_BrowserIssues.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.512Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.100Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_core_App.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.504Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.096Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_core_ActionModules.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.500Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.092Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_core_AboutBox.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.496Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/paraview-lite/index.html</loc>
-    
-    <lastmod>2019-10-25T15:49:10.452Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.088Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/gallery/index.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.452Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.060Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://kitware.github.io/paraview-lite/docs/troubleshooting.html</loc>
+    <loc>https://kitware.github.io/paraview-lite/index.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.448Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.060Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/docs/multi_user_setup.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.448Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.056Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://kitware.github.io/paraview-lite/docs/launching_examples.html</loc>
+    <loc>https://kitware.github.io/paraview-lite/docs/troubleshooting.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.448Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.056Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/docs/python_launcher.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.448Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.056Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://kitware.github.io/paraview-lite/docs/compatibility.html</loc>
+    <loc>https://kitware.github.io/paraview-lite/docs/launching_examples.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.444Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/paraview-lite/docs/contributing.html</loc>
-    
-    <lastmod>2019-10-25T15:49:10.444Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/paraview-lite/docs/apache_front_end.html</loc>
-    
-    <lastmod>2019-10-25T15:49:10.444Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.052Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/docs/index.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.444Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.052Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/paraview-lite/docs/contributing.html</loc>
+    
+    <lastmod>2020-04-20T10:33:49.052Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/paraview-lite/docs/apache_front_end.html</loc>
+    
+    <lastmod>2020-04-20T10:33:49.052Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/paraview-lite/docs/compatibility.html</loc>
+    
+    <lastmod>2020-04-20T10:33:49.052Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/index.html</loc>
     
-    <lastmod>2019-10-25T15:49:10.444Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.052Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/2016/04/29/kw-doc/</loc>
     
-    <lastmod>2019-10-25T15:49:10.436Z</lastmod>
+    <lastmod>2020-04-20T10:33:49.044Z</lastmod>
     
   </url>
   
