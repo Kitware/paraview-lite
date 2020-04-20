@@ -10,11 +10,27 @@ from vtkmodules.vtkCommonDataModel import vtkImageData
 from vtkmodules.vtkWebCore import vtkDataEncoder
 
 try:
+    # PV 5.6
     from vtkmodules.vtkPVClientServerCoreRendering import vtkPVRenderView
     from vtkmodules.vtkPVServerManagerRendering import vtkSMPVRepresentationProxy, vtkSMTransferFunctionProxy, vtkSMTransferFunctionManager
 except:
+    pass
+
+try:
+    # PV 5.7
     from paraview.modules.vtkPVClientServerCoreRendering import vtkPVRenderView
     from paraview.modules.vtkPVServerManagerRendering import vtkSMPVRepresentationProxy, vtkSMTransferFunctionProxy, vtkSMTransferFunctionManager
+except:
+    pass
+
+try:
+    # PV 5.8
+    from paraview.servermanager import vtkPVRenderView
+    from paraview.servermanager import vtkSMPVRepresentationProxy
+    from paraview.servermanager import vtkSMTransferFunctionManager
+    from paraview.servermanager import vtkSMTransferFunctionProxy
+except:
+    pass
 
 class ParaViewLite(pv_protocols.ParaViewWebProtocol):
     def __init__(self, **kwargs):
