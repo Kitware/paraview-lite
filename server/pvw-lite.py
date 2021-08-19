@@ -208,8 +208,11 @@ class _Server(pv_wslink.PVServerProtocol):
         view.EnableRenderOnInteraction = 0
         view.Background = [0.4470588235294118, 0.4470588235294118, 0.4470588235294118]
         view.Background2 = [0.2235294117647059, 0.2235294117647059, 0.2235294117647059]
-        view.UseGradientBackground = 1
         view.OrientationAxesVisibility = 0
+
+        # Gradient background
+        # view.BackgroundColorMode = 1        # Deprecated in PV 5.10
+        view.BackgroundColorMode = "Gradient" # PV 5.10
 
         # ProxyManager helper
         pxm = simple.servermanager.ProxyManager()
