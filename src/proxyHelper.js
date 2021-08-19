@@ -2,7 +2,11 @@
 function extractProperties(names, properties, result) {
   for (let i = 0; i < properties.length; i++) {
     if (names.indexOf(properties[i].name) !== -1) {
-      result[properties[i].name] = Object.assign({}, properties[i]);
+      if (result[properties[i].name]) {
+        result[properties[i].name].push(Object.assign({}, properties[i]));
+      } else {
+        result[properties[i].name] = [Object.assign({}, properties[i])];
+      }
     }
     if (properties[i].children) {
       extractProperties(names, properties[i].children, result);
@@ -10,9 +14,13 @@ function extractProperties(names, properties, result) {
   }
 }
 
+function objClone(item) {
+  return Object.assign({}, item);
+}
+
 function copyMap(src, dest) {
   Object.keys(src).forEach((key) => {
-    dest[key] = Object.assign({}, src[key]);
+    dest[key] = src[key].map(objClone);
   });
 }
 /* eslint-enable no-param-reassign */
@@ -185,15 +193,23 @@ export function generateComponentWithServerBinding(
       return;
     }
 
+    // Reset state
+    const keys = Object.keys(serverState);
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+      delete serverState[key];
+      delete localState[key];
+    }
+
     if (this.create) {
       // Reset props to default
       Object.keys(propMaps).forEach((key) => {
-        serverState[propMaps[key].name] = {
+        serverState[propMaps[key].name] = [{
           id: '0',
           value: propMaps[key].default,
           subProxy: propMaps[key].subProxy,
           label: propMaps[key].label || propMaps[key].name,
-        };
+        }];
       });
       copyMap(serverState, localState);
       return;
@@ -201,7 +217,6 @@ export function generateComponentWithServerBinding(
 
     extractProperties(serverPropNames, proxyData.properties, serverState);
     copyMap(serverState, localState);
-    // console.log('refreshState', JSON.stringify(localState, null, 2));
   }
 
   function hasChange() {
@@ -211,10 +226,12 @@ export function generateComponentWithServerBinding(
       if (
         localState[key] &&
         serverState[key] &&
-        isDifferent(localState[key].value, serverState[key].value)
+        isDifferent(localState[key][0].value, serverState[key][0].value)
       ) {
         // console.log('hasChange', key, localState[key], serverState[key]);
-        changeSet.push(localState[key]);
+        for (let j = 0; j < localState[key].length; j++) {
+          changeSet.push(localState[key][j]);
+        }
       }
     }
     // console.log('=>', changeSet.length);
@@ -260,12 +277,16 @@ export function generateComponentWithServerBinding(
         // register dependency
         this.mtime; // eslint-disable-line
         return localState[propName]
-          ? getFn(localState[propName].value)
+          ? getFn(localState[propName][0].value)
           : getFn(propMaps[key].default);
       },
       set(value) {
         this.mtime++;
-        localState[propName].value = setFn(value);
+        const newValue = setFn(value);
+        for (let i = 0; i < localState[propName].length; i++) {
+          localState[propName][i].value = newValue;
+        }
+
         if (autoApply || (this.autoApply && !noAutoApply)) {
           apply.apply(this);
         } else {
@@ -318,16 +339,18 @@ export function generateComponentWithServerBinding(
               const subProxyValues = {};
               if (hasChange()) {
                 Object.keys(localState).forEach((key) => {
-                  if (!localState[key].subProxy) {
-                    initialValues[localState[key].label] =
-                      localState[key].value;
-                  } else {
-                    if (!subProxyValues[localState[key].subProxy]) {
-                      subProxyValues[localState[key].subProxy] = {};
+                  for (let i = 0; i < localState[key].length; i++) {
+                    if (!localState[key][i].subProxy) {
+                      initialValues[localState[key][i].label] =
+                        localState[key][i].value;
+                    } else {
+                      if (!subProxyValues[localState[key][i].subProxy]) {
+                        subProxyValues[localState[key][i].subProxy] = {};
+                      }
+                      subProxyValues[localState[key][i].subProxy][
+                        localState[key][i].label
+                      ] = localState[key][i].value;
                     }
-                    subProxyValues[localState[key].subProxy][
-                      localState[key].label
-                    ] = localState[key].value;
                   }
                 });
               }
