@@ -27,16 +27,14 @@ export default {
       color: 'grey darken-2',
     };
   },
-  methods: Object.assign(
-    {
-      addSource(idx) {
-        const name = this.sources[idx];
-        this.createProxy({ name });
-      },
+  methods: {
+    addSource(idx) {
+      const name = this.sources[idx];
+      this.createProxy({ name });
     },
-    mapActions({
+    ...mapActions({
       removeActiveModule: 'PVL_MODULES_ACTIVE_CLEAR',
       createProxy: 'PVL_PROXY_CREATE',
-    })
-  ),
+    }),
+  },
 };

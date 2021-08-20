@@ -5,5 +5,6 @@ The table below indicates which versions of ParaView and ParaView Lite work toge
 
 | ParaView | Bundled version | ParaView Lite |
 |:--------:|:---------------:|:-------------:|
-| 5.6      | 1.2.0           | <= master     |
-| master   | 1.2.0           | <= master     |
+| 5.6      | 1.2.0           | <= 1.2.5      |
+| 5.10     | 1.3.0           | >= 1.2.6      |
+| master   | 1.3.0           | <= master     |

@@ -16,22 +16,20 @@ export default {
       activeTab: 0,
     };
   },
-  computed: Object.assign(
-    {
-      proxyPanel() {
-        if (this.selectedSources.length === 1) {
-          const proxyMeta = this.proxyToName[this.selectedSources[0]];
-          if (proxyMeta) {
-            return this.moduleMap[
-              this.proxyToPanel[proxyMeta.name] || this.proxyToPanel.default
-            ];
-          }
-          return this.moduleMap[this.proxyToPanel.default];
+  computed: {
+    proxyPanel() {
+      if (this.selectedSources.length === 1) {
+        const proxyMeta = this.proxyToName[this.selectedSources[0]];
+        if (proxyMeta) {
+          return this.moduleMap[
+            this.proxyToPanel[proxyMeta.name] || this.proxyToPanel.default
+          ];
         }
-        return null;
-      },
+        return this.moduleMap[this.proxyToPanel.default];
+      }
+      return null;
     },
-    mapGetters({
+    ...mapGetters({
       autoApply: 'PVL_APP_AUTO_APPLY',
       panel: 'PVL_MODULES_ACTIVE',
       pipeline: 'PVL_PROXY_PIPELINE',
@@ -40,8 +38,8 @@ export default {
       proxyToName: 'PVL_PROXY_NAME_MAP',
       moduleMap: 'PVL_MODULES_MAP',
       sourceToRepresentationMap: 'PVL_PROXY_SOURCE_TO_REPRESENTATION_MAP',
-    })
-  ),
+    }),
+  },
   methods: Object.assign(
     mapActions({
       updatePipeline: 'PVL_PROXY_PIPELINE_FETCH',

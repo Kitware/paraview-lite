@@ -3,7 +3,11 @@ import vtkMapper from 'vtk.js/Sources/Rendering/Core/Mapper';
 import vtkPolyData from 'vtk.js/Sources/Common/DataModel/PolyData';
 
 const ROTATION_STEP = 2;
-const PVL_VIEW_UPS = [[0, 1, 0], [0, 0, 1], [0, 1, 0]];
+const PVL_VIEW_UPS = [
+  [0, 1, 0],
+  [0, 0, 1],
+  [0, 1, 0],
+];
 
 const actor = vtkActor.newInstance();
 const mapper = vtkMapper.newInstance();
@@ -154,10 +158,7 @@ export default {
       const client = getters.PVL_NETWORK_CLIENT;
       const viewId = id || state.view;
       if (client) {
-        client
-          .getRemote()
-          .ViewPort.resetCamera(viewId)
-          .catch(console.error);
+        client.getRemote().ViewPort.resetCamera(viewId).catch(console.error);
         dispatch('PVL_VIEW_UPDATE_CAMERA', id);
       } else {
         console.error('no client', getters.PVL_NETWORK_CLIENT);

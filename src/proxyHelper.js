@@ -5,16 +5,16 @@ function extractProperties(names, properties, result) {
       extractProperties(names, properties[i].children, result);
     } else if (names.indexOf(properties[i].name) !== -1) {
       if (result[properties[i].name]) {
-        result[properties[i].name].push(Object.assign({}, properties[i]));
+        result[properties[i].name].push({ ...properties[i] });
       } else {
-        result[properties[i].name] = [Object.assign({}, properties[i])];
+        result[properties[i].name] = [{ ...properties[i] }];
       }
     }
   }
 }
 
 function objClone(item) {
-  return Object.assign({}, item);
+  return { ...item };
 }
 
 function copyMap(src, dest) {
@@ -108,80 +108,78 @@ export function generateComponentWithServerBinding(
   const serverState = {};
   const localState = {};
   const changeSet = [];
-  const computed = Object.assign(
-    {
-      isNetworkBusy() {
-        return this.$store.getters.PVL_BUSY_COUNT;
-      },
-      activeSourceId() {
-        return this.$store.getters.PVL_PROXY_SELECTED_IDS[0];
-      },
-      activeViewId() {
-        return this.$store.getters.PVL_VIEW_ID;
-      },
-      activeRepresentationId() {
-        return this.$store.getters.PVL_PROXY_SOURCE_TO_REPRESENTATION_MAP[
-          this.$store.getters.PVL_PROXY_SELECTED_IDS[0]
-        ];
-      },
-      activeProxyData() {
-        const id = this[`active${proxyType}Id`];
-        const proxyData = this.$store.getters.PVL_PROXY_DATA_MAP;
-
-        if (!id) {
-          // console.log(proxyType, 'No id available to update state');
-          return null;
-        }
-
-        if (!proxyData || !proxyData[id]) {
-          // console.log(proxyType, 'no proxy data for id', id, this.proxyData);
-          return null;
-        }
-        return proxyData[id];
-      },
-      inputBounds() {
-        if (this.create) {
-          return this.activeProxyData.data.bounds;
-        }
-        const myId = this.activeProxyData.id;
-        const nodeInfo = this.$store.getters.PVL_PROXY_PIPELINE.find(
-          (n) => n.id === myId
-        );
-        const parentId = nodeInfo.parent;
-        const proxyData = this.$store.getters.PVL_PROXY_DATA_MAP;
-        if (!proxyData || !proxyData[parentId]) {
-          // Fallback
-          return [-1, 1, -1, 1, -1, 1];
-        }
-        return proxyData[parentId].data.bounds;
-      },
-      inputArrays() {
-        const sourceId = this.activeSourceId;
-        const proxyData = this.$store.getters.PVL_PROXY_DATA_MAP;
-        const nodeInfo = this.$store.getters.PVL_PROXY_PIPELINE.find(
-          (n) => n.id === sourceId
-        );
-        if (!proxyData || !proxyData[sourceId]) {
-          return [];
-        }
-
-        if (this.create) {
-          return proxyData[sourceId].data.arrays;
-        }
-
-        if (proxyType === 'Representation') {
-          return proxyData[sourceId].data.arrays;
-        }
-
-        const idToUse = nodeInfo.parent === '0' ? sourceId : nodeInfo.parent;
-        if (!nodeInfo || !proxyData[idToUse]) {
-          return [];
-        }
-        return proxyData[idToUse].data.arrays;
-      },
+  const computed = {
+    isNetworkBusy() {
+      return this.$store.getters.PVL_BUSY_COUNT;
     },
-    componentDefinition.computed
-  );
+    activeSourceId() {
+      return this.$store.getters.PVL_PROXY_SELECTED_IDS[0];
+    },
+    activeViewId() {
+      return this.$store.getters.PVL_VIEW_ID;
+    },
+    activeRepresentationId() {
+      return this.$store.getters.PVL_PROXY_SOURCE_TO_REPRESENTATION_MAP[
+        this.$store.getters.PVL_PROXY_SELECTED_IDS[0]
+      ];
+    },
+    activeProxyData() {
+      const id = this[`active${proxyType}Id`];
+      const proxyData = this.$store.getters.PVL_PROXY_DATA_MAP;
+
+      if (!id) {
+        // console.log(proxyType, 'No id available to update state');
+        return null;
+      }
+
+      if (!proxyData || !proxyData[id]) {
+        // console.log(proxyType, 'no proxy data for id', id, this.proxyData);
+        return null;
+      }
+      return proxyData[id];
+    },
+    inputBounds() {
+      if (this.create) {
+        return this.activeProxyData.data.bounds;
+      }
+      const myId = this.activeProxyData.id;
+      const nodeInfo = this.$store.getters.PVL_PROXY_PIPELINE.find(
+        (n) => n.id === myId
+      );
+      const parentId = nodeInfo.parent;
+      const proxyData = this.$store.getters.PVL_PROXY_DATA_MAP;
+      if (!proxyData || !proxyData[parentId]) {
+        // Fallback
+        return [-1, 1, -1, 1, -1, 1];
+      }
+      return proxyData[parentId].data.bounds;
+    },
+    inputArrays() {
+      const sourceId = this.activeSourceId;
+      const proxyData = this.$store.getters.PVL_PROXY_DATA_MAP;
+      const nodeInfo = this.$store.getters.PVL_PROXY_PIPELINE.find(
+        (n) => n.id === sourceId
+      );
+      if (!proxyData || !proxyData[sourceId]) {
+        return [];
+      }
+
+      if (this.create) {
+        return proxyData[sourceId].data.arrays;
+      }
+
+      if (proxyType === 'Representation') {
+        return proxyData[sourceId].data.arrays;
+      }
+
+      const idToUse = nodeInfo.parent === '0' ? sourceId : nodeInfo.parent;
+      if (!nodeInfo || !proxyData[idToUse]) {
+        return [];
+      }
+      return proxyData[idToUse].data.arrays;
+    },
+    ...componentDefinition.computed,
+  };
 
   function refreshState() {
     // Create simple dependancy between method call and getters
@@ -297,7 +295,7 @@ export function generateComponentWithServerBinding(
     };
   });
 
-  const props = Object.assign({}, componentDefinition.props);
+  const props = { ...componentDefinition.props };
   if (!props.create && !computed.create) {
     props.create = {
       type: Boolean,
@@ -311,21 +309,20 @@ export function generateComponentWithServerBinding(
     };
   }
 
-  return Object.assign({}, componentDefinition, {
+  return {
+    ...componentDefinition,
     computed,
     props,
     data() {
-      return Object.assign({ mtime: -1 }, componentDefinition.data.apply(this));
+      return { mtime: -1, ...componentDefinition.data.apply(this) };
     },
-    methods: Object.assign(
-      {
-        getStep,
-        apply,
-        reset,
-        hasChange,
-        refreshState,
-      },
-      proxyNameToCreate
+    methods: {
+      getStep,
+      apply,
+      reset,
+      hasChange,
+      refreshState,
+      ...(proxyNameToCreate
         ? {
             deleteProxy() {
               if (!this.create) {
@@ -365,15 +362,13 @@ export function generateComponentWithServerBinding(
               });
             },
           }
-        : null,
-      componentDefinition.methods
-    ),
-    watch: Object.assign(
-      {
-        activeProxyData: refreshState,
-      },
-      componentDefinition.watch
-    ),
+        : null),
+      ...componentDefinition.methods,
+    },
+    watch: {
+      activeProxyData: refreshState,
+      ...componentDefinition.watch,
+    },
     created() {
       // Capture store inside closure
       store = this.$store;
@@ -388,5 +383,5 @@ export function generateComponentWithServerBinding(
         componentDefinition.mounted.apply(this);
       }
     },
-  });
+  };
 }

@@ -33,42 +33,18 @@ export default function registerModules(store) {
   // Widget registering
   // --------------------------------------------------------------------------
 
-  store.commit(
-    'PVL_MODULES_ADD',
-    Object.assign({}, sourcesModule, { component: Sources })
-  );
-  store.commit(
-    'PVL_MODULES_ADD',
-    Object.assign({}, filesModule, { component: Files })
-  );
-  store.commit(
-    'PVL_MODULES_ADD',
-    Object.assign({}, sphereModule, { component: Sphere })
-  );
-  store.commit(
-    'PVL_MODULES_ADD',
-    Object.assign({}, coneModule, { component: Cone })
-  );
-  store.commit(
-    'PVL_MODULES_ADD',
-    Object.assign({}, clipModule, { component: Clip })
-  );
-  store.commit(
-    'PVL_MODULES_ADD',
-    Object.assign({}, sliceModule, { component: Slice })
-  );
-  store.commit(
-    'PVL_MODULES_ADD',
-    Object.assign({}, contourModule, { component: Contour })
-  );
-  store.commit(
-    'PVL_MODULES_ADD',
-    Object.assign({}, thresholdModule, { component: Threshold })
-  );
-  store.commit(
-    'PVL_MODULES_ADD',
-    Object.assign({}, streamTracerModule, { component: StreamTracer })
-  );
+  store.commit('PVL_MODULES_ADD', { ...sourcesModule, component: Sources });
+  store.commit('PVL_MODULES_ADD', { ...filesModule, component: Files });
+  store.commit('PVL_MODULES_ADD', { ...sphereModule, component: Sphere });
+  store.commit('PVL_MODULES_ADD', { ...coneModule, component: Cone });
+  store.commit('PVL_MODULES_ADD', { ...clipModule, component: Clip });
+  store.commit('PVL_MODULES_ADD', { ...sliceModule, component: Slice });
+  store.commit('PVL_MODULES_ADD', { ...contourModule, component: Contour });
+  store.commit('PVL_MODULES_ADD', { ...thresholdModule, component: Threshold });
+  store.commit('PVL_MODULES_ADD', {
+    ...streamTracerModule,
+    component: StreamTracer,
+  });
 
   // --------------------------------------------------------------------------
   // Proxy to UI mapping
@@ -110,13 +86,11 @@ export default function registerModules(store) {
   // Fallback mapping
   // --------------------------------------------------------------------------
 
-  store.commit(
-    'PVL_MODULES_ADD',
-    Object.assign({}, defaultModule, {
-      component: DefaultComponent,
-      name: 'default',
-    })
-  );
+  store.commit('PVL_MODULES_ADD', {
+    ...defaultModule,
+    component: DefaultComponent,
+    name: 'default',
+  });
 
   // --------------------------------------------------------------------------
 

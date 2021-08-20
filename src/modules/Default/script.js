@@ -13,18 +13,16 @@ export default {
       color: 'grey darken-2',
     };
   },
-  computed: Object.assign(
-    {
-      name() {
-        const nameMeta = this.names[this.proxies[0]];
-        return nameMeta ? nameMeta.label : 'No name';
-      },
+  computed: {
+    name() {
+      const nameMeta = this.names[this.proxies[0]];
+      return nameMeta ? nameMeta.label : 'No name';
     },
-    mapGetters({
+    ...mapGetters({
       proxies: 'PVL_PROXY_SELECTED_IDS',
       names: 'PVL_PROXY_NAME_MAP',
-    })
-  ),
+    }),
+  },
   methods: {
     deleteProxy() {
       const id = this.proxies[0];

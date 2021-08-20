@@ -21,28 +21,26 @@ export default {
       state.presetNames = names;
     },
     PVL_COLOR_PRESETS_SET(state, { image, name }) {
-      state.presets = Object.assign({}, state.presets, {
-        [name]: { image, name },
-      });
+      state.presets = { ...state.presets, [name]: { image, name } };
     },
     PVL_COLOR_ARRAYS_SET(state, { image, range, name }) {
-      state.arrays = Object.assign({}, state.arrays, {
-        [name]: { image, range, name },
-      });
+      state.arrays = { ...state.arrays, [name]: { image, range, name } };
     },
     PVL_COLOR_LOOKUP_TABLE_WINDOWS_SET(
       state,
       { name, visible, position, orientation }
     ) {
-      const windowConfig = Object.assign({}, state.lookupTableWindows[name], {
+      const windowConfig = {
+        ...state.lookupTableWindows[name],
         name,
         visible,
         position,
         orientation,
-      });
-      state.lookupTableWindows = Object.assign({}, state.lookupTableWindows, {
+      };
+      state.lookupTableWindows = {
+        ...state.lookupTableWindows,
         [name]: windowConfig,
-      });
+      };
     },
   },
   actions: {

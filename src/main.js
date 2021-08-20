@@ -69,7 +69,7 @@ Vue.use(VueVtk);
 function createConfigurationFromURLArgs(
   addOn = { application: 'paraview-lite' }
 ) {
-  return Object.assign({}, vtkURLExtract.extractURLParameters(), addOn);
+  return { ...vtkURLExtract.extractURLParameters(), ...addOn };
 }
 
 const store = createStore();

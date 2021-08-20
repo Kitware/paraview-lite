@@ -26,13 +26,10 @@ export default {
     },
     connectToSession() {
       if (this.sessionURL) {
-        const config = Object.assign(
-          {},
-          this.$store.getters.PVL_NETWORK_CONFIG,
-          {
-            sessionURL: this.sessionURL,
-          }
-        );
+        const config = {
+          ...this.$store.getters.PVL_NETWORK_CONFIG,
+          sessionURL: this.sessionURL,
+        };
         if (this.token) {
           config.secret = this.token;
         }
@@ -44,13 +41,10 @@ export default {
     },
     startSession() {
       if (this.sessionManagerURL) {
-        const config = Object.assign(
-          {},
-          this.$store.getters.PVL_NETWORK_CONFIG,
-          {
-            sessionManagerURL: this.sessionManagerURL,
-          }
-        );
+        const config = {
+          ...this.$store.getters.PVL_NETWORK_CONFIG,
+          sessionManagerURL: this.sessionManagerURL,
+        };
         if (this.token) {
           config.secret = this.token;
         }

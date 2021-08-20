@@ -18,20 +18,16 @@ To try out ParaView Lite, you will need ParaView 5.6+. Then depending on your sy
 
 ```sh macOS
 $ cd ParaView.app/Contents
-$ ./bin/pvpython                                     \
-    ./Resources/web/paraview-lite/server/pvw-lite.py  \
-    --content ./Resources/web/paraview-lite/www/       \
-    --data $PWD/data                                    \
+$ ./bin/pvpython -m paraview.apps.lite  \
+    --data $PWD/data                     \
     --port 8080
 
 ==> Open your browser to http://localhost:8080/
 ```
 
 ```sh Linux
-$ cd ParaView-5.6+
-$ ./bin/pvpython                                              \
-    ./share/paraview-5.6/web/paraview-lite/server/pvw-lite.py  \
-    --content ./share/paraview-5.4/web/paraview-lite/www/       \
+$ cd ParaView-5.10+
+$ ./bin/pvpython -m paraview.apps.lite  \
     --data $PWD/share/paraview-5.4/data                          \
     --port 8080
 
@@ -39,10 +35,8 @@ $ ./bin/pvpython                                              \
 ```
 
 ```sh Windows
-$ cd ParaView-5.6+
-$ .\bin\pvpython.exe                                       \
-   share\paraview-5.6\web\paraview-lite\server\pvw-lite.py  \
-   --content share\paraview-5.4\web\paraview-lite\www\       \
+$ cd ParaView-5.10+
+$ .\bin\pvpython.exe -m paraview.apps.lite  \
    --data "C:\...full_path...\data"                           \
    --port 8080
 
@@ -98,7 +92,8 @@ The best way to install Node.js is with [nvm](https://github.com/creationix/nvm)
 Once nvm is installed, restart the terminal and run the following command to install Node.js.
 
 ``` bash
-$ nvm install 10
+$ nvm install --lts
+$ npm use --lts
 ```
 
 Alternatively, download and run [node](http://nodejs.org/).
@@ -117,5 +112,5 @@ $ npm install paraview-lite --save
 $ git clone https://github.com/kitware/paraview-lite.git
 $ cd paraview-lite
 $ npm install
-$ ParaViewLite [...]
+$ [...]
 ```

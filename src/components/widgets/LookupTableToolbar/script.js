@@ -19,16 +19,14 @@ export default {
         );
       },
       set(value) {
-        const obj = Object.assign(
-          {
-            position: [15, 65],
-            orientation: 'HORIZONTAL',
-          },
-          this.$store.getters.PVL_COLOR_ARRAYS[this.lookupTable.name],
-          this.$store.getters.PVL_COLOR_LOOKUP_TABLE_WINDOWS[
+        const obj = {
+          position: [15, 65],
+          orientation: 'HORIZONTAL',
+          ...this.$store.getters.PVL_COLOR_ARRAYS[this.lookupTable.name],
+          ...this.$store.getters.PVL_COLOR_LOOKUP_TABLE_WINDOWS[
             this.lookupTable.name
-          ]
-        );
+          ],
+        };
         obj.visible = value;
         this.$store.commit('PVL_COLOR_LOOKUP_TABLE_WINDOWS_SET', obj);
       },

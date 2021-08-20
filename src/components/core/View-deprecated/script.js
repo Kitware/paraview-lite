@@ -68,7 +68,7 @@ function computeOrientation(direction, originalViewUp) {
 }
 
 // ----------------------------------------------------------------------------
-
+/* eslint-disable no-param-reassign */
 function vtkCacheMousePosition(publicAPI, model, initialValues) {
   Object.assign(model, { position: { x: 0, y: 0 } }, initialValues);
   vtkInteractorObserver.extend(publicAPI, model, initialValues);
@@ -222,48 +222,44 @@ export default {
       }
     },
   },
-  methods: Object.assign(
-    {
-      onResize() {
-        if (this.view) {
-          this.view.resize();
-          this.view.renderLater();
-          this.viewStream.render();
-          this.$nextTick(this.widgetManager.enablePicking);
-        }
-      },
-      updateQuality() {
-        this.viewStream.setInteractiveQuality(this.interactiveQuality);
-      },
-      updateRatio() {
-        this.viewStream.setInteractiveRatio(this.interactiveRatio);
-      },
-      updateCamera({ position, focalPoint, viewUp, centerOfRotation }) {
-        const camera = this.view.getCamera();
-        if (position) {
-          camera.setPosition(...position);
-        }
-        if (focalPoint) {
-          camera.setFocalPoint(...focalPoint);
-        }
-        if (viewUp) {
-          camera.setViewUp(...viewUp);
-        }
-        if (centerOfRotation) {
-          this.view
-            .getInteractorStyle3D()
-            .setCenterOfRotation(centerOfRotation);
-        }
-      },
+  methods: {
+    onResize() {
+      if (this.view) {
+        this.view.resize();
+        this.view.renderLater();
+        this.viewStream.render();
+        this.$nextTick(this.widgetManager.enablePicking);
+      }
     },
-    mapActions({
+    updateQuality() {
+      this.viewStream.setInteractiveQuality(this.interactiveQuality);
+    },
+    updateRatio() {
+      this.viewStream.setInteractiveRatio(this.interactiveRatio);
+    },
+    updateCamera({ position, focalPoint, viewUp, centerOfRotation }) {
+      const camera = this.view.getCamera();
+      if (position) {
+        camera.setPosition(...position);
+      }
+      if (focalPoint) {
+        camera.setFocalPoint(...focalPoint);
+      }
+      if (viewUp) {
+        camera.setViewUp(...viewUp);
+      }
+      if (centerOfRotation) {
+        this.view.getInteractorStyle3D().setCenterOfRotation(centerOfRotation);
+      }
+    },
+    ...mapActions({
       fetchCamera: 'PVL_VIEW_UPDATE_CAMERA',
       updateOrientation: 'PVL_VIEW_UPDATE_ORIENTATION',
       resetCamera: 'PVL_VIEW_RESET_CAMERA',
       rollLeft: 'PVL_VIEW_ROLL_LEFT',
       rollRight: 'PVL_VIEW_ROLL_RIGHT',
-    })
-  ),
+    }),
+  },
   beforeDestroy() {
     this.viewStream.delete();
     this.view.delete();

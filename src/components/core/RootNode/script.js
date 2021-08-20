@@ -40,39 +40,37 @@ export default {
       errors: [],
     };
   },
-  computed: Object.assign(
-    {
-      smallScreen() {
-        // vuetify xs is 600px, but our buttons collide at around 700.
-        return this.$vuetify.breakpoint.smAndDown;
-      },
-      dialogType() {
-        return this.smallScreen ? 'v-bottom-sheet' : 'v-dialog';
-      },
-      iconLogo() {
-        if (this.darkMode) {
-          return this.smallScreen ? 'lite-small-dark' : 'lite-dark';
-        }
-        return this.smallScreen ? 'lite-small' : 'lite';
-      },
-      floatingLookupTables() {
-        return Object.values(this.lookupTablesMap).filter((l) => l.visible);
-      },
-      dataFields() {
-        const arrayRanges = {};
-        const id = this.selectedProxies[0];
-        const pData = this.dataMap[id];
-        if (pData) {
-          const arrays = pData.data.arrays;
-          for (let i = 0; i < arrays.length; i++) {
-            const { name, range } = arrays[i];
-            arrayRanges[name] = range;
-          }
-        }
-        return arrayRanges;
-      },
+  computed: {
+    smallScreen() {
+      // vuetify xs is 600px, but our buttons collide at around 700.
+      return this.$vuetify.breakpoint.smAndDown;
     },
-    mapGetters({
+    dialogType() {
+      return this.smallScreen ? 'v-bottom-sheet' : 'v-dialog';
+    },
+    iconLogo() {
+      if (this.darkMode) {
+        return this.smallScreen ? 'lite-small-dark' : 'lite-dark';
+      }
+      return this.smallScreen ? 'lite-small' : 'lite';
+    },
+    floatingLookupTables() {
+      return Object.values(this.lookupTablesMap).filter((l) => l.visible);
+    },
+    dataFields() {
+      const arrayRanges = {};
+      const id = this.selectedProxies[0];
+      const pData = this.dataMap[id];
+      if (pData) {
+        const { arrays } = pData.data;
+        for (let i = 0; i < arrays.length; i++) {
+          const { name, range } = arrays[i];
+          arrayRanges[name] = range;
+        }
+      }
+      return arrayRanges;
+    },
+    ...mapGetters({
       client: 'PVL_NETWORK_CLIENT',
       darkMode: 'PVL_APP_DARK_THEME',
       busyPercent: 'PVL_BUSY_PROGRESS',
@@ -81,8 +79,8 @@ export default {
       lookupTablesMap: 'PVL_COLOR_LOOKUP_TABLE_WINDOWS',
       selectedProxies: 'PVL_PROXY_SELECTED_IDS',
       dataMap: 'PVL_PROXY_DATA_MAP',
-    })
-  ),
+    }),
+  },
   watch: {
     landingVisible(value) {
       // matches the mobile breakpoint for navigation-drawer
@@ -129,26 +127,24 @@ export default {
       Mousetrap.unbind(key);
     });
   },
-  methods: Object.assign(
-    {
-      recordError(error) {
-        this.errors.push(error);
-      },
-      toggleLanding() {
-        if (!this.client) {
-          return;
-        }
-        if (this.landingVisible) {
-          this.showApp();
-        } else {
-          this.showLanding();
-        }
-      },
+  methods: {
+    recordError(error) {
+      this.errors.push(error);
     },
-    mapActions({
+    toggleLanding() {
+      if (!this.client) {
+        return;
+      }
+      if (this.landingVisible) {
+        this.showApp();
+      } else {
+        this.showLanding();
+      }
+    },
+    ...mapActions({
       showApp: 'PVL_APP_ROUTE_RUN',
       showLanding: 'PVL_APP_ROUTE_LANDING',
       connect: 'PVL_NETWORK_CONNECT',
-    })
-  ),
+    }),
+  },
 };

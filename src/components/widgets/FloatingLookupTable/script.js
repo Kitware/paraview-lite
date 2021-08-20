@@ -77,14 +77,14 @@ export default {
     updateDataRange() {
       this.lookupTable.range = this.lookupTable.range.map(Number);
       const range = this.lookupTable.range.slice();
-      const name = this.lookupTable.name;
+      const { name } = this.lookupTable;
       this.$store.dispatch('PVL_COLOR_CUSTOM_DATA_RANGE', {
         name,
         range,
       });
     },
     resetDataRange() {
-      const name = this.lookupTable.name;
+      const { name } = this.lookupTable;
       const dataRanges = this.dataFields[name];
       if (dataRanges) {
         const range = [dataRanges[0].min, dataRanges[0].max];

@@ -25,7 +25,7 @@ function generateModel(list, rootId) {
   list.forEach((el) => {
     // Make sure we don't share the same reference
     // with the outside world.
-    const node = Object.assign({}, el);
+    const node = { ...el };
 
     // Register node as a child of its parent
     if (!{}.hasOwnProperty.call(model.tree, node.parent)) {
@@ -254,8 +254,9 @@ export default {
         const strokeColor = this.palette[fork.toX % this.palette.length];
         const dPath =
           `M${x1},${y1} ` +
-          `Q${x1},${y1 + this.deltaY / 3},${(x1 + x2) / 2},${y1 +
-            this.deltaY / 3} ` +
+          `Q${x1},${y1 + this.deltaY / 3},${(x1 + x2) / 2},${
+            y1 + this.deltaY / 3
+          } ` +
           `T${x2},${y1 + this.deltaY} L${x2},${y2}`;
 
         return {
@@ -351,7 +352,7 @@ export default {
     },
     toggleVisibility(event) {
       const yVal = parseInt(event.currentTarget.dataset.id, 10);
-      const node = Object.assign({}, this.nodes[yVal]);
+      const node = { ...this.nodes[yVal] };
 
       node.visible = !node.visible;
       this.nodes = this.nodes.map((n, i) => (i === yVal ? node : n));

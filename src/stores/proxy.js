@@ -55,22 +55,17 @@ export default {
       state.proxyToModuleMap[name] = module;
     },
     PVL_PROXY_SOURCE_TO_REPRESENTATION_SET(state, { id, rep }) {
-      state.sourceToRepresentationMap = Object.assign(
-        {},
-        state.sourceToRepresentationMap,
-        { [id]: rep }
-      );
+      state.sourceToRepresentationMap = {
+        ...state.sourceToRepresentationMap,
+        [id]: rep,
+      };
     },
     PVL_PROXY_DATA_SET(state, proxy) {
-      const newValue = Object.assign({}, state.proxyDataMap[proxy.id], proxy);
-      state.proxyDataMap = Object.assign({}, state.proxyDataMap, {
-        [proxy.id]: newValue,
-      });
+      const newValue = { ...state.proxyDataMap[proxy.id], ...proxy };
+      state.proxyDataMap = { ...state.proxyDataMap, [proxy.id]: newValue };
     },
     PVL_PROXY_NAME_SET(state, proxyMeta) {
-      state.proxyNames = Object.assign({}, state.proxyNames, {
-        [proxyMeta.id]: proxyMeta,
-      });
+      state.proxyNames = { ...state.proxyNames, [proxyMeta.id]: proxyMeta };
     },
   },
   actions: {
