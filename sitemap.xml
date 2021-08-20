@@ -2,13 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://kitware.github.io/paraview-lite/api/components_widgets_SvgIcon.html</loc>
-    
-    <lastmod>2021-08-20</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_widgets_TreeView.html</loc>
     
     <lastmod>2021-08-20</lastmod>
@@ -17,6 +10,13 @@
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_widgets_ProgressBar.html</loc>
+    
+    <lastmod>2021-08-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/paraview-lite/api/components_widgets_SvgIcon.html</loc>
     
     <lastmod>2021-08-20</lastmod>
     
@@ -44,13 +44,6 @@
   </url>
   
   <url>
-    <loc>https://kitware.github.io/paraview-lite/api/components_widgets_FloatingLookupTable.html</loc>
-    
-    <lastmod>2021-08-20</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_widgets_GitTree.html</loc>
     
     <lastmod>2021-08-20</lastmod>
@@ -65,14 +58,14 @@
   </url>
   
   <url>
-    <loc>https://kitware.github.io/paraview-lite/api/components_core_View-deprecated.html</loc>
+    <loc>https://kitware.github.io/paraview-lite/api/components_widgets_FloatingLookupTable.html</loc>
     
     <lastmod>2021-08-20</lastmod>
     
   </url>
   
   <url>
-    <loc>https://kitware.github.io/paraview-lite/api/components_core_RepresentationToolbar.html</loc>
+    <loc>https://kitware.github.io/paraview-lite/api/components_core_View-deprecated.html</loc>
     
     <lastmod>2021-08-20</lastmod>
     
@@ -86,7 +79,7 @@
   </url>
   
   <url>
-    <loc>https://kitware.github.io/paraview-lite/api/components_core_Landing.html</loc>
+    <loc>https://kitware.github.io/paraview-lite/api/components_core_View.html</loc>
     
     <lastmod>2021-08-20</lastmod>
     
@@ -94,6 +87,27 @@
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_core_LayoutView.html</loc>
+    
+    <lastmod>2021-08-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/paraview-lite/api/components_core_RepresentationToolbar.html</loc>
+    
+    <lastmod>2021-08-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/paraview-lite/api/components_core_Landing.html</loc>
+    
+    <lastmod>2021-08-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/paraview-lite/api/components_core_ErrorBox.html</loc>
     
     <lastmod>2021-08-20</lastmod>
     
@@ -108,13 +122,6 @@
   
   <url>
     <loc>https://kitware.github.io/paraview-lite/api/components_core_ControlsDrawer.html</loc>
-    
-    <lastmod>2021-08-20</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/paraview-lite/api/components_core_ErrorBox.html</loc>
     
     <lastmod>2021-08-20</lastmod>
     
@@ -177,14 +184,14 @@
   </url>
   
   <url>
-    <loc>https://kitware.github.io/paraview-lite/docs/compatibility.html</loc>
+    <loc>https://kitware.github.io/paraview-lite/docs/contributing.html</loc>
     
     <lastmod>2021-08-20</lastmod>
     
   </url>
   
   <url>
-    <loc>https://kitware.github.io/paraview-lite/docs/contributing.html</loc>
+    <loc>https://kitware.github.io/paraview-lite/docs/compatibility.html</loc>
     
     <lastmod>2021-08-20</lastmod>
     
