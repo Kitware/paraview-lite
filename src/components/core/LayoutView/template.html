@@ -2,6 +2,12 @@
   <v-layout column fill-height>
     <representation-toolbar />
     <!-- <vtk-view :viewId="$store.getters.PVL_VIEW_ID"/> -->
-    <vtk-remote-view :id="viewId" :wsClient="wsClient" />
+    <vtk-remote-view
+      ref="remoteView"
+      :id="viewId"
+      :wsClient="wsClient"
+      :interactiveRatio="ratio"
+      :interactiveQuality="quality"
+    />
   </v-layout>
 </v-container>
