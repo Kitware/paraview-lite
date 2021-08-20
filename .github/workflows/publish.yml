@@ -23,10 +23,6 @@ jobs:
         run: npm run lint
       - name: Build
         run: npm run build
-      - name: Version
-        run: |
-          NIGHTLY_VERSION=`npm info | grep latest | cut -d " " -f 2`
-          echo "window.PARAVIEW_LITE_VERSION = '$NIGHTLY_VERSION';" > dist/version.js
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
