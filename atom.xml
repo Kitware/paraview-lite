@@ -3,10 +3,10 @@
   <title>ParaView Lite</title>
   
   <subtitle>Enable scientific visualization in the Web.</subtitle>
-  <link href="/paraview-lite/atom.xml" rel="self"/>
+  <link href="https://kitware.github.io/paraview-lite/atom.xml" rel="self"/>
   
   <link href="https://kitware.github.io/paraview-lite/"/>
-  <updated>2021-02-23T15:51:20.729Z</updated>
+  <updated>2021-08-20T22:01:26.420Z</updated>
   <id>https://kitware.github.io/paraview-lite/</id>
   
   <author>
@@ -14,26 +14,25 @@
     
   </author>
   
-  <generator uri="http://hexo.io/">Hexo</generator>
+  <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
     <title>Hexo</title>
     <link href="https://kitware.github.io/paraview-lite/2016/04/29/kw-doc/"/>
     <id>https://kitware.github.io/paraview-lite/2016/04/29/kw-doc/</id>
     <published>2016-04-29T00:00:00.000Z</published>
-    <updated>2021-02-23T15:51:20.729Z</updated>
+    <updated>2021-08-20T22:01:26.420Z</updated>
     
     <content type="html"><![CDATA[<p>Thanks for using kw-doc which is based on Hexo and its template from its own documentation.</p>]]></content>
     
-    <summary type="html">
     
       
       
-        &lt;p&gt;Thanks for using kw-doc which is based on Hexo and its template from its own documentation.&lt;/p&gt;
-
+    <summary type="html">&lt;p&gt;Thanks for using kw-doc which is based on Hexo and its template from its own documentation.&lt;/p&gt;
+</summary>
       
     
-    </summary>
+    
     
     
   </entry>
