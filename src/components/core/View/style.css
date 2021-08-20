@@ -1,0 +1,53 @@
+.container {
+  padding: 0;
+  margin: 0;
+  /* prevent view from overflowing our app during resize */
+  min-height: 0;
+  height: 100%;
+  min-width: 0;
+  max-width: 100%;
+
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.renderer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.floatToolbar {
+  position: absolute;
+  z-index: 300;
+  right: 10px;
+  top: 20px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 16px;
+
+  padding: 0;
+  margin: 0;
+  /* prevent view from overflowing our app during resize */
+  min-height: 0;
+  min-width: 0;
+  width: auto;
+
+}
+
+.noSelect {
+  user-select: none;
+}
+
+.tootip {
+  position: absolute;
+  top: -30px;
+  left: 5px;
+  background: #616161;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+  color: white;
+  font-size: 12px;
+  padding: 5px 8px;
+  opacity: 0.9;
+  z-index: 100;
+}

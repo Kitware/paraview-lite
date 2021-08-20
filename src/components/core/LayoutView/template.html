@@ -1,13 +1,6 @@
 <v-container fluid :class="$style.container" fill-height>
   <v-layout column fill-height>
     <representation-toolbar />
-    <!-- <vtk-view :viewId="$store.getters.PVL_VIEW_ID"/> -->
-    <vtk-remote-view
-      ref="remoteView"
-      :id="viewId"
-      :wsClient="wsClient"
-      :interactiveRatio="ratio"
-      :interactiveQuality="quality"
-    />
+    <vtk-view />
   </v-layout>
 </v-container>

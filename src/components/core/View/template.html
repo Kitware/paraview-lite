@@ -1,0 +1,19 @@
+<div :class="$style.container">
+  <v-container :class="$style.floatToolbar" fluid>
+    <v-layout column>
+      <v-tooltip left>
+        <span :class="$style.noSelect">Reset camera</span>
+        <v-btn slot="activator" icon dark small v-on:click="resetCamera()">
+          <v-icon>{{ $vuetify.icons.pvLite.resetCamera }}</v-icon>
+        </v-btn>
+      </v-tooltip>
+    </v-layout>
+  </v-container>
+  <vtk-remote-view
+    ref="remoteView"
+    :id="viewId"
+    :wsClient="wsClient"
+    :interactiveRatio="ratio"
+    :interactiveQuality="quality"
+  />
+</div>
