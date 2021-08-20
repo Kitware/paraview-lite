@@ -5,6 +5,7 @@ import 'core-js/modules/web.immediate';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Vuetify from 'vuetify';
+import VueVtk from 'vue-vtk-js';
 
 import vtkURLExtract from 'vtk.js/Sources/Common/Core/URLExtract';
 
@@ -56,6 +57,7 @@ Vue.use(Vuetify, {
     },
   },
 });
+Vue.use(VueVtk);
 
 /**
  * Sets the active proxy configuration to be used by createViewer.

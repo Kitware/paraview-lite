@@ -1,4 +1,5 @@
 import macro from 'vtk.js/Sources/macro';
+import 'vtk.js/Sources/Rendering/OpenGL/Profiles/Geometry';
 import vtkInteractorObserver from 'vtk.js/Sources/Rendering/Core/InteractorObserver';
 import vtkViewProxy from 'vtk.js/Sources/Proxy/Core/ViewProxy';
 import vtkInteractiveOrientationWidget from 'vtk.js/Sources/Widgets/Widgets3D/InteractiveOrientationWidget';
@@ -159,7 +160,7 @@ export default {
     this.$store.commit('PVL_VIEW_PVL_PROXY_SET', this.view);
 
     // Link server side camera to local
-    this.client.remote.Lite.getCamera('-1').then((cameraInfo) => {
+    this.client.getRemote().Lite.getCamera('-1').then((cameraInfo) => {
       this.updateCamera(cameraInfo);
       this.viewStream.pushCamera();
     });

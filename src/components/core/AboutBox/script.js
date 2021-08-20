@@ -21,13 +21,13 @@ export default {
     },
     sessionURL() {
       if (this.client) {
-        return this.client.getConfiguration().sessionURL;
+        return this.client.getConfig().sessionURL;
       }
       return null;
     },
     token() {
       if (this.client) {
-        return this.client.getConfiguration().secret;
+        return this.client.getConfig().secret;
       }
       return null;
     },

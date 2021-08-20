@@ -3,6 +3,9 @@ import vtkMath from 'vtk.js/Sources/Common/Core/Math';
 
 import { generateComponentWithServerBinding } from 'paraview-lite/src/proxyHelper';
 
+const BG_SOLID = 0; // 'Single Color';
+const BG_GRADIENT = 1; // 'Gradient';
+
 function storeItem(key, value) {
   window.localStorage.setItem(
     `paraview.lite.config.${key.name}`,
@@ -95,7 +98,7 @@ export default generateComponentWithServerBinding(
   {
     bg: { name: 'Background', noAutoApply: true },
     bg2: { name: 'Background2', noAutoApply: true },
-    gradient: { name: 'UseGradientBackground', noAutoApply: true },
+    gradient: { name: 'BackgroundColorMode', noAutoApply: true },
   },
   {
     name: 'GlobalSettings',
@@ -245,7 +248,7 @@ export default generateComponentWithServerBinding(
           if (!this.bg) {
             return '#000000';
           }
-          if (this.gradient) {
+          if (this.gradient === BG_GRADIENT) {
             return `linear-gradient(${vtkMath.floatRGB2HexCode(
               this.bg2
             )}, ${vtkMath.floatRGB2HexCode(this.bg)})`;
@@ -259,12 +262,12 @@ export default generateComponentWithServerBinding(
               .split(',')
               .map((i) => i.slice(-7))
               .map((i) => vtkMath.hex2float(i));
-            this.gradient = 1;
+            this.gradient = BG_GRADIENT;
             this.bg = values[1];
             this.bg2 = values[0];
           } else {
             this.bg = vtkMath.hex2float(value);
-            this.gradient = 0;
+            this.gradient = BG_SOLID;
           }
           // Apply the 3 properties at once
           this.apply();

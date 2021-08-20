@@ -25,7 +25,7 @@ export default {
   methods: Object.assign(
     {
       listServerDirectory(pathToList) {
-        this.client.remote.FileListing.listServerDirectory(pathToList)
+        this.client.getRemote().FileListing.listServerDirectory(pathToList)
           .then((listing) => {
             const { dirs, files, groups, path } = listing;
             this.files = files;
@@ -40,7 +40,7 @@ export default {
         const pathPrefix = this.path.slice(1).join('/');
         const relativePathFiles =
           this.path.length > 1 ? files.map((f) => `${pathPrefix}/${f}`) : files;
-        this.client.remote.ProxyManager.open(relativePathFiles)
+        this.client.getRemote().ProxyManager.open(relativePathFiles)
           .then((readerProxy) => {
             this.$store.dispatch('PVL_PROXY_NAME_FETCH', readerProxy.id);
             this.$store.dispatch('PVL_PROXY_PIPELINE_FETCH');

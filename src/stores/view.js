@@ -119,7 +119,7 @@ export default {
       const client = getters.PVL_NETWORK_CLIENT;
       const viewId = id || state.view;
       if (client && state.viewProxy) {
-        client.remote.Lite.getCamera(viewId)
+        client.getRemote().Lite.getCamera(viewId)
           .then(
             ({ focalPoint, viewUp, position, centerOfRotation, bounds }) => {
               // Update bounds in local vtk.js renderer
@@ -152,7 +152,7 @@ export default {
       const client = getters.PVL_NETWORK_CLIENT;
       const viewId = id || state.view;
       if (client) {
-        client.remote.ViewPort.resetCamera(viewId).catch(console.error);
+        client.getRemote().ViewPort.resetCamera(viewId).catch(console.error);
         dispatch('PVL_VIEW_UPDATE_CAMERA', id);
       } else {
         console.error('no client', getters.PVL_NETWORK_CLIENT);
@@ -217,7 +217,7 @@ export default {
       const client = getters.PVL_NETWORK_CLIENT;
       const viewId = id || state.view;
       if (client) {
-        client.remote.VtkImageDelivery.stillRender({ view: viewId }).catch(
+        client.getRemote().VtkImageDelivery.stillRender({ view: viewId }).catch(
           console.error
         );
       } else {

@@ -1,15 +1,14 @@
 /* eslint-disable no-param-reassign */
 function extractProperties(names, properties, result) {
   for (let i = 0; i < properties.length; i++) {
-    if (names.indexOf(properties[i].name) !== -1) {
+    if (properties[i].children) {
+      extractProperties(names, properties[i].children, result);
+    } else if (names.indexOf(properties[i].name) !== -1) {
       if (result[properties[i].name]) {
         result[properties[i].name].push(Object.assign({}, properties[i]));
       } else {
         result[properties[i].name] = [Object.assign({}, properties[i])];
       }
-    }
-    if (properties[i].children) {
-      extractProperties(names, properties[i].children, result);
     }
   }
 }
@@ -204,12 +203,14 @@ export function generateComponentWithServerBinding(
     if (this.create) {
       // Reset props to default
       Object.keys(propMaps).forEach((key) => {
-        serverState[propMaps[key].name] = [{
-          id: '0',
-          value: propMaps[key].default,
-          subProxy: propMaps[key].subProxy,
-          label: propMaps[key].label || propMaps[key].name,
-        }];
+        serverState[propMaps[key].name] = [
+          {
+            id: '0',
+            value: propMaps[key].default,
+            subProxy: propMaps[key].subProxy,
+            label: propMaps[key].label || propMaps[key].name,
+          },
+        ];
       });
       copyMap(serverState, localState);
       return;
