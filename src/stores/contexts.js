@@ -11,7 +11,9 @@ export default {
       const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         networkCalls++;
-        client.getRemote().Lite.updateLineContext(visible, point1, point2)
+        client
+          .getRemote()
+          .Lite.updateLineContext(visible, point1, point2)
           .then(() => {
             networkCalls--;
             if (PVL_NETWORK_BUFFER.nextLineUpdate) {

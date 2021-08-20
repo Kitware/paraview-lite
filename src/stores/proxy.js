@@ -88,13 +88,15 @@ export default {
       // );
       const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
-        client.getRemote().ProxyManager.create(
-          name,
-          parentId,
-          initialValues,
-          skipDomain,
-          subProxyValues
-        )
+        client
+          .getRemote()
+          .ProxyManager.create(
+            name,
+            parentId,
+            initialValues,
+            skipDomain,
+            subProxyValues
+          )
           .then((proxy) => {
             // Handle replaceInput hint
             if (proxy.hints && proxy.hints.replaceInput !== undefined) {
@@ -129,7 +131,9 @@ export default {
       const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
         // const idToUpdate = new Set(changeset.map((i) => i.id));
-        client.getRemote().ProxyManager.update(changeset)
+        client
+          .getRemote()
+          .ProxyManager.update(changeset)
           .then(() => {
             // idToUpdate.forEach((id) => {
             //   dispatch(Actions.PVL_PROXY_DATA_FETCH, id, false);
@@ -142,7 +146,9 @@ export default {
     PVL_PROXY_DELETE({ getters, dispatch }, id) {
       const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
-        client.getRemote().ProxyManager.delete(id)
+        client
+          .getRemote()
+          .ProxyManager.delete(id)
           .then((/* { sources, view } */) => {
             dispatch('PVL_PROXY_PIPELINE_FETCH');
             dispatch('PVL_TIME_FETCH_VALUES');
@@ -153,7 +159,9 @@ export default {
     PVL_PROXY_NAME_FETCH({ getters, commit }, id) {
       const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
-        client.getRemote().Lite.getProxyName(id)
+        client
+          .getRemote()
+          .Lite.getProxyName(id)
           .then((info) => {
             commit('PVL_PROXY_NAME_SET', info);
           })
@@ -163,7 +171,9 @@ export default {
     PVL_PROXY_PIPELINE_FETCH({ state, getters, commit, dispatch }) {
       const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
-        client.getRemote().ProxyManager.list()
+        client
+          .getRemote()
+          .ProxyManager.list()
           .then(({ sources, view }) => {
             commit('PVL_PROXY_PIPELINE_SET', sources);
             commit('PVL_VIEW_ID_SET', view);
@@ -213,7 +223,9 @@ export default {
       // console.log('fetch', proxyId, needUI);
       const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
-        client.getRemote().ProxyManager.get(proxyId, needUI)
+        client
+          .getRemote()
+          .ProxyManager.get(proxyId, needUI)
           .then((proxy) => {
             commit('PVL_PROXY_DATA_SET', proxy);
           })
@@ -225,7 +237,9 @@ export default {
       if (client) {
         const proxies = state.pipeline;
         for (let i = 0; i < proxies.length; i++) {
-          client.getRemote().ProxyManager.get(proxies[i].id, false)
+          client
+            .getRemote()
+            .ProxyManager.get(proxies[i].id, false)
             .then((proxy) => {
               commit('PVL_PROXY_DATA_SET', proxy);
             })

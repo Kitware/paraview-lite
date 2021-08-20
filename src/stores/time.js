@@ -28,7 +28,9 @@ export default {
     PVL_TIME_FETCH_VALUES({ getters, state, dispatch, commit }) {
       const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
-        client.getRemote().TimeHandler.getTimeValues()
+        client
+          .getRemote()
+          .TimeHandler.getTimeValues()
           .then((times) => {
             if (
               times.length &&
@@ -48,9 +50,12 @@ export default {
     PVL_TIME_FETCH_ACTIVE_INDEX({ getters, commit }) {
       const client = getters.PVL_NETWORK_CLIENT;
       if (client) {
-        client.getRemote().TimeHandler.getTimeStep().then((idx) => {
-          commit('PVL_TIME_ACTIVE_IDX_SET', idx);
-        });
+        client
+          .getRemote()
+          .TimeHandler.getTimeStep()
+          .then((idx) => {
+            commit('PVL_TIME_ACTIVE_IDX_SET', idx);
+          });
       }
     },
     PVL_TIME_ACTIVATE_INDEX({ getters, state, commit, dispatch }, timeIndex) {
@@ -61,15 +66,18 @@ export default {
           state.busyTask.activeIdx = timeIndex;
         } else {
           state.busy = true;
-          client.getRemote().TimeHandler.setTimeStep(timeIndex).then(() => {
-            dispatch('PVL_PROXY_DATA_REFETCH');
-            state.busy = false;
-            if (state.busyTask.activeIdx !== undefined) {
-              const idx = state.busyTask.activeIdx;
-              delete state.busyTask.activeIdx;
-              dispatch('PVL_TIME_ACTIVATE_INDEX', idx);
-            }
-          });
+          client
+            .getRemote()
+            .TimeHandler.setTimeStep(timeIndex)
+            .then(() => {
+              dispatch('PVL_PROXY_DATA_REFETCH');
+              state.busy = false;
+              if (state.busyTask.activeIdx !== undefined) {
+                const idx = state.busyTask.activeIdx;
+                delete state.busyTask.activeIdx;
+                dispatch('PVL_TIME_ACTIVATE_INDEX', idx);
+              }
+            });
         }
       }
     },

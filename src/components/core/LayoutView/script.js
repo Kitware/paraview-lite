@@ -25,7 +25,7 @@ export default {
   watch: {
     quality(q) {
       this.$refs.remoteView.setInteractiveQuality(q);
-    }
+    },
   },
   components: {
     RepresentationToolbar,

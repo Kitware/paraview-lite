@@ -160,10 +160,13 @@ export default {
     this.$store.commit('PVL_VIEW_PVL_PROXY_SET', this.view);
 
     // Link server side camera to local
-    this.client.getRemote().Lite.getCamera('-1').then((cameraInfo) => {
-      this.updateCamera(cameraInfo);
-      this.viewStream.pushCamera();
-    });
+    this.client
+      .getRemote()
+      .Lite.getCamera('-1')
+      .then((cameraInfo) => {
+        this.updateCamera(cameraInfo);
+        this.viewStream.pushCamera();
+      });
   },
   computed: mapGetters({
     client: 'PVL_NETWORK_CLIENT',

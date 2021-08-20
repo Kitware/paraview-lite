@@ -1,6 +1,7 @@
 // import Client from 'paraview-lite/src/io/Client';
 import SmartConnect from 'wslink/src/SmartConnect';
 import vtkWSLinkClient from 'vtk.js/Sources/IO/Core/WSLinkClient';
+import vtkURLExtract from 'vtk.js/Sources/Common/Core/URLExtract';
 
 import ColorManager from 'paraview-lite/src/io/protocols/ColorManager';
 import FileListing from 'paraview-lite/src/io/protocols/FileListing';
@@ -17,6 +18,9 @@ import VtkGeometryDelivery from 'paraview-lite/src/io/protocols/VtkGeometryDeliv
 import VtkImageDelivery from 'paraview-lite/src/io/protocols/VtkImageDelivery';
 
 import Lite from 'paraview-lite/src/io/protocols/Lite';
+
+// Process arguments from URL
+const userParams = vtkURLExtract.extractURLParameters();
 
 const REMOTE_API = {
   ColorManager,
@@ -45,8 +49,14 @@ function configDecorator(config) {
   }
 
   if (config.sessionURL) {
-    config.sessionURL = config.sessionURL.replaceAll('USE_HOSTNAME', window.location.hostname);
-    config.sessionURL = config.sessionURL.replaceAll('USE_HOST', window.location.host);
+    config.sessionURL = config.sessionURL.replaceAll(
+      'USE_HOSTNAME',
+      window.location.hostname
+    );
+    config.sessionURL = config.sessionURL.replaceAll(
+      'USE_HOST',
+      window.location.host
+    );
   }
 
   // If name is provided we use it as our application and
@@ -86,7 +96,10 @@ export default {
       if (client && client.isConnected()) {
         client.disconnect(-1);
       }
-      const clientToConnect = vtkWSLinkClient.newInstance({ protocols: REMOTE_API, configDecorator });
+      const clientToConnect = vtkWSLinkClient.newInstance({
+        protocols: REMOTE_API,
+        configDecorator,
+      });
 
       clientToConnect.onBusyChange((count) => {
         commit('PVL_BUSY_COUNT_SET', count);
