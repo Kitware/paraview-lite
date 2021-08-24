@@ -1,7 +1,7 @@
 layout: index
 description: ParaView client that works in your browser
 subtitle: A customizable Web client for ParaView
-cmd: npm install -g paraview-lite
+cmd: pvpython -m paraview.apps.lite
 comments: false
 ---
 
@@ -13,7 +13,12 @@ ul#intro-feature-list
       h3.intro-feature-title
         a(href="https://www.npmjs.com/package/paraview-lite").link Releases
         img(style="padding-left: 25px",src="https://badge.fury.io/js/paraview-lite.svg")
-      p.intro-feature-desc ParaView Lite is client application that connect to a ParaView server to perform data processing and visualization. It is designed to be customizable in term of UI and visualization workflow.
+      p.intro-feature-desc
+        | ParaView Lite is client application that connect to a ParaView server to perform data processing and visualization. It is designed to be customizable in term of UI and visualization workflow.
+        | ParaView Lite is available inside
+        a(href="https://www.paraview.org/download/").link  ParaView
+        |  and can be run via its Python environment (pvpython) using the command line listed above.
+
 
   li.intro-feature-wrap
     .intro-feature

@@ -28,7 +28,7 @@ $ ./bin/pvpython -m paraview.apps.lite  \
 ```sh Linux
 $ cd ParaView-5.10+
 $ ./bin/pvpython -m paraview.apps.lite  \
-    --data $PWD/share/paraview-5.4/data                          \
+    --data $PWD/data                          \
     --port 8080
 
 ==> Open your browser to http://localhost:8080/
