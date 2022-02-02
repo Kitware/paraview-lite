@@ -73,23 +73,22 @@ import os
 import sys
 
 # Try handle virtual env if provided
-if '--virtual-env' in sys.argv:
-  virtualEnvPath = sys.argv[sys.argv.index('--virtual-env') + 1]
-  virtualEnv = virtualEnvPath + '/bin/activate_this.py'
-  if sys.version_info.major < 3:
-    execfile(virtualEnv, dict(__file__=virtualEnv))
-  else:
-    exec(open(virtualEnv).read(), {'__file__': virtualEnv})
+if "--virtual-env" in sys.argv:
+    virtualEnvPath = sys.argv[sys.argv.index("--virtual-env") + 1]
+    virtualEnv = virtualEnvPath + "/bin/activate_this.py"
+    if sys.version_info.major < 3:
+        execfile(virtualEnv, dict(__file__=virtualEnv))
+    else:
+        exec(open(virtualEnv).read(), {"__file__": virtualEnv})
 
 # Use local proxy file
-defaultProxyFile = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'proxies.json')
+defaultProxyFile = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "proxies.json"
+)
 
 # import paraview modules.
 from paraview.web import pv_wslink
 from paraview.web import protocols as pv_protocols
-
-# import RPC annotation
-from wslink import register as exportRpc
 
 from paraview import simple
 from wslink import server
@@ -101,6 +100,7 @@ import argparse
 # =============================================================================
 # Create custom Pipeline Manager class to handle clients requests
 # =============================================================================
+
 
 class _Server(pv_wslink.PVServerProtocol):
 
@@ -120,9 +120,9 @@ class _Server(pv_wslink.PVServerProtocol):
     proxies = None
     allReaders = True
     saveDataDir = os.getcwd()
-    viewportScale=1.0
-    viewportMaxWidth=2560
-    viewportMaxHeight=1440
+    viewportScale = 1.0
+    viewportMaxWidth = 2560
+    viewportMaxHeight = 1440
     settingsLODThreshold = 102400
 
     @staticmethod
@@ -142,7 +142,7 @@ class _Server(pv_wslink.PVServerProtocol):
         parser.add_argument("--plugins", default=None, help="List of fully qualified path names to plugin objects to load", dest="plugins")
         parser.add_argument("--proxies", default=defaultProxyFile, help="Path to a file with json text containing filters to load", dest="proxies")
         parser.add_argument("--no-auto-readers", help="If provided, disables ability to use non-configured readers", action="store_true", dest="no_auto_readers")
-        parser.add_argument("--save-data-dir", default='', help="Server directory under which all data will be saved", dest="saveDataDir")
+        parser.add_argument("--save-data-dir", default="", help="Server directory under which all data will be saved", dest="saveDataDir")
         parser.add_argument("--viewport-scale", default=1.0, type=float, help="Viewport scaling factor", dest="viewportScale")
         parser.add_argument("--viewport-max-width", default=2560, type=int, help="Viewport maximum size in width", dest="viewportMaxWidth")
         parser.add_argument("--viewport-max-height", default=1440, type=int, help="Viewport maximum size in height", dest="viewportMaxHeight")
@@ -170,13 +170,13 @@ class _Server(pv_wslink.PVServerProtocol):
         _Server.showBuiltin          = not args.hide_built_in_color_maps
 
         # If no save directory is provided, default it to the data directory
-        if args.saveDataDir == '':
+        if args.saveDataDir == "":
             _Server.saveDataDir = _Server.dataDir
         else:
             _Server.saveDataDir = args.saveDataDir
 
         if args.file:
-            _Server.fileToLoad  = os.path.join(args.path, args.file)
+            _Server.fileToLoad = os.path.join(args.path, args.file)
 
     def initialize(self):
         # Bring used components from ParaView
@@ -201,7 +201,7 @@ class _Server(pv_wslink.PVServerProtocol):
         self.updateSecret(_Server.authKey)
 
         # tell the C++ web app to use no encoding. ParaViewWebPublishImageDelivery must be set to decode=False to match.
-        self.getApplication().SetImageEncoding(0);
+        self.getApplication().SetImageEncoding(0)
 
         # Disable interactor-based render calls
         view = simple.GetRenderView()
@@ -212,19 +212,20 @@ class _Server(pv_wslink.PVServerProtocol):
 
         # Gradient background
         # view.UseGradientBackground = 1      # Deprecated in PV 5.10
-        view.BackgroundColorMode = "Gradient" # PV 5.10
+        view.BackgroundColorMode = "Gradient"  # PV 5.10
         view.UseColorPaletteForBackground = 0
 
         # ProxyManager helper
         pxm = simple.servermanager.ProxyManager()
 
         # Update interaction mode
-        interactionProxy = pxm.GetProxy('settings', 'RenderViewInteractionSettings')
-        interactionProxy.Camera3DManipulators = ['Rotate', 'Pan', 'Zoom', 'Pan', 'Roll', 'Pan', 'Zoom', 'Rotate', 'Zoom']
+        interactionProxy = pxm.GetProxy("settings", "RenderViewInteractionSettings")
+        interactionProxy.Camera3DManipulators = ["Rotate", "Pan", "Zoom", "Pan", "Roll", "Pan", "Zoom", "Rotate", "Zoom"]
 
         # Custom rendering settings
-        renderingSettings = pxm.GetProxy('settings', 'RenderViewSettings')
+        renderingSettings = pxm.GetProxy("settings", "RenderViewSettings")
         renderingSettings.LODThreshold = _Server.settingsLODThreshold
+
 
 # =============================================================================
 # Main: Parse args and start server
